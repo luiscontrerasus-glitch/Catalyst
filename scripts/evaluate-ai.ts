@@ -11,6 +11,7 @@ async function main() {
     process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY,
   );
   const records: Record<string, unknown>[] = [];
+  let providerResponses = 0;
   if (configured) {
     const { generateProposal, providerStatus } = await import(
       "../src/ai/provider.server"
@@ -18,7 +19,11 @@ async function main() {
     for (const f of aiEvaluationSet) {
       const start = performance.now();
       try {
-        const proposal = await compileGoal({ goal: f.goal }, generateProposal);
+        const proposal = await compileGoal({ goal: f.goal }, async (goal) => {
+          const response = await generateProposal(goal);
+          providerResponses++;
+          return response;
+        });
         let approvalBlocked = false;
         const draft = proposalToDraft(proposal, {
           ...blankProject(`ai-evaluation-${f.id}`),
@@ -40,6 +45,7 @@ async function main() {
           facts: proposal.facts,
           assumptions: proposal.assumptions,
           questions: proposal.questions,
+          proposal,
           hasExpectedQuestions:
             !f.expectsQuestions || proposal.questions.length > 0,
           approvalBlocked,
@@ -69,6 +75,8 @@ async function main() {
     model: process.env.GEMINI_MODEL || "gemini-3.5-flash-lite",
     successfulLiveRequests: records.filter((r) => r.status === "success")
       .length,
+    providerResponses,
+    failedCalls: records.filter((r) => r.status === "error").length,
     records,
     instructions: configured
       ? "These are actual provider outcomes, not mocked responses."
@@ -86,6 +94,18 @@ async function main() {
       requests: records.length,
     }),
   );
+  if (
+    configured &&
+    records.some(
+      (r) =>
+        r.status !== "success" ||
+        !r.approvalBlocked ||
+        r.volunteersInvented ||
+        r.inventoryInvented ||
+        !r.hasExpectedQuestions,
+    )
+  )
+    process.exitCode = 1;
 }
 void main().catch(() => {
   console.error(

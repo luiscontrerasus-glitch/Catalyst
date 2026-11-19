@@ -147,7 +147,7 @@ const lines = [
       `| ${r.id} | ${r.actualStatus} | ${r.filledSlots}/${r.totalSlots} | ${r.baselineStatus} | ${r.verifiedRepairs} | ${r.medianSolveMs.toFixed(3)} / ${r.p95SolveMs.toFixed(3)} |`,
   ),
   "",
-  "The first-fit baseline never proves infeasibility. The specialist fixture demonstrates a valid solution missed by greedy ordering. Contradictory dependencies are intentionally not repaired by adding people or supplies. The two-identical-vacancies fixture exposes the current one-candidate-per-skill-profile limit; sequential contributions can still repair that project. Timing uses one warm-up and 25 measured repetitions per fixture; intervention timing is recorded separately in JSON. No live users, measured impact, or global optimality is claimed.",
+  "The first-fit baseline never proves infeasibility. The specialist fixture demonstrates a valid solution missed by greedy ordering. Contradictory dependencies are intentionally not repaired by adding people or supplies. Two identical simultaneous vacancies now have a verified pair of distinct hypothetical volunteers. Search is still bounded to at most two candidates per skill profile and pairs among the first six singles; three identical new volunteers in one bundle remain outside its candidate space. Timing uses one warm-up and 25 measured repetitions per fixture; intervention timing is recorded separately in JSON. No live users, measured impact, or global optimality is claimed.",
   "",
   "Run `npm run evaluate` to regenerate both artifacts.",
 ];

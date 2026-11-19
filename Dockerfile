@@ -12,7 +12,6 @@ ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=3100 HOSTNAME=0.0.0.0
 COPY --from=build --chown=node:node /app/package.json /app/package-lock.json /app/next.config.mjs ./
 COPY --from=build --chown=node:node /app/node_modules ./node_modules
 COPY --from=build --chown=node:node /app/.next ./.next
-COPY --from=build --chown=node:node /app/public ./public
 RUN mkdir -p /app/data && chown node:node /app/data
 USER node
 EXPOSE 3100

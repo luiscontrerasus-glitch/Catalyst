@@ -227,7 +227,7 @@ export function evaluationFixtures(): EvaluationFixture[] {
   identical.tasks[0].roles[0].count = 2;
   add(
     "two-identical-vacancies",
-    "candidate multiplicity limit",
+    "repeated contribution regression",
     identical,
     false,
     true,

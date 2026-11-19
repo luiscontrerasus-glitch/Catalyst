@@ -21,7 +21,12 @@ export type Intervention = {
   label: string;
   explanation: string;
   kind:
-    "volunteer" | "resource" | "budget" | "availability" | "scope" | "bundle";
+    | "volunteer"
+    | "resource"
+    | "budget"
+    | "availability"
+    | "scope"
+    | "bundle";
   volunteer?: Volunteer;
   resourceId?: string;
   quantity?: number;
@@ -103,7 +108,8 @@ export function analyzeInterventions(
   if (baseline.status === "feasible" || baseline.status === "invalid")
     return [];
   const drafts: Draft[] = [],
-    seen = new Set<string>();
+    seen = new Set<string>(),
+    profileCounts = new Map<string, number>();
   for (const issue of baseline.issues) {
     if (issue.kind === "staffing") {
       const slot = slotsFor(p).find((s) => s.id === issue.slotId)!;
@@ -111,20 +117,29 @@ export function analyzeInterventions(
         [...slot.role.skills].sort(),
         [...slot.role.qualifications].sort(),
       ]);
-      if (!seen.has(signature) && p.volunteers.length < 24) {
-        seen.add(signature);
+      const profileCount = profileCounts.get(signature) ?? 0;
+      if (
+        profileCount < (options.combinations ? 2 : 1) &&
+        p.volunteers.length + profileCount < 24
+      ) {
+        profileCounts.set(signature, profileCount + 1);
         let candidateId = `sim-${slot.role.id}`,
           suffix = 1;
-        while (p.volunteers.some((v) => v.id === candidateId))
+        while (
+          p.volunteers.some((v) => v.id === candidateId) ||
+          drafts.some((d) => d.id === candidateId)
+        )
           candidateId = `sim-${slot.role.id}-${suffix++}`;
         const start = Math.min(...p.tasks.map((t) => t.start)),
           end = Math.max(...p.tasks.map((t) => t.end));
         const volunteer: Volunteer = {
           id: candidateId,
           name:
-            slot.role.id === "instructor"
-              ? "Avery Chen"
-              : `New ${slot.role.name.toLowerCase()}`,
+            profileCount > 0
+              ? `New ${slot.role.name.toLowerCase()} ${profileCount + 1}`
+              : slot.role.id === "instructor"
+                ? "Avery Chen"
+                : `New ${slot.role.name.toLowerCase()}`,
           skills: slot.role.skills,
           qualifications: slot.role.qualifications,
           availability: [{ start, end }],
@@ -274,6 +289,14 @@ export function analyzeInterventions(
     results = singles.map(evaluate);
   for (let a = 0; options.combinations && a < Math.min(singles.length, 6); a++)
     for (let b = a + 1; b < Math.min(singles.length, 6); b++) {
+      if (
+        p.volunteers.length +
+          [...singles[a].changes, ...singles[b].changes].filter(
+            (c) => c.kind === "add-volunteer",
+          ).length >
+        24
+      )
+        continue;
       if (
         singles[a].changes.some((c) =>
           singles[b].changes.some(

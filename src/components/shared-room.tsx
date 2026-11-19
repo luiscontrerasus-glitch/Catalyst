@@ -36,6 +36,8 @@ import { Modal } from "./dialog";
 import { InterventionPreview, InterventionOptions } from "./intervention-lab";
 
 const subscribe = () => () => {};
+const offlineMessage =
+  "Connection interrupted. You are viewing the last received revision. Refresh before making a change.";
 export default function SharedRoom({ id }: { id: string }) {
   const hydrated = useSyncExternalStore(
     subscribe,
@@ -97,6 +99,7 @@ function RoomClient({ id }: { id: string }) {
       !current || next.revision >= current.revision ? next : current,
     );
     setConnection("live");
+    setMessage((current) => (current === offlineMessage ? "" : current));
   }, []);
   const refresh = useCallback(
     () =>
@@ -110,6 +113,9 @@ function RoomClient({ id }: { id: string }) {
           if (!active.current) return;
           if (response.status === 304) {
             setConnection("live");
+            setMessage((current) =>
+              current === offlineMessage ? "" : current,
+            );
             return;
           }
           const data = await response.json();
@@ -123,9 +129,7 @@ function RoomClient({ id }: { id: string }) {
         .catch(() => {
           if (active.current) {
             setConnection("offline");
-            setMessage(
-              "Connection interrupted. You are viewing the last received revision. Refresh before making a change.",
-            );
+            setMessage(offlineMessage);
           }
         }),
     [accept, id],
@@ -232,6 +236,13 @@ function RoomClient({ id }: { id: string }) {
         setInviteLink(link);
         try {
           sessionStorage.setItem(`catalyst:invite:${id}`, link);
+        } catch {}
+      } else if (action.kind === "rotate-invite" && data.replayed) {
+        // A lost rotation response cannot recover a secret stored only as a
+        // digest. Never keep offering the now-invalid previous invitation.
+        setInviteLink("");
+        try {
+          sessionStorage.removeItem(`catalyst:invite:${id}`);
         } catch {}
       }
       setMessage(
@@ -536,13 +547,14 @@ function RoomClient({ id }: { id: string }) {
                 </div>
                 <button
                   className="button primary small"
-                  onClick={() =>
+                  onClick={() => {
+                    setEditorError("");
                     setPreview({
                       intervention: interventions[0],
                       project: structuredClone(project),
                       revision: room.revision,
-                    })
-                  }
+                    });
+                  }}
                 >
                   Preview contribution
                 </button>
@@ -562,13 +574,14 @@ function RoomClient({ id }: { id: string }) {
                 {showCandidates && (
                   <InterventionOptions
                     interventions={interventions}
-                    onPreview={(intervention) =>
+                    onPreview={(intervention) => {
+                      setEditorError("");
                       setPreview({
                         intervention,
                         project: structuredClone(project),
                         revision: room.revision,
-                      })
-                    }
+                      });
+                    }}
                   />
                 )}
               </>
@@ -598,9 +611,10 @@ function RoomClient({ id }: { id: string }) {
               <button
                 className="button primary small"
                 disabled={busy || connection !== "live"}
-                onClick={() =>
-                  setContribute({ kind: "volunteer", revision: room.revision })
-                }
+                onClick={() => {
+                  setMessage("");
+                  setContribute({ kind: "volunteer", revision: room.revision });
+                }}
               >
                 Contribute my availability
               </button>
@@ -609,9 +623,10 @@ function RoomClient({ id }: { id: string }) {
                 disabled={
                   busy || connection !== "live" || !project.resources.length
                 }
-                onClick={() =>
-                  setContribute({ kind: "stock", revision: room.revision })
-                }
+                onClick={() => {
+                  setMessage("");
+                  setContribute({ kind: "stock", revision: room.revision });
+                }}
               >
                 <Layers3 size={15} />
                 Contribute supplies
@@ -634,6 +649,13 @@ function RoomClient({ id }: { id: string }) {
                 <p>
                   Anyone with the invitation can join as a contributor. Only
                   your organizer session can edit the whole plan.
+                </p>
+                <p className="editor-note">
+                  Replacing the invitation stops new joins with the old link.
+                  Existing members keep access for up to 30 days; individual
+                  member revocation is not available. Organizer access belongs
+                  to this browser session and cannot be recovered through an
+                  account. Use fictional, low-sensitivity planning data.
                 </p>
                 {inviteLink && (
                   <>
