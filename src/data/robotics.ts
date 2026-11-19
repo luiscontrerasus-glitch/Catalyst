@@ -1,0 +1,143 @@
+import { projectSchema, type Project } from "@/engine/model";
+
+const role = (
+  id: string,
+  name: string,
+  skills: string[],
+  qualifications: string[] = [],
+) => ({ id, name, count: 1, skills, qualifications });
+const instructor = role(
+  "instructor",
+  "Robotics instructor",
+  ["robotics"],
+  ["robotics_instruction"],
+);
+const assistant = role("assistant", "Build assistant", ["assembly"]);
+export const robotics: Project = projectSchema.parse({
+  id: "robotics-workshop",
+  name: "Build a bot. Spark a possibility.",
+  date: "2026-11-21",
+  timezone: "America/New_York",
+  audience: 60,
+  brief:
+    "A free, hands-on robotics workshop for 60 students. Two parallel groups of 30 will build and program their first robot, then share what they made.",
+  budgetCents: 40000,
+  tasks: [
+    {
+      id: "setup",
+      name: "Set the stage",
+      start: 540,
+      end: 600,
+      dependencies: [],
+      roles: [role("logistics", "Logistics lead", ["logistics"])],
+      resources: [],
+      costCents: 4000,
+    },
+    {
+      id: "welcome",
+      name: "Welcome & safety",
+      start: 600,
+      end: 630,
+      dependencies: ["setup"],
+      roles: [role("host", "Event host", ["hosting"])],
+      resources: [],
+      costCents: 3000,
+    },
+    {
+      id: "lab-a",
+      name: "Build lab · Group A",
+      start: 630,
+      end: 720,
+      dependencies: ["welcome"],
+      roles: [instructor, assistant],
+      resources: [
+        { resourceId: "kits", quantity: 10 },
+        { resourceId: "laptops", quantity: 6 },
+        { resourceId: "guides", quantity: 30 },
+      ],
+      costCents: 12000,
+    },
+    {
+      id: "lab-b",
+      name: "Build lab · Group B",
+      start: 630,
+      end: 720,
+      dependencies: ["welcome"],
+      roles: [instructor, assistant],
+      resources: [
+        { resourceId: "kits", quantity: 10 },
+        { resourceId: "laptops", quantity: 6 },
+        { resourceId: "guides", quantity: 30 },
+      ],
+      costCents: 12000,
+    },
+    {
+      id: "showcase",
+      name: "The robot showcase",
+      start: 720,
+      end: 765,
+      dependencies: ["lab-a", "lab-b"],
+      roles: [role("host", "Event host", ["hosting"])],
+      resources: [],
+      costCents: 3000,
+    },
+    {
+      id: "pack",
+      name: "Pack up together",
+      start: 765,
+      end: 795,
+      dependencies: ["showcase"],
+      roles: [role("logistics", "Logistics lead", ["logistics"])],
+      resources: [],
+      costCents: 2000,
+    },
+  ],
+  volunteers: [
+    {
+      id: "maya",
+      name: "Maya Patel",
+      skills: ["robotics"],
+      qualifications: ["robotics_instruction"],
+      availability: [{ start: 600, end: 750 }],
+      maxMinutes: 120,
+    },
+    {
+      id: "jordan",
+      name: "Jordan Lee",
+      skills: ["assembly"],
+      qualifications: [],
+      availability: [{ start: 600, end: 750 }],
+      maxMinutes: 120,
+    },
+    {
+      id: "sam",
+      name: "Sam Rivera",
+      skills: ["assembly"],
+      qualifications: [],
+      availability: [{ start: 630, end: 720 }],
+      maxMinutes: 90,
+    },
+    {
+      id: "alex",
+      name: "Alex Morgan",
+      skills: ["hosting"],
+      qualifications: [],
+      availability: [{ start: 600, end: 780 }],
+      maxMinutes: 90,
+    },
+    {
+      id: "casey",
+      name: "Casey Brooks",
+      skills: ["logistics"],
+      qualifications: [],
+      availability: [{ start: 540, end: 810 }],
+      maxMinutes: 120,
+    },
+  ],
+  resources: [
+    { id: "kits", name: "Robotics kits", quantity: 20, kind: "reusable" },
+    { id: "laptops", name: "Laptops", quantity: 12, kind: "reusable" },
+    { id: "guides", name: "Student guides", quantity: 60, kind: "consumable" },
+  ],
+});
+export const freshRobotics = () => structuredClone(robotics);
