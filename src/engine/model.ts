@@ -43,17 +43,41 @@ export const taskSchema = z
       }),
     ),
     costCents: z.number().int().nonnegative().max(100000000),
+    optional: z.boolean().optional(),
   })
   .refine((t) => t.start < t.end, "Task end must follow start");
 export const projectSchema = z
   .object({
     id,
-    name: z.string().min(1),
-    brief: z.string(),
-    date: z.string(),
-    timezone: z.string(),
+    name: z.string().trim().min(1).max(160),
+    brief: z.string().max(6000),
+    date: z
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/, "Choose an event date")
+      .refine((d) => {
+        const parsed = new Date(`${d}T12:00:00Z`);
+        return (
+          !Number.isNaN(parsed.getTime()) &&
+          parsed.toISOString().slice(0, 10) === d
+        );
+      }, "Choose a valid calendar date"),
+    timezone: z.string().refine((value) => {
+      try {
+        new Intl.DateTimeFormat("en", { timeZone: value });
+        return true;
+      } catch {
+        return false;
+      }
+    }, "Enter a valid time zone, for example America/New_York"),
     audience: z.number().int().positive(),
     budgetCents: z.number().int().nonnegative().max(100000000),
+    planningNotes: z
+      .object({
+        source: z.enum(["manual", "gemini"]),
+        assumptions: z.array(z.string()).max(20),
+        questions: z.array(z.string()).max(20),
+      })
+      .optional(),
     tasks: z.array(taskSchema).min(1).max(16),
     volunteers: z.array(volunteerSchema).max(24),
     resources: z
@@ -63,6 +87,12 @@ export const projectSchema = z
           name: z.string(),
           quantity: z.number().int().nonnegative().max(10000),
           kind: z.enum(["reusable", "consumable"]),
+          unitCostCents: z
+            .number()
+            .int()
+            .nonnegative()
+            .max(100000000)
+            .optional(),
         }),
       )
       .max(30),

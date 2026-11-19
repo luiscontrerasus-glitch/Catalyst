@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "@/components/milestone-two.css";
 export const metadata: Metadata = {
   title: "Catalyst — Possible, together.",
   description:

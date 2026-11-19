@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import {
   Activity,
   Beaker,
@@ -26,7 +26,11 @@ import {
   Zap,
 } from "lucide-react";
 import { ProjectGraph } from "./project-graph";
-import { freshRobotics, robotics } from "@/data/robotics";
+import { scenarioFor } from "@/data/scenarios";
+import { blankProject } from "@/lib/projects";
+import { Modal } from "./dialog";
+import { ProjectEditor } from "./project-editor";
+import { InterventionOptions, InterventionPreview } from "./intervention-lab";
 import {
   formatTime,
   money,
@@ -47,6 +51,7 @@ import {
   getServerSnapshot,
   persistProject,
   subscribeProject,
+  dispatchWorkspace,
 } from "@/lib/persistence";
 
 type Tab = "overview" | "people" | "resources" | "lab";
@@ -82,6 +87,27 @@ export default function CatalystApp() {
     getServerSnapshot,
   );
   const project = stored.project;
+  const scenario = scenarioFor(project.id);
+  const baselineProject = stored.workspace.baselines[project.id];
+  const [editor, setEditor] = useState<Project | null>(null);
+  const [editorStep, setEditorStep] = useState(0);
+  const [preview, setPreview] = useState<Intervention | null>(null);
+  function createProject() {
+    setEditorStep(0);
+    setEditor(blankProject(`project-${crypto.randomUUID()}`));
+  }
+  function editProject(step = 0) {
+    setEditorStep(step);
+    setEditor(project);
+  }
+  function switchProject(id: string) {
+    dispatchWorkspace({ type: "select", id });
+    setBefore(null);
+    setLastAction("No experiments in this session yet.");
+    setSelectedTask("");
+    setTab("overview");
+    setNotice("Project switched. Its saved model has been re-solved.");
+  }
   const [tab, setTab] = useState<Tab>("overview");
   const [selectedTask, setSelectedTask] = useState("lab-b");
   const [before, setBefore] = useState<SolveResult | null>(null);
@@ -95,7 +121,7 @@ export default function CatalystApp() {
   const result = useMemo(() => solve(project), [project]);
   const comparison = before ?? result;
   const interventions = useMemo(
-    () => analyzeInterventions(project, result),
+    () => analyzeInterventions(project, result, { combinations: true }),
     [project, result],
   );
   const verified = useMemo(
@@ -127,8 +153,11 @@ export default function CatalystApp() {
     );
   }
   function reset() {
-    update(freshRobotics(), "Original demo restored");
-    setSelectedTask("lab-b");
+    setBefore(result);
+    dispatchWorkspace({ type: "reset" });
+    setLastAction("Approved baseline restored");
+    setNotice("Approved baseline restored. Plan recomputed.");
+    setSelectedTask("");
   }
   function exportPlan() {
     const blob = new Blob(
@@ -149,7 +178,7 @@ export default function CatalystApp() {
     const url = URL.createObjectURL(blob),
       a = document.createElement("a");
     a.href = url;
-    a.download = "catalyst-robotics-plan.json";
+    a.download = `catalyst-${project.id}-plan.json`;
     a.click();
     URL.revokeObjectURL(url);
     setNotice("Project, solver result, and verification exported as JSON.");
@@ -157,7 +186,7 @@ export default function CatalystApp() {
   const selected =
     project.tasks.find((t) => t.id === selectedTask) ?? project.tasks[0];
   const primary = interventions[0];
-  const allOriginalPresent = robotics.volunteers.every((v) =>
+  const allOriginalPresent = baselineProject.volunteers.every((v) =>
     project.volunteers.some((x) => x.id === v.id),
   );
 
@@ -185,9 +214,9 @@ export default function CatalystApp() {
               Under the hood <Code2 size={14} />
             </button>
           </nav>
-          <a className="header-cta" href="#workspace">
-            Make something possible <Plus size={16} />
-          </a>
+          <button className="header-cta" onClick={createProject}>
+            Create a project <Plus size={16} />
+          </button>
           <button
             className="mobile-toggle icon-button"
             aria-label="Toggle navigation"
@@ -218,7 +247,11 @@ export default function CatalystApp() {
               contribution that changes everything.
             </p>
             <div className="hero-actions">
-              <a className="button primary" href="#workspace">
+              <button className="button primary" onClick={createProject}>
+                <Plus size={18} />
+                Create a project
+              </button>
+              <a className="button secondary" href="#workspace">
                 <FlaskConical size={18} /> Try the live demo
               </a>
               <a className="text-link" href="#how-it-works">
@@ -335,13 +368,38 @@ export default function CatalystApp() {
                 One more person. <span>A whole new possibility.</span>
               </h2>
               <p>
-                Explore a fictional student club’s robotics workshop. Make a
-                change. See the real result.
+                Build your own plan or explore three fictional community
+                projects. Make a change. See the real result.
               </p>
             </div>
             <span className="demo-badge">
-              <Beaker size={15} /> INTERACTIVE DEMO
+              <Beaker size={15} />{" "}
+              {scenario ? "FICTIONAL SCENARIO" : "YOUR APPROVED PLAN"}
             </span>
+          </div>
+          <div className="project-toolbar">
+            <label>
+              Project
+              <select
+                aria-label="Choose a project"
+                value={project.id}
+                onChange={(e) => switchProject(e.target.value)}
+              >
+                {stored.workspace.projects.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {scenarioFor(p.id) ? "Fictional · " : "Your project · "}
+                    {scenarioFor(p.id)?.label ?? p.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button className="button secondary small" onClick={createProject}>
+              <Plus size={15} />
+              Create a project
+            </button>
+            <button className="quiet-button" onClick={() => editProject()}>
+              Edit requirements
+            </button>
           </div>
           <div className="workspace">
             <aside className="sidebar">
@@ -351,8 +409,8 @@ export default function CatalystApp() {
                   <Activity size={20} />
                 </span>
                 <div>
-                  <strong>Robotics for everyone</strong>
-                  <span>School & community</span>
+                  <strong>{scenario?.label ?? "Your community project"}</strong>
+                  <span>{scenario?.theme ?? "Custom project"}</span>
                 </div>
               </div>
               <div
@@ -416,18 +474,21 @@ export default function CatalystApp() {
                   : stored.storage === "session"
                     ? "Session only"
                     : "Local demo"}
-                <span>Fictional people & data</span>
+                <span>
+                  {scenario ? "Fictional people & data" : "Your approved model"}
+                </span>
               </div>
             </aside>
             <div className="workspace-main">
               <div className="project-topline">
                 <span>
-                  Demo projects <span>/</span> Robotics workshop
+                  {scenario ? "Fictional demo" : "Your project"} <span>/</span>{" "}
+                  {scenario?.label ?? project.name}
                 </span>
                 <div>
                   <button className="quiet-button" onClick={reset}>
                     <RotateCcw size={14} />
-                    Reset demo
+                    Reset scenario
                   </button>
                   <button className="quiet-button" onClick={exportPlan}>
                     <Download size={14} />
@@ -442,8 +503,12 @@ export default function CatalystApp() {
                   </span>
                   <h3>{project.name}</h3>
                   <p>
-                    Free robotics workshop · {project.audience} students · Nov
-                    21, 2026
+                    {project.audience} planned participants ·{" "}
+                    {new Intl.DateTimeFormat("en-US", {
+                      dateStyle: "medium",
+                      timeZone: "UTC",
+                    }).format(new Date(`${project.date}T12:00:00Z`))}{" "}
+                    · {project.timezone.replaceAll("_", " ")}
                   </p>
                 </div>
                 <span
@@ -493,7 +558,7 @@ export default function CatalystApp() {
                       –
                       {formatTime(Math.max(...project.tasks.map((t) => t.end)))}
                     </strong>{" "}
-                    EST
+                    {project.timezone.split("/").at(-1)?.replaceAll("_", " ")}
                   </span>
                 </div>
               </div>
@@ -524,6 +589,7 @@ export default function CatalystApp() {
                       </span>
                     </div>
                     <ProjectGraph
+                      key={project.id}
                       project={project}
                       result={result}
                       selectedTask={selected.id}
@@ -534,7 +600,7 @@ export default function CatalystApp() {
                         <strong>{selected.name}</strong>
                         <span>
                           {formatTime(selected.start)}–
-                          {formatTime(selected.end)} EST ·{" "}
+                          {formatTime(selected.end)} ·{" "}
                           {money(selected.costCents)} planned expenses
                         </span>
                       </div>
@@ -590,8 +656,16 @@ export default function CatalystApp() {
                       <div>
                         <h4>The people behind the possibility</h4>
                         <p>
-                          Skills and availability are explicit fictional inputs.
+                          {scenario
+                            ? "Skills and availability are explicit fictional inputs."
+                            : "Capabilities and commitments come from your approved inputs."}
                         </p>
+                        <button
+                          className="quiet-button"
+                          onClick={() => editProject(2)}
+                        >
+                          Edit roster, skills & availability
+                        </button>
                       </div>
                       <button
                         className="button small primary"
@@ -620,7 +694,7 @@ export default function CatalystApp() {
                       </p>
                     )}
                     <div className="restore-roster">
-                      {robotics.volunteers
+                      {baselineProject.volunteers
                         .filter(
                           (v) => !project.volunteers.some((x) => x.id === v.id),
                         )
@@ -657,6 +731,12 @@ export default function CatalystApp() {
                           Reusable inventory is checked at peak simultaneous
                           demand.
                         </p>
+                        <button
+                          className="quiet-button"
+                          onClick={() => editProject(3)}
+                        >
+                          Edit supplies & task requirements
+                        </button>
                       </div>
                     </div>
                     <div className="resource-list">
@@ -940,7 +1020,7 @@ export default function CatalystApp() {
                     </div>
                     <p>
                       {primary.resolves
-                        ? "Re-solved successfully: this single modeled change satisfies all requirements."
+                        ? `Re-solved and independently verified: ${primary.metrics?.changes ?? 1} modeled change(s) satisfy all requirements.`
                         : `Re-solved: ${primary.result.filledSlots}/${primary.result.totalSlots} role slots covered; other constraints may still need attention.`}
                     </p>
                     <details>
@@ -950,12 +1030,18 @@ export default function CatalystApp() {
                   </div>
                   <button
                     className="button primary small"
-                    onClick={() => simulate(primary)}
+                    onClick={() => setPreview(primary)}
                   >
                     <Plus size={16} />
-                    Simulate this change
+                    Preview this change
                   </button>
                 </div>
+              )}
+              {tab === "lab" && interventions.length > 0 && (
+                <InterventionOptions
+                  interventions={interventions}
+                  onPreview={setPreview}
+                />
               )}
               {result.status === "feasible" && (
                 <div className="success-next">
@@ -994,7 +1080,10 @@ export default function CatalystApp() {
           <div className="demo-caption">
             <span>
               <ShieldCheck size={15} />
-              Fictional scenario. Real computation. No AI-generated feasibility.
+              {scenario
+                ? "Fictional scenario. "
+                : "Your approved requirements. "}
+              Real computation. No AI-generated feasibility.
             </span>
             <span>Built for people who make things happen.</span>
           </div>
@@ -1019,7 +1108,7 @@ export default function CatalystApp() {
       <footer className="site-footer">
         <Brand />
         <span>Turn ideas into collective action.</span>
-        <span>Milestone 1 · Local prototype</span>
+        <span>Milestone 2 · Local planning workspace</span>
       </footer>
       <div role="status" className={notice ? "toast" : "sr-only"} key={notice}>
         {notice && (
@@ -1037,6 +1126,7 @@ export default function CatalystApp() {
       </div>
       {showAdd && (
         <AddVolunteerModal
+          project={project}
           onClose={() => setShowAdd(false)}
           onAdd={(v) => {
             let id = `custom-${v.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
@@ -1054,6 +1144,39 @@ export default function CatalystApp() {
               `Simulated adding ${v.name}`,
             );
             setShowAdd(false);
+          }}
+        />
+      )}
+      {editor && (
+        <ProjectEditor
+          initial={editor}
+          initialStep={editorStep}
+          editing={stored.workspace.projects.some((p) => p.id === editor.id)}
+          onClose={() => setEditor(null)}
+          onApprove={(p) => {
+            dispatchWorkspace({ type: "approve", project: p });
+            setEditor(null);
+            setBefore(null);
+            setLastAction(
+              "Approved requirements. No experiments in this session yet.",
+            );
+            setSelectedTask(p.tasks[0].id);
+            setTab("overview");
+            setNotice(
+              "Requirements approved. Analyzed with the constraint engine.",
+            );
+          }}
+        />
+      )}
+      {preview && (
+        <InterventionPreview
+          project={project}
+          baseline={result}
+          intervention={preview}
+          onClose={() => setPreview(null)}
+          onApply={() => {
+            simulate(preview);
+            setPreview(null);
           }}
         />
       )}
@@ -1098,11 +1221,13 @@ export default function CatalystApp() {
               executing the plan.
             </p>
             <div className="ai-notice">
-              <strong>Live AI compiler: unavailable in Milestone 1</strong>
+              <strong>AI drafts. People approve. The solver verifies.</strong>
               <p>
-                No provider is connected and no live AI requests are made.
-                Requirement drafting with editable, validated AI suggestions is
-                planned for Milestone 2. AI will never decide feasibility.
+                Create a project to check live Gemini availability. When
+                configured, Gemini proposes editable requirements with explicit
+                assumptions and questions. No volunteers or inventory are
+                invented. Missing credentials preserve manual planning. Only
+                approved requirements enter the solver.
               </p>
             </div>
             <button className="button secondary" onClick={exportPlan}>
@@ -1148,7 +1273,11 @@ function VolunteerCard({
         <div>
           <strong>{v.name}</strong>
           <span>
-            {v.simulated ? "Simulated addition" : "Fictional volunteer"}
+            {v.simulated
+              ? "Simulated addition"
+              : scenarioFor(project.id)
+                ? "Fictional volunteer"
+                : "User-entered volunteer"}
           </span>
         </div>
         <button
@@ -1197,95 +1326,41 @@ function VolunteerCard({
   );
 }
 
-function Modal({
-  title,
-  children,
-  onClose,
-}: {
-  title: string;
-  children: React.ReactNode;
-  onClose: () => void;
-}) {
-  useEffect(() => {
-    const previous = document.activeElement as HTMLElement | null;
-    const old = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.querySelector<HTMLButtonElement>(".modal-close")?.focus();
-    return () => {
-      document.body.style.overflow = old;
-      previous?.focus();
-    };
-  }, []);
-  return (
-    <div
-      className="modal-backdrop"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Escape") onClose();
-        if (e.key === "Tab") {
-          const items = Array.from(
-            e.currentTarget.querySelectorAll<HTMLElement>(
-              "button, input, select, textarea, a[href]",
-            ),
-          ).filter((x) => !x.hasAttribute("disabled"));
-          const first = items[0],
-            last = items.at(-1);
-          if (e.shiftKey && document.activeElement === first) {
-            e.preventDefault();
-            last?.focus();
-          } else if (!e.shiftKey && document.activeElement === last) {
-            e.preventDefault();
-            first?.focus();
-          }
-        }
-      }}
-    >
-      <section
-        className="modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-title"
-      >
-        <button
-          className="modal-close icon-button"
-          onClick={onClose}
-          aria-label="Close dialog"
-        >
-          <X size={21} />
-        </button>
-        <h3 id="modal-title">{title}</h3>
-        {children}
-      </section>
-    </div>
-  );
-}
 function AddVolunteerModal({
   onClose,
   onAdd,
+  project,
 }: {
   onClose: () => void;
   onAdd: (v: Omit<Volunteer, "id">) => void;
+  project: Project;
 }) {
-  const [name, setName] = useState("Avery Chen"),
-    [profile, setProfile] = useState("instructor"),
-    [start, setStart] = useState("09:00"),
-    [end, setEnd] = useState("13:15"),
-    [maxMinutes, setMaxMinutes] = useState(120),
+  const profiles = Object.fromEntries(
+    project.tasks.flatMap((t) =>
+      t.roles.map((r) => [
+        `${t.id}/${r.id}`,
+        { name: r.name, skills: r.skills, qualifications: r.qualifications },
+      ]),
+    ),
+  );
+  const missing = solve(project)
+    .issues.find((i) => i.kind === "staffing")
+    ?.slotId?.split("/")
+    .slice(0, 2)
+    .join("/");
+  const [name, setName] = useState("Simulated volunteer"),
+    [profile, setProfile] = useState(missing ?? Object.keys(profiles)[0]),
+    [start, setStart] = useState(
+      formatTime(Math.min(...project.tasks.map((t) => t.start))),
+    ),
+    [end, setEnd] = useState(
+      formatTime(Math.max(...project.tasks.map((t) => t.end))),
+    ),
+    [maxMinutes, setMaxMinutes] = useState(
+      Math.max(...project.tasks.map((t) => t.end)) -
+        Math.min(...project.tasks.map((t) => t.start)),
+    ),
     [error, setError] = useState("");
-  const profiles: Record<
-    string,
-    { skills: string[]; qualifications: string[] }
-  > = {
-    instructor: {
-      skills: ["robotics"],
-      qualifications: ["robotics_instruction"],
-    },
-    assistant: { skills: ["assembly"], qualifications: [] },
-    host: { skills: ["hosting"], qualifications: [] },
-    logistics: { skills: ["logistics"], qualifications: [] },
-  };
   const toMinutes = (value: string) => {
     const [h, m] = value.split(":").map(Number);
     return h * 60 + m;
@@ -1317,14 +1392,15 @@ function AddVolunteerModal({
           }
           onAdd({
             name: name.trim(),
-            ...profiles[profile],
+            skills: profiles[profile].skills,
+            qualifications: profiles[profile].qualifications,
             availability: [{ start: s, end: t }],
             maxMinutes,
           });
         }}
       >
         <label>
-          Fictional name
+          Simulated name
           <input
             maxLength={80}
             value={name}
@@ -1335,17 +1411,19 @@ function AddVolunteerModal({
         <label>
           Skill & qualification profile
           <select value={profile} onChange={(e) => setProfile(e.target.value)}>
-            <option value="instructor">
-              Robotics instructor · qualified to teach
-            </option>
-            <option value="assistant">Build assistant · assembly</option>
-            <option value="host">Event host · hosting</option>
-            <option value="logistics">Logistics lead · logistics</option>
+            {Object.entries(profiles).map(([id, r]) => (
+              <option value={id} key={id}>
+                {r.name} ·{" "}
+                {[...r.skills, ...r.qualifications]
+                  .join(", ")
+                  .replaceAll("_", " ") || "general support"}
+              </option>
+            ))}
           </select>
         </label>
         <div className="form-row">
           <label>
-            Available from (EST)
+            Available from ({project.timezone})
             <input
               type="time"
               value={start}
@@ -1354,7 +1432,7 @@ function AddVolunteerModal({
             />
           </label>
           <label>
-            Available until (EST)
+            Available until ({project.timezone})
             <input
               type="time"
               value={end}

@@ -54,14 +54,42 @@ function TaskCard({ data }: NodeProps<TaskNode>) {
   );
 }
 const nodeTypes = { task: TaskCard };
-const positions: Record<string, { x: number; y: number }> = {
-  setup: { x: 0, y: 120 },
-  welcome: { x: 235, y: 120 },
-  "lab-a": { x: 470, y: 35 },
-  "lab-b": { x: 470, y: 215 },
-  showcase: { x: 705, y: 120 },
-  pack: { x: 940, y: 120 },
-};
+export function layoutTasks(
+  project: Project,
+): Record<string, { x: number; y: number }> {
+  const ranks = new Map<string, number>();
+  function rank(id: string, path: Set<string>): number {
+    if (ranks.has(id)) return ranks.get(id)!;
+    if (path.has(id)) return 0;
+    const task = project.tasks.find((t) => t.id === id);
+    if (!task) return 0;
+    const next = new Set([...path, id]);
+    const value = task.dependencies.length
+      ? 1 + Math.max(...task.dependencies.map((d) => rank(d, next)))
+      : 0;
+    ranks.set(id, value);
+    return value;
+  }
+  project.tasks.forEach((t) => rank(t.id, new Set()));
+  const groups = new Map<number, string[]>();
+  for (const t of project.tasks) {
+    const r = ranks.get(t.id)!;
+    groups.set(r, [...(groups.get(r) ?? []), t.id]);
+  }
+  return Object.fromEntries(
+    project.tasks.map((t) => {
+      const r = ranks.get(t.id)!,
+        group = groups.get(r)!;
+      return [
+        t.id,
+        {
+          x: r * 235,
+          y: 120 + (group.indexOf(t.id) - (group.length - 1) / 2) * 180,
+        },
+      ];
+    }),
+  );
+}
 export function ProjectGraph({
   project,
   result,
@@ -74,6 +102,7 @@ export function ProjectGraph({
   onSelect: (id: string) => void;
 }) {
   const slots = slotsFor(project);
+  const positions = layoutTasks(project);
   const nodes: TaskNode[] = project.tasks.map((t) => {
     const taskSlots = slots.filter((s) => s.task.id === t.id),
       filled = taskSlots.filter((s) =>
