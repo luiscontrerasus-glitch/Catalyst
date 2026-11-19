@@ -197,6 +197,22 @@ describe("three scenarios, one solver", () => {
 });
 
 describe("verified counterfactuals and transparent ranking", () => {
+  it("does not count interchangeable slots within the same task and role as disrupted commitments", () => {
+    const p = custom();
+    p.tasks[0].roles[0].count = 2;
+    p.volunteers = [
+      {
+        id: "z-last",
+        name: "Jo",
+        skills: ["reading"],
+        qualifications: [],
+        availability: [{ start: 600, end: 660 }],
+        maxMinutes: 60,
+      },
+    ];
+    const fix = advanced(p).find((i) => i.resolves)!;
+    expect(fix.metrics!.disruptedAssignments).toBe(0);
+  });
   it("clones inputs for every intervention", () => {
     const p = structuredClone(cleanup),
       snapshot = JSON.stringify(p);

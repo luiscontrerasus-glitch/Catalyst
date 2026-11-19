@@ -156,6 +156,10 @@ export function ProjectEditor({
     [proposalGoal, setProposalGoal] = useState(""),
     [aiUsed, setAiUsed] = useState(false);
   const request = useRef<AbortController | null>(null);
+  const editorBody = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    editorBody.current?.scrollTo({ top: 0 });
+  }, [step]);
   useEffect(() => {
     const controller = new AbortController();
     fetch("/api/compile", { signal: controller.signal })
@@ -311,7 +315,7 @@ export function ProjectEditor({
           </button>
         ))}
       </nav>
-      <div className="editor-body">
+      <div className="editor-body" ref={editorBody}>
         {step === 0 && (
           <>
             <div className="editor-section-title">

@@ -52,8 +52,9 @@ export function InterventionOptions({
         <div>
           <h4>Tested paths forward</h4>
           <p>
-            {interventions.length} candidates re-solved against this exact
-            project.
+            {interventions.length}{" "}
+            {interventions.length === 1 ? "candidate" : "candidates"} re-solved
+            against this exact project.
           </p>
         </div>
         <FlaskConical size={20} />
@@ -126,7 +127,7 @@ export function InterventionPreview({
         </div>
       </div>
       <div className="preview-metrics">
-        <span>{i.metrics?.changes} changes</span>
+        <span>Model edits: {i.metrics?.changes}</span>
         <span>{money(i.metrics?.addedCostCents ?? 0)} added known cost</span>
         <span>Budget: {money(next.budgetCents)}</span>
         <span>+{i.metrics?.addedMinutes} assigned workload minutes</span>

@@ -1,5 +1,6 @@
 import {
   available,
+  formatTime,
   qualified,
   slotsFor,
   type Project,
@@ -64,7 +65,7 @@ export function applyIntervention(project: Project, i: Intervention): Project {
         v.id === c.volunteerId
           ? {
               ...v,
-              simulated: true,
+              simulatedAvailability: true,
               availability: [...v.availability, { start: c.start, end: c.end }],
             }
           : v,
@@ -149,7 +150,7 @@ export function analyzeInterventions(
           id,
           kind: "availability",
           label: `Extend ${v.name}'s availability`,
-          explanation: `Hypothetically covers ${slot.task.name} from ${slot.task.start} to ${slot.task.end} minutes after midnight. Workload limits and qualifications remain unchanged. Confirm this with the volunteer before relying on it.`,
+          explanation: `Hypothetically covers ${slot.task.name} from ${formatTime(slot.task.start)} to ${formatTime(slot.task.end)} in the event time zone. Workload limits and qualifications remain unchanged. Confirm this with the volunteer before relying on it.`,
           changes: [
             {
               kind: "availability",
@@ -196,7 +197,9 @@ export function analyzeInterventions(
   }
   for (const t of p.tasks.filter(
     (t) =>
-      t.optional && !p.tasks.some((other) => other.dependencies.includes(t.id)),
+      p.tasks.length > 1 &&
+      t.optional &&
+      !p.tasks.some((other) => other.dependencies.includes(t.id)),
   ))
     drafts.push({
       id: `scope-${t.id}`,
@@ -218,7 +221,10 @@ export function analyzeInterventions(
     const disruptedAssignments = baseline.assignments.filter(
       (a) =>
         !result.assignments.some(
-          (b) => a.slotId === b.slotId && a.volunteerId === b.volunteerId,
+          (b) =>
+            a.slotId.split("/").slice(0, 2).join("/") ===
+              b.slotId.split("/").slice(0, 2).join("/") &&
+            a.volunteerId === b.volunteerId,
         ),
     ).length;
     const workload = (r: SolveResult, model: Project) =>
@@ -284,7 +290,7 @@ export function analyzeInterventions(
       results.push(
         evaluate({
           id: `${singles[a].id}+${singles[b].id}`,
-          label: `${singles[a].label} + ${singles[b].label.toLowerCase()}`,
+          label: `${singles[a].label} + ${singles[b].label}`,
           kind: "bundle",
           explanation: `${singles[a].explanation} ${singles[b].explanation}`,
           changes: [...singles[a].changes, ...singles[b].changes],

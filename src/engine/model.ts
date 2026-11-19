@@ -20,6 +20,7 @@ export const volunteerSchema = z.object({
   availability: z.array(windowSchema).min(1).max(10),
   maxMinutes: z.number().int().min(0).max(1440),
   simulated: z.boolean().optional(),
+  simulatedAvailability: z.boolean().optional(),
 });
 export const roleSchema = z.object({
   id,
@@ -35,7 +36,9 @@ export const taskSchema = z
     start: minute,
     end: minute,
     dependencies: z.array(id),
-    roles: z.array(roleSchema).min(1),
+    roles: z
+      .array(roleSchema)
+      .min(1, "Add at least one required role to this task."),
     resources: z.array(
       z.object({
         resourceId: id,
@@ -78,7 +81,10 @@ export const projectSchema = z
         questions: z.array(z.string()).max(20),
       })
       .optional(),
-    tasks: z.array(taskSchema).min(1).max(16),
+    tasks: z
+      .array(taskSchema)
+      .min(1, "Add at least one task before analysis.")
+      .max(16, "This bounded model supports up to 16 tasks."),
     volunteers: z.array(volunteerSchema).max(24),
     resources: z
       .array(

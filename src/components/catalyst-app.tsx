@@ -93,6 +93,12 @@ export default function CatalystApp() {
   const [editorStep, setEditorStep] = useState(0);
   const [preview, setPreview] = useState<Intervention | null>(null);
   function createProject() {
+    if (stored.workspace.projects.length >= 30) {
+      setNotice(
+        "This local workspace supports up to 30 projects. You can continue editing existing projects.",
+      );
+      return;
+    }
     setEditorStep(0);
     setEditor(blankProject(`project-${crypto.randomUUID()}`));
   }
@@ -1020,7 +1026,7 @@ export default function CatalystApp() {
                     </div>
                     <p>
                       {primary.resolves
-                        ? `Re-solved and independently verified: ${primary.metrics?.changes ?? 1} modeled change(s) satisfy all requirements.`
+                        ? `Re-solved and independently verified: ${primary.metrics?.changes ?? 1} modeled ${primary.metrics?.changes === 1 ? "change satisfies" : "changes satisfy"} all requirements.`
                         : `Re-solved: ${primary.result.filledSlots}/${primary.result.totalSlots} role slots covered; other constraints may still need attention.`}
                     </p>
                     <details>
@@ -1129,6 +1135,13 @@ export default function CatalystApp() {
           project={project}
           onClose={() => setShowAdd(false)}
           onAdd={(v) => {
+            if (project.volunteers.length >= 24) {
+              setShowAdd(false);
+              setNotice(
+                "This bounded model supports up to 24 volunteers. Edit the roster to replace a person.",
+              );
+              return;
+            }
             let id = `custom-${v.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
               n = 1;
             while (project.volunteers.some((x) => x.id === id))
@@ -1164,6 +1177,15 @@ export default function CatalystApp() {
             setTab("overview");
             setNotice(
               "Requirements approved. Analyzed with the constraint engine.",
+            );
+            requestAnimationFrame(() =>
+              document.getElementById("workspace")?.scrollIntoView({
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+                  .matches
+                  ? "auto"
+                  : "smooth",
+                block: "start",
+              }),
             );
           }}
         />
@@ -1273,11 +1295,13 @@ function VolunteerCard({
         <div>
           <strong>{v.name}</strong>
           <span>
-            {v.simulated
-              ? "Simulated addition"
-              : scenarioFor(project.id)
-                ? "Fictional volunteer"
-                : "User-entered volunteer"}
+            {v.simulatedAvailability
+              ? "Simulated availability"
+              : v.simulated
+                ? "Simulated addition"
+                : scenarioFor(project.id)
+                  ? "Fictional volunteer"
+                  : "User-entered volunteer"}
           </span>
         </div>
         <button

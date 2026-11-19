@@ -54,8 +54,27 @@ export function removeResource(project: Project, id: string): Project {
   };
 }
 export function validationMessages(error: z.ZodError): string[] {
+  const labels: Record<string, string> = {
+    tasks: "Tasks",
+    roles: "Roles",
+    volunteers: "Volunteers",
+    resources: "Supplies",
+    name: "Name",
+    budgetCents: "Available budget",
+    costCents: "Planned expenses",
+    unitCostCents: "Acquisition cost",
+    maxMinutes: "Maximum workload",
+    availability: "Availability",
+    date: "Event date",
+    timezone: "Time zone",
+    audience: "Planned participants",
+    start: "Start time",
+    end: "End time",
+    quantity: "Quantity",
+  };
   return error.issues.map(
-    (i) => `${i.path.join(" › ") || "Project"}: ${i.message}`,
+    (i) =>
+      `${i.path.map((p) => (typeof p === "number" ? p + 1 : (labels[String(p)] ?? String(p)))).join(" › ") || "Project"}: ${i.message}`,
   );
 }
 export function approveProjectDraft(

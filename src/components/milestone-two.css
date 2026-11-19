@@ -1,4 +1,13 @@
 /* Additive styles: retain the Milestone 1 visual system. */
+.modal-wide:has(.preview-state) {
+  display: block !important;
+  overflow-y: auto;
+}
+.preview-verification,
+.preview-bottlenecks {
+  overflow: visible !important;
+  min-height: 0 !important;
+}
 .project-toolbar {
   display: flex;
   align-items: flex-end;
