@@ -10,7 +10,8 @@ Target: owner-requested November 20, 2026 production readiness; STEM2Connect Nov
 - [x] Local real-server HTTP evaluation passes 19/19 checks with independent cookie sessions.
 - [x] Solver benchmark records 19/19 outcomes, 200/200 oracle matches, 12/12 repairable fixtures found; bounded-search limitations disclosed.
 - [x] Actual browser found and retested the localhost/127.0.0.1 origin issue; organizer room creation observed.
-- [ ] Finish two genuinely independent browser sessions: join, availability, supplies, both views synchronized, contributor restrictions, stale draft, reload and reconnect.
+- [x] Two genuinely independent browsers: native Brave contributor plus in-app organizer; join, availability, supplies, synchronized verified plans, contributor restrictions, stale draft and reload pass. Offline/reconnect was separately tested in the in-app browser.
+- [ ] Finish browser regression of the same-page invitation hash fix. The production build/checks pass; native browser control stopped before this final edge-case retest completed.
 - [x] Current desktop/mobile robotics and a fresh custom project pass UI checks; mobile room contributions, reload, shared same-session tabs, stale drafts and reconnect are exercised. This does not replace the independent-browser gate.
 - [x] Three live Gemini evaluation proposals and a fourth production-browser proposal accepted on `gemini-3.5-flash-lite`; actual earlier failures disclosed and strict validation/approval checked.
 - [x] Current npm production dependency audit: zero reported advisories. Exact configured key absent from 32 scanned browser build artifacts.
@@ -32,6 +33,6 @@ Target: owner-requested November 20, 2026 production readiness; STEM2Connect Nov
 
 ## Screenshot plan
 
-Fresh Milestone 3 evidence is in `docs/screenshots/milestone-3/`: landing, robotics preview, real Gemini proposal, approved custom plan, mobile editor/preview, organizer room, mobile contribution/verified room, and stale-draft rejection. Never show invitation fragments, cookies, API tokens or unrelated browser content. A two-independent-browser screenshot is still pending Windows unlock.
+Fresh Milestone 3 evidence is in `docs/screenshots/milestone-3/`: landing, robotics preview, real Gemini proposal, approved custom plan, mobile editor/preview, organizer room, mobile contribution/verified room, and stale-draft rejection. Five new `two-browser-*` images show actual distinct roles, matching revision 11, contributor repair restrictions, cross-browser stale rejection and a mobile organizer view. No invitation fragments, cookies, API tokens or unrelated browser content are shown.
 
 Older images outside the Milestone 3 subdirectory remain historical Milestone 1/2 evidence. Preserve the stable local planning demo as fallback until all room UI gates pass.

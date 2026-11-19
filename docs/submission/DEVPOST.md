@@ -12,7 +12,7 @@ Community projects depend on more than enthusiasm: someone needs the right skill
 
 Create and approve a project model, inspect connected tasks and assignments, identify a bottleneck, and preview a tested repair. The robotics example has seven of eight roles covered because parallel labs need another qualified instructor. Catalyst reruns the model with a proposed contribution and independently verifies the resulting assignment before describing it as feasible.
 
-Durable project rooms support private invitations, display-name participants, their own availability/skills and supply contributions, two-second update polling, activity history, organizer permissions, revision conflicts and safe retries. These are backed by a real database. Independent HTTP-session and persistence tests pass. Desktop/mobile robotics and a fresh custom project pass production UI checks; **independent Brave contributor verification is waiting for the Windows desktop to be unlocked**. Do not describe HTTP tests as observed browser synchronization.
+Durable project rooms support private invitations, display-name participants, their own availability/skills and supply contributions, two-second update polling, activity history, organizer permissions, revision conflicts and safe retries. These are backed by a real database. A native Brave contributor and in-app organizer were independently verified through actual browser UIs: contributions synchronized, both reached verified feasibility, stale edits were rejected, roles persisted after reload, and contributor repair application was disabled. Mobile organizer changes synchronized to Brave too. One same-page invitation-navigation fix still needs its final browser regression after native control stopped; hosted operation remains unverified.
 
 Optional Google Gemini drafting converts a brief into schema-validated proposed requirements with quoted evidence, assumptions and questions. The user explicitly approves the model. AI does not invent an available volunteer roster or owned inventory, and never supplies the authoritative feasibility verdict. **Four live proposals were accepted on `gemini-3.5-flash-lite`: three evaluation briefs and one complete production-browser approval flow.** Earlier schema and invalid-output failures are disclosed in the call ledger. Some questions repeat known facts; semantic review remains essential.
 
@@ -32,6 +32,6 @@ OpenAI Codex assisted with architecture, code, design, fictional data, tests, de
 
 ## What is next
 
-Complete independent-browser collaboration and an approved hosted rehearsal, then improve deeper repair search, organizer recovery and production access management. Public source, hosting and video links must be added after owner approval. Eligibility and any cross-submission permission remain unconfirmed.
+Finish the invitation edge-case browser regression and an approved hosted rehearsal, then improve deeper repair search, organizer recovery and production access management. Public source, hosting and video links must be added after owner approval. Eligibility and any cross-submission permission remain unconfirmed.
 
 **Before submission:** replace pending statuses only with observed evidence; add actual team members/contributions, approved source/demo/video links, and the team's real learning and challenges. Nothing has been published or submitted.

@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-19",
+  "kind": "Observed production browser UI verification, not HTTP-only tests",
+  "organizerBrowser": "ChatGPT in-app browser",
+  "contributorBrowser": "Native Brave, separate browser cookie session",
+  "fictionalParticipant": "Fictional Avery",
+  "observations": [
+    {
+      "check": "Bare room URL denied in Brave while organizer remained authorized",
+      "passed": true
+    },
+    {
+      "check": "Private invitation opened a display-name join form; fragment removed from address bar",
+      "passed": true
+    },
+    {
+      "check": "Joined as contributor at revision 7; organizer browser observed new member and activity",
+      "passed": true
+    },
+    {
+      "check": "Contributor reviewed robotics skill, instruction qualification, 09:00–13:15 availability and 90-minute capacity",
+      "passed": true
+    },
+    {
+      "check": "Volunteer contribution advanced revision 8 and both independent browsers showed verified 8/8",
+      "passed": true
+    },
+    {
+      "check": "Contributor supply donation advanced revision 9 while organizer had an older draft open",
+      "passed": true
+    },
+    {
+      "check": "Old organizer draft rejected visibly; contributor stock and approved title preserved",
+      "passed": true
+    },
+    {
+      "check": "Both browser roles and project survived reload",
+      "passed": true
+    },
+    {
+      "check": "Contributor had no requirement editor or invitation controls",
+      "passed": true
+    },
+    {
+      "check": "Mobile organizer budget change at revision 10 synchronized to Brave",
+      "passed": true
+    },
+    {
+      "check": "Contributor preview displayed disabled Only the organizer can apply this repair action",
+      "passed": true
+    },
+    {
+      "check": "Organizer restored $400 budget at revision 11; both independent browsers returned to verified 8/8",
+      "passed": true
+    }
+  ],
+  "mobileOrganizerViewport": { "width": 390, "height": 844 },
+  "screenshots": [
+    "../screenshots/milestone-3/two-browser-organizer.jpg",
+    "../screenshots/milestone-3/two-browser-contributor.jpg",
+    "../screenshots/milestone-3/two-browser-stale-draft.jpg",
+    "../screenshots/milestone-3/two-browser-contributor-permissions.jpg",
+    "../screenshots/milestone-3/two-browser-mobile-organizer.jpg"
+  ],
+  "invitationEdgeCase": {
+    "observedDefect": "Pasting an invite fragment while already on the same unauthorized room required a manual reload",
+    "fix": "Reload on an invitation hashchange so the initial validated invitation gate runs",
+    "productionBuildAndChecks": "passed",
+    "finalBrowserRegression": "not completed: native Computer Use stopped because current browser URL could not be established confidently enough to enforce policy"
+  },
+  "privacy": "No invitation tokens, session cookies, API keys, real participant information or unrelated browser chrome are stored. Native fullscreen mode and mobile viewport override were restored."
+}

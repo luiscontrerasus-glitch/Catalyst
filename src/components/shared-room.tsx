@@ -136,10 +136,19 @@ function RoomClient({ id }: { id: string }) {
   );
   useEffect(() => {
     active.current = true;
+    // Pasting an invitation while already on this room only changes the hash.
+    // Reload so the initial invitation gate runs, including for expired sessions;
+    // the token stays in the fragment and never enters the server request URL.
+    const receiveInvitation = () => {
+      if (new URLSearchParams(window.location.hash.slice(1)).get("invite"))
+        window.location.reload();
+    };
+    window.addEventListener("hashchange", receiveInvitation);
     if (window.location.hash)
       history.replaceState(null, "", window.location.pathname);
     return () => {
       active.current = false;
+      window.removeEventListener("hashchange", receiveInvitation);
     };
   }, []);
   useEffect(() => {
