@@ -468,7 +468,7 @@ function RoomClient({ id }: { id: string }) {
               </h2>
               <p>
                 {verified
-                  ? `All ${result.totalSlots} role slots are independently verified; budget, supplies, availability, and dependencies pass.`
+                  ? "The complete assignment is independently verified; budget, supplies, availability, and dependencies pass."
                   : result.issues[0]?.message}
               </p>
               <strong>

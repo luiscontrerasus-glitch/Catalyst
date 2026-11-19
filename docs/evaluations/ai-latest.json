@@ -1,9 +1,429 @@
 {
-  "generatedAt": "2026-11-19T17:17:22.951Z",
-  "status": "not_run_missing_credentials",
+  "generatedAt": "2026-11-19T18:07:03.283Z",
+  "status": "executed",
   "sdk": "@google/genai",
   "model": "gemini-3.5-flash-lite",
-  "successfulLiveRequests": 0,
-  "records": [],
-  "instructions": "Set GEMINI_API_KEY in Catalyst .env.local and restart or rerun this evaluation. No provider request was attempted."
+  "successfulLiveRequests": 3,
+  "providerResponses": 3,
+  "failedCalls": 0,
+  "records": [
+    {
+      "id": "robotics-detailed",
+      "model": "gemini-3.5-flash-lite",
+      "status": "success",
+      "durationMs": 2644.7459,
+      "tasks": 2,
+      "facts": [
+        {
+          "statement": "The workshop is planned for 60 students.",
+          "evidenceQuote": "plan a free robotics workshop for 60 students"
+        },
+        {
+          "statement": "The event date is November 21, 2026.",
+          "evidenceQuote": "on November 21, 2026"
+        },
+        {
+          "statement": "The budget is 400 dollars.",
+          "evidenceQuote": "with a $400 budget"
+        },
+        {
+          "statement": "There are two parallel build labs from 10:30 to 12:00.",
+          "evidenceQuote": "Use two parallel build labs from 10:30 to 12:00"
+        },
+        {
+          "statement": "Staffing requires one qualified robotics instructor and one assistant per lab.",
+          "evidenceQuote": "one qualified robotics instructor and one assistant per lab"
+        }
+      ],
+      "assumptions": [
+        "All task times, costs, skills, qualifications, dependencies, and resource requirements are suggestions pending human confirmation.",
+        "No volunteer roster, venue contract, or inventory has been confirmed.",
+        "No people are committed.",
+        "Build lab sessions run from 630 to 720 minutes after midnight."
+      ],
+      "questions": [
+        "What is the exact venue address?",
+        "What is the confirmed volunteer availability?",
+        "What specific inventory and procurement costs are expected?"
+      ],
+      "proposal": {
+        "title": "Robotics Workshop Plan",
+        "summary": "Draft plan for a free robotics workshop for 60 students utilizing two parallel build labs.",
+        "facts": [
+          {
+            "statement": "The workshop is planned for 60 students.",
+            "evidenceQuote": "plan a free robotics workshop for 60 students"
+          },
+          {
+            "statement": "The event date is November 21, 2026.",
+            "evidenceQuote": "on November 21, 2026"
+          },
+          {
+            "statement": "The budget is 400 dollars.",
+            "evidenceQuote": "with a $400 budget"
+          },
+          {
+            "statement": "There are two parallel build labs from 10:30 to 12:00.",
+            "evidenceQuote": "Use two parallel build labs from 10:30 to 12:00"
+          },
+          {
+            "statement": "Staffing requires one qualified robotics instructor and one assistant per lab.",
+            "evidenceQuote": "one qualified robotics instructor and one assistant per lab"
+          }
+        ],
+        "assumptions": [
+          "All task times, costs, skills, qualifications, dependencies, and resource requirements are suggestions pending human confirmation.",
+          "No volunteer roster, venue contract, or inventory has been confirmed.",
+          "No people are committed.",
+          "Build lab sessions run from 630 to 720 minutes after midnight."
+        ],
+        "questions": [
+          "What is the exact venue address?",
+          "What is the confirmed volunteer availability?",
+          "What specific inventory and procurement costs are expected?"
+        ],
+        "tasks": [
+          {
+            "id": "prep_labs",
+            "name": "Prepare Build Labs",
+            "start": 600,
+            "end": 630,
+            "dependencies": [],
+            "roles": [
+              {
+                "id": "lead_instructor",
+                "name": "Lead Instructor",
+                "count": 2,
+                "skills": [
+                  "robotics_instruction"
+                ],
+                "qualifications": [
+                  "robotics_instructor_cert"
+                ]
+              }
+            ],
+            "resources": [
+              {
+                "resourceId": "robotics_kit",
+                "quantity": 10
+              }
+            ],
+            "costCents": 20000,
+            "optional": false
+          },
+          {
+            "id": "run_labs",
+            "name": "Run Build Labs",
+            "start": 630,
+            "end": 720,
+            "dependencies": [
+              "prep_labs"
+            ],
+            "roles": [
+              {
+                "id": "robotics_instructor",
+                "name": "Robotics Instructor",
+                "count": 2,
+                "skills": [
+                  "robotics_instruction"
+                ],
+                "qualifications": [
+                  "robotics_instructor_cert"
+                ]
+              },
+              {
+                "id": "assistant",
+                "name": "Lab Assistant",
+                "count": 2,
+                "skills": [
+                  "general_assistance"
+                ],
+                "qualifications": []
+              }
+            ],
+            "resources": [
+              {
+                "resourceId": "robotics_kit",
+                "quantity": 20
+              }
+            ],
+            "costCents": 15000,
+            "optional": false
+          }
+        ],
+        "resources": [
+          {
+            "id": "robotics_kit",
+            "name": "Robotics Kit",
+            "kind": "consumable"
+          }
+        ]
+      },
+      "hasExpectedQuestions": true,
+      "approvalBlocked": true,
+      "volunteersInvented": false,
+      "inventoryInvented": false,
+      "actualFeasibilityAfterApproval": "infeasible"
+    },
+    {
+      "id": "cleanup-partial",
+      "model": "gemini-3.5-flash-lite",
+      "status": "success",
+      "durationMs": 1905.8908000000001,
+      "tasks": 3,
+      "facts": [
+        {
+          "statement": "Our neighbors want to clean up the park next weekend.",
+          "evidenceQuote": "our neighbors want to clean up the park next weekend."
+        },
+        {
+          "statement": "We may have a few volunteers, but their skills, availability, supplies, and budget are not known yet.",
+          "evidenceQuote": "We may have a few volunteers, but their skills, availability, supplies, and budget are not known yet."
+        }
+      ],
+      "assumptions": [
+        "Every task time, cost, skill, qualification, dependency, and resource requirement is a suggestion pending human confirmation.",
+        "No people are committed and no budget is confirmed.",
+        "Suggested capabilities like basic_cleanup are treated as assumptions, not formal qualifications."
+      ],
+      "questions": [
+        "What is the exact event date and time schedule?",
+        "What is the confirmed budget in USD cents?",
+        "Who is the target audience and what is the expected turnout?",
+        "What is the venue name and location?",
+        "What is the exact volunteer availability?",
+        "What inventory and procurement costs are expected?"
+      ],
+      "proposal": {
+        "title": "Park Cleanup Project",
+        "summary": "A suggested plan for a neighborhood park cleanup event next weekend, pending human confirmation of volunteers, budget, and resources.",
+        "facts": [
+          {
+            "statement": "Our neighbors want to clean up the park next weekend.",
+            "evidenceQuote": "our neighbors want to clean up the park next weekend."
+          },
+          {
+            "statement": "We may have a few volunteers, but their skills, availability, supplies, and budget are not known yet.",
+            "evidenceQuote": "We may have a few volunteers, but their skills, availability, supplies, and budget are not known yet."
+          }
+        ],
+        "assumptions": [
+          "Every task time, cost, skill, qualification, dependency, and resource requirement is a suggestion pending human confirmation.",
+          "No people are committed and no budget is confirmed.",
+          "Suggested capabilities like basic_cleanup are treated as assumptions, not formal qualifications."
+        ],
+        "questions": [
+          "What is the exact event date and time schedule?",
+          "What is the confirmed budget in USD cents?",
+          "Who is the target audience and what is the expected turnout?",
+          "What is the venue name and location?",
+          "What is the exact volunteer availability?",
+          "What inventory and procurement costs are expected?"
+        ],
+        "tasks": [
+          {
+            "id": "task_prep",
+            "name": "Event Preparation and Planning",
+            "start": 480,
+            "end": 540,
+            "dependencies": [],
+            "roles": [
+              {
+                "id": "organizer",
+                "name": "Event Organizer",
+                "count": 1,
+                "skills": [
+                  "planning"
+                ],
+                "qualifications": []
+              }
+            ],
+            "resources": [
+              {
+                "resourceId": "res_clipboard",
+                "quantity": 1
+              }
+            ],
+            "costCents": 0,
+            "optional": false
+          },
+          {
+            "id": "task_cleanup",
+            "name": "Park Cleanup Execution",
+            "start": 540,
+            "end": 780,
+            "dependencies": [
+              "task_prep"
+            ],
+            "roles": [
+              {
+                "id": "volunteer",
+                "name": "Cleanup Volunteer",
+                "count": 4,
+                "skills": [
+                  "basic_cleanup"
+                ],
+                "qualifications": []
+              }
+            ],
+            "resources": [
+              {
+                "resourceId": "res_trash_bag",
+                "quantity": 20
+              }
+            ],
+            "costCents": 1500,
+            "optional": false
+          },
+          {
+            "id": "task_wrap",
+            "name": "Wrap Up and Waste Disposal",
+            "start": 780,
+            "end": 840,
+            "dependencies": [
+              "task_cleanup"
+            ],
+            "roles": [
+              {
+                "id": "organizer",
+                "name": "Event Organizer",
+                "count": 1,
+                "skills": [
+                  "coordination"
+                ],
+                "qualifications": []
+              }
+            ],
+            "resources": [
+              {
+                "resourceId": "res_trash_bag",
+                "quantity": 5
+              }
+            ],
+            "costCents": 0,
+            "optional": false
+          }
+        ],
+        "resources": [
+          {
+            "id": "res_clipboard",
+            "name": "Clipboard",
+            "kind": "reusable"
+          },
+          {
+            "id": "res_trash_bag",
+            "name": "Trash Bag",
+            "kind": "consumable"
+          }
+        ]
+      },
+      "hasExpectedQuestions": true,
+      "approvalBlocked": true,
+      "volunteersInvented": false,
+      "inventoryInvented": false,
+      "actualFeasibilityAfterApproval": "infeasible"
+    },
+    {
+      "id": "donation-ambiguous",
+      "model": "gemini-3.5-flash-lite",
+      "status": "success",
+      "durationMs": 2276.5821000000005,
+      "tasks": 1,
+      "facts": [
+        {
+          "statement": "The user states they want to help their group do something useful with donations.",
+          "evidenceQuote": "help our group do something useful with donations."
+        },
+        {
+          "statement": "The scope, location, date, budget, and participants are not decided.",
+          "evidenceQuote": "We have not decided the scope, location, date, budget, or participants."
+        }
+      ],
+      "assumptions": [
+        "Every task time, cost, skill, qualification, dependency, and resource requirement is a suggestion pending human confirmation.",
+        "No people are committed and no volunteers are currently available.",
+        "Budget, venue, and inventory are unconfirmed and pending procurement.",
+        "Suggested capability requirements are treated as assumptions rather than strict formal qualifications."
+      ],
+      "questions": [
+        "What is the missing event date?",
+        "What is the confirmed budget?",
+        "Who is the target audience?",
+        "What is the venue location?",
+        "What is the volunteer availability?",
+        "What are the required qualifications and inventory?",
+        "What are the procurement costs?"
+      ],
+      "proposal": {
+        "title": "Community Donation Project Evaluation",
+        "summary": "A suggested starting scope to evaluate how to use donations for a community project, requiring human confirmation for all parameters.",
+        "facts": [
+          {
+            "statement": "The user states they want to help their group do something useful with donations.",
+            "evidenceQuote": "help our group do something useful with donations."
+          },
+          {
+            "statement": "The scope, location, date, budget, and participants are not decided.",
+            "evidenceQuote": "We have not decided the scope, location, date, budget, or participants."
+          }
+        ],
+        "assumptions": [
+          "Every task time, cost, skill, qualification, dependency, and resource requirement is a suggestion pending human confirmation.",
+          "No people are committed and no volunteers are currently available.",
+          "Budget, venue, and inventory are unconfirmed and pending procurement.",
+          "Suggested capability requirements are treated as assumptions rather than strict formal qualifications."
+        ],
+        "questions": [
+          "What is the missing event date?",
+          "What is the confirmed budget?",
+          "Who is the target audience?",
+          "What is the venue location?",
+          "What is the volunteer availability?",
+          "What are the required qualifications and inventory?",
+          "What are the procurement costs?"
+        ],
+        "tasks": [
+          {
+            "id": "brainstorm_ideas",
+            "name": "Brainstorm Project Ideas",
+            "start": 540,
+            "end": 630,
+            "dependencies": [],
+            "roles": [
+              {
+                "id": "facilitator",
+                "name": "Facilitator",
+                "count": 1,
+                "skills": [
+                  "leadership"
+                ],
+                "qualifications": []
+              }
+            ],
+            "resources": [
+              {
+                "resourceId": "meeting_room",
+                "quantity": 1
+              }
+            ],
+            "costCents": 0,
+            "optional": false
+          }
+        ],
+        "resources": [
+          {
+            "id": "meeting_room",
+            "name": "Meeting Room",
+            "kind": "reusable"
+          }
+        ]
+      },
+      "hasExpectedQuestions": true,
+      "approvalBlocked": true,
+      "volunteersInvented": false,
+      "inventoryInvented": false,
+      "actualFeasibilityAfterApproval": "infeasible"
+    }
+  ],
+  "instructions": "These are actual provider outcomes, not mocked responses."
 }

@@ -12,9 +12,9 @@ Community projects depend on more than enthusiasm: someone needs the right skill
 
 Create and approve a project model, inspect connected tasks and assignments, identify a bottleneck, and preview a tested repair. The robotics example has seven of eight roles covered because parallel labs need another qualified instructor. Catalyst reruns the model with a proposed contribution and independently verifies the resulting assignment before describing it as feasible.
 
-Durable project rooms support private invitations, display-name participants, their own availability/skills and supply contributions, two-second update polling, activity history, organizer permissions, revision conflicts and safe retries. These are backed by a real database. Independent HTTP-session and persistence tests pass; **full two-independent-browser and Milestone 3 mobile verification remain pending after Computer Use stopped**. Do not remove that qualification until actual UI evidence exists.
+Durable project rooms support private invitations, display-name participants, their own availability/skills and supply contributions, two-second update polling, activity history, organizer permissions, revision conflicts and safe retries. These are backed by a real database. Independent HTTP-session and persistence tests pass. Desktop/mobile robotics and a fresh custom project pass production UI checks; **independent Brave contributor verification is waiting for the Windows desktop to be unlocked**. Do not describe HTTP tests as observed browser synchronization.
 
-Optional Google Gemini drafting converts a brief into schema-validated proposed requirements with quoted evidence, assumptions and questions. The user explicitly approves the model. AI does not invent an available volunteer roster or owned inventory, and never supplies the authoritative feasibility verdict. **No successful live Gemini request is currently claimed: the project has no configured key.**
+Optional Google Gemini drafting converts a brief into schema-validated proposed requirements with quoted evidence, assumptions and questions. The user explicitly approves the model. AI does not invent an available volunteer roster or owned inventory, and never supplies the authoritative feasibility verdict. **Four live proposals were accepted on `gemini-3.5-flash-lite`: three evaluation briefs and one complete production-browser approval flow.** Earlier schema and invalid-output failures are disclosed in the call ledger. Some questions repeat known facts; semantic review remains essential.
 
 ## How we built it
 
@@ -22,7 +22,7 @@ Next.js, React, TypeScript, React Flow, Zod, SQLite/libSQL with an optional mana
 
 ## Evaluation and limitations
 
-122 automated tests pass, preserving the earlier 100. A separate reproducible evaluation produces 19/19 correct defined outcomes and 200/200 additional small oracle matches. All returned feasible assignments and reported verified repairs pass the independent checker. Repair search succeeds on 11/12 defined repairable fixtures; it misses the simultaneous two-identical-volunteer case. Small local timing results are in the repository, not a scalability claim. A simple greedy baseline misses a specialist-ordering solution found by exact search.
+130 automated tests pass, preserving the earlier 100. A separate reproducible evaluation produces 19/19 correct defined outcomes and 200/200 additional small oracle matches. All returned feasible assignments and reported verified repairs pass the independent checker. Repair search succeeds on 12/12 defined repairable fixtures after fixing pairs of identical new-volunteer capability profiles; three identical contributions in one bundle remain outside the bounded search. Small local timing results are in the repository, not a scalability claim. A simple greedy baseline misses a specialist-ordering solution found by exact search.
 
 Feasibility means the entered mathematical requirements are satisfiable. It does not establish safety, turnout, credential authenticity, or a real-world commitment. All demo names, projects, participant counts and contributions are fictional planning examples. No users, measured impact or volunteer outcomes are claimed. Remote managed-backend and hosted operation are not verified yet.
 
@@ -32,6 +32,6 @@ OpenAI Codex assisted with architecture, code, design, fictional data, tests, de
 
 ## What is next
 
-Complete live Gemini evaluation, independent-browser/mobile QA and an approved hosted rehearsal, then improve repeated-contribution repair search, organizer recovery and production access management. Public source, hosting and video links must be added after owner approval. Eligibility and any cross-submission permission remain unconfirmed.
+Complete independent-browser collaboration and an approved hosted rehearsal, then improve deeper repair search, organizer recovery and production access management. Public source, hosting and video links must be added after owner approval. Eligibility and any cross-submission permission remain unconfirmed.
 
 **Before submission:** replace pending statuses only with observed evidence; add actual team members/contributions, approved source/demo/video links, and the team's real learning and challenges. Nothing has been published or submitted.

@@ -2,6 +2,8 @@
 
 The Node production build is the release artifact. Dockerfile and Compose are provided as an unexecuted deployment recipe; no container or hosted deployment is claimed verified. Use a single persistent Node server for file-based rooms, or a managed libSQL/Turso database for ephemeral or multiple instances. The implementation uses the official [libSQL TypeScript client](https://docs.turso.tech/sdk/ts/reference); Turso offers a [free plan](https://turso.tech/pricing), subject to current provider limits. No account has been created.
 
+Latest local production evidence, real Gemini results and remaining gates are in [final verification](FINAL_VERIFICATION.md). Docker Compose configuration now validates, and the nonexistent `public` asset copy was removed from the image recipe. The installed Docker Linux engine is unavailable, so container execution remains unverified. The owner confirmed that hosting is not configured and instructed local preparation only.
+
 ## Environment
 
 Copy `.env.example` to `.env.local` in Catalyst only. Real values must stay in ignored local configuration or the hosting provider's server-side secrets manager.

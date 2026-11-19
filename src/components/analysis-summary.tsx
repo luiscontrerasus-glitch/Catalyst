@@ -39,7 +39,7 @@ export function AnalysisSummary({
           </h4>
           <p>
             {ready
-              ? `All ${result.totalSlots} role slots have valid assignments. Budget, supplies, timing, and dependencies pass.`
+              ? "Every required role has a valid assignment. Budget, supplies, timing, and dependencies pass."
               : result.issues[0]?.message}
           </p>
           {result.issues.length > 1 && (

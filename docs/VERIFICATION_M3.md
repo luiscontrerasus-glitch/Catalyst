@@ -1,4 +1,6 @@
-# Milestone 3 verification — November 19, 2026
+# Milestone 3 initial checkpoint — November 19, 2026
+
+Historical evidence for commits `62963a3` and `c700cfc`. For the subsequent live Gemini results, fixes, screenshots, and current release gates, read [final verification](FINAL_VERIFICATION.md). The statuses below describe the initial checkpoint only.
 
 This record separates implemented behavior, automated evidence and actual browser observations. Milestone 3 is **not fully release-verified**: independent-browser/mobile UI and live Gemini checks remain pending. No public hosting, GitHub push, video publication or Devpost submission has occurred.
 

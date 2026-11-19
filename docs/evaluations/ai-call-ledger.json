@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-19",
+  "kind": "Observed call ledger for this verification session; excludes earlier missing-credential runs",
+  "model": "gemini-3.5-flash-lite",
+  "sdkVersion": "3.6.1",
+  "calls": 13,
+  "acceptedProposals": 4,
+  "providerErrors": 7,
+  "returnedResponsesRejectedByApplicationValidation": 2,
+  "phases": [
+    {
+      "phase": "Original schema evaluation",
+      "calls": 3,
+      "accepted": 0,
+      "providerErrors": 3,
+      "artifact": "ai-initial-schema-failures.json"
+    },
+    {
+      "phase": "Scrubbed schema diagnostics",
+      "calls": 2,
+      "accepted": 0,
+      "providerErrors": 2,
+      "observedStatus": 400,
+      "reason": "Provider constrained-decoding schema exceeds serving state limit"
+    },
+    {
+      "phase": "Reduced schema evaluation",
+      "calls": 3,
+      "accepted": 0,
+      "providerErrors": 2,
+      "invalidOutput": 1,
+      "artifact": "ai-schema-reduction-attempt.json"
+    },
+    {
+      "phase": "Strict-validator diagnosis",
+      "calls": 1,
+      "accepted": 0,
+      "invalidOutput": 1,
+      "reason": "Qualification identifiers contained disallowed characters; response rejected"
+    },
+    {
+      "phase": "Final schema plus identifier guidance evaluation",
+      "calls": 3,
+      "accepted": 3,
+      "providerErrors": 0,
+      "invalidOutput": 0,
+      "artifact": "ai-latest.json"
+    },
+    {
+      "phase": "Production browser natural-language-to-approval-to-solver",
+      "calls": 1,
+      "accepted": 1,
+      "providerErrors": 0,
+      "invalidOutput": 0,
+      "evidence": "../screenshots/milestone-3/gemini-live-proposal.jpg"
+    }
+  ],
+  "notes": "Counts are application-level attempts observed from tools and the browser. Returned invalid output is not counted as a validated successful proposal. No raw provider errors or credentials are stored. Final browser plan: 0/1 staffing with no roster, then independently verified 1/1 after a fictional reviewed commitment."
+}

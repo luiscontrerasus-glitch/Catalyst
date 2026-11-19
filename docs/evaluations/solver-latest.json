@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-19T17:17:20.586Z",
+  "generatedAt": "2026-11-19T18:20:41.877Z",
   "environment": {
     "node": "v24.14.1",
     "platform": "win32",
@@ -20,7 +20,7 @@
     "feasibleCertificatesValid": true,
     "allReturnedRepairsValid": true,
     "repairableFixtures": 12,
-    "repairableFixturesWithVerifiedRepair": 11,
+    "repairableFixturesWithVerifiedRepair": 12,
     "oracleMatches": 200,
     "oracleSamples": 200
   },
@@ -41,9 +41,9 @@
       "candidates": 1,
       "verifiedRepairs": 1,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.36170000000004165,
-      "p95SolveMs": 0.669399999999996,
-      "interventionMs": 1.0342000000000553
+      "medianSolveMs": 0.2726000000000113,
+      "p95SolveMs": 0.37659999999999627,
+      "interventionMs": 0.7710999999999899
     },
     {
       "id": "robotics-repaired",
@@ -61,9 +61,9 @@
       "candidates": 0,
       "verifiedRepairs": 0,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.26539999999999964,
-      "p95SolveMs": 0.36360000000001946,
-      "interventionMs": 0.010099999999965803
+      "medianSolveMs": 0.22800000000000864,
+      "p95SolveMs": 0.28609999999997626,
+      "interventionMs": 0.006100000000003547
     },
     {
       "id": "robotics-withdrawal",
@@ -81,9 +81,9 @@
       "candidates": 1,
       "verifiedRepairs": 1,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.261600000000044,
-      "p95SolveMs": 0.44669999999996435,
-      "interventionMs": 0.7914999999999281
+      "medianSolveMs": 0.22309999999998809,
+      "p95SolveMs": 0.3242000000000189,
+      "interventionMs": 0.7855999999999881
     },
     {
       "id": "cleanup-shortages",
@@ -101,9 +101,9 @@
       "candidates": 10,
       "verifiedRepairs": 2,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.21319999999991524,
-      "p95SolveMs": 0.3121999999999616,
-      "interventionMs": 6.9471999999999525
+      "medianSolveMs": 0.1630999999999858,
+      "p95SolveMs": 0.23830000000003793,
+      "interventionMs": 7.508500000000026
     },
     {
       "id": "donation-feasible",
@@ -121,9 +121,9 @@
       "candidates": 0,
       "verifiedRepairs": 0,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.11929999999995289,
-      "p95SolveMs": 0.46690000000000964,
-      "interventionMs": 0.011599999999930333
+      "medianSolveMs": 0.11599999999998545,
+      "p95SolveMs": 0.18250000000000455,
+      "interventionMs": 0.012499999999988631
     },
     {
       "id": "donation-withdrawal",
@@ -141,9 +141,9 @@
       "candidates": 1,
       "verifiedRepairs": 1,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.13360000000000127,
-      "p95SolveMs": 0.20039999999994507,
-      "interventionMs": 0.5748999999999569
+      "medianSolveMs": 0.12229999999999563,
+      "p95SolveMs": 0.17300000000000182,
+      "interventionMs": 0.492999999999995
     },
     {
       "id": "overlapping-tasks",
@@ -161,9 +161,9 @@
       "candidates": 1,
       "verifiedRepairs": 1,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.11659999999994852,
-      "p95SolveMs": 0.1816000000000031,
-      "interventionMs": 0.40229999999996835
+      "medianSolveMs": 0.0986000000000331,
+      "p95SolveMs": 0.16190000000000282,
+      "interventionMs": 0.3643000000000143
     },
     {
       "id": "missing-qualification",
@@ -181,9 +181,9 @@
       "candidates": 1,
       "verifiedRepairs": 1,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.09159999999997126,
-      "p95SolveMs": 0.16780000000005657,
-      "interventionMs": 0.4753000000000611
+      "medianSolveMs": 0.09449999999998226,
+      "p95SolveMs": 0.16689999999999827,
+      "interventionMs": 0.3556000000000381
     },
     {
       "id": "budget-shortage",
@@ -201,9 +201,9 @@
       "candidates": 1,
       "verifiedRepairs": 1,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.1856999999999971,
-      "p95SolveMs": 0.24069999999994707,
-      "interventionMs": 0.33740000000000236
+      "medianSolveMs": 0.21989999999999554,
+      "p95SolveMs": 0.32250000000004775,
+      "interventionMs": 0.3923000000000343
     },
     {
       "id": "dependency-conflict",
@@ -221,9 +221,9 @@
       "candidates": 1,
       "verifiedRepairs": 0,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.1067000000000462,
-      "p95SolveMs": 0.2193000000000893,
-      "interventionMs": 0.3365000000000009
+      "medianSolveMs": 0.10110000000003083,
+      "p95SolveMs": 0.16100000000000136,
+      "interventionMs": 0.480700000000013
     },
     {
       "id": "greedy-specialist-trap",
@@ -241,9 +241,9 @@
       "candidates": 0,
       "verifiedRepairs": 0,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.09829999999999472,
-      "p95SolveMs": 0.27940000000000964,
-      "interventionMs": 0.0036000000000058208
+      "medianSolveMs": 0.09420000000000073,
+      "p95SolveMs": 0.2793999999999528,
+      "interventionMs": 0.0027000000000043656
     },
     {
       "id": "multiple-alternatives",
@@ -261,9 +261,9 @@
       "candidates": 0,
       "verifiedRepairs": 0,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.09389999999996235,
-      "p95SolveMs": 0.14620000000002165,
-      "interventionMs": 0.00329999999996744
+      "medianSolveMs": 0.09010000000000673,
+      "p95SolveMs": 0.11379999999996926,
+      "interventionMs": 0.0028000000000929504
     },
     {
       "id": "workload-cap",
@@ -281,9 +281,9 @@
       "candidates": 1,
       "verifiedRepairs": 1,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.1171999999999116,
-      "p95SolveMs": 0.2535000000000309,
-      "interventionMs": 0.35590000000001965
+      "medianSolveMs": 0.11860000000001492,
+      "p95SolveMs": 0.1756000000000313,
+      "interventionMs": 0.6925999999999704
     },
     {
       "id": "repair-creates-budget-deficit",
@@ -301,9 +301,9 @@
       "candidates": 2,
       "verifiedRepairs": 1,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.09629999999992833,
-      "p95SolveMs": 0.374300000000062,
-      "interventionMs": 0.828200000000038
+      "medianSolveMs": 0.10619999999994434,
+      "p95SolveMs": 0.21660000000008495,
+      "interventionMs": 0.9701000000000022
     },
     {
       "id": "impossible-cycle",
@@ -321,9 +321,9 @@
       "candidates": 0,
       "verifiedRepairs": 0,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.09249999999997272,
-      "p95SolveMs": 0.14060000000006312,
-      "interventionMs": 0.01670000000001437
+      "medianSolveMs": 0.10500000000001819,
+      "p95SolveMs": 0.16070000000001983,
+      "interventionMs": 0.019900000000006912
     },
     {
       "id": "fragmented-availability",
@@ -341,9 +341,9 @@
       "candidates": 3,
       "verifiedRepairs": 3,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.0886000000000422,
-      "p95SolveMs": 0.13459999999997763,
-      "interventionMs": 0.6958000000000766
+      "medianSolveMs": 0.0988999999999578,
+      "p95SolveMs": 0.17889999999999873,
+      "interventionMs": 0.8913000000000011
     },
     {
       "id": "reusable-boundary",
@@ -361,9 +361,9 @@
       "candidates": 0,
       "verifiedRepairs": 0,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.09360000000003765,
-      "p95SolveMs": 0.13009999999997035,
-      "interventionMs": 0.002200000000016189
+      "medianSolveMs": 0.11180000000001655,
+      "p95SolveMs": 0.20829999999989468,
+      "interventionMs": 0.0037999999999556167
     },
     {
       "id": "consumable-total",
@@ -381,13 +381,13 @@
       "candidates": 1,
       "verifiedRepairs": 1,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.0986000000000331,
-      "p95SolveMs": 0.13439999999991414,
-      "interventionMs": 0.2965000000000373
+      "medianSolveMs": 0.1651000000000522,
+      "p95SolveMs": 0.2398999999999205,
+      "interventionMs": 0.3871000000000322
     },
     {
       "id": "two-identical-vacancies",
-      "category": "candidate multiplicity limit",
+      "category": "repeated contribution regression",
       "expectedFeasible": false,
       "actualStatus": "infeasible",
       "correct": true,
@@ -398,12 +398,12 @@
       "baselineStatus": "no_solution_found",
       "baselineFilledSlots": 0,
       "repairable": true,
-      "candidates": 1,
-      "verifiedRepairs": 0,
+      "candidates": 3,
+      "verifiedRepairs": 1,
       "allRepairsVerified": true,
-      "medianSolveMs": 0.07839999999998781,
-      "p95SolveMs": 0.14809999999999945,
-      "interventionMs": 0.29769999999996344
+      "medianSolveMs": 0.07820000000003802,
+      "p95SolveMs": 0.11020000000007713,
+      "interventionMs": 0.8892000000000735
     }
   ]
 }

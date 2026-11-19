@@ -1,0 +1,31 @@
+{
+  "generatedAt": "2026-11-19T18:05:37.263Z",
+  "status": "executed",
+  "sdk": "@google/genai",
+  "model": "gemini-3.5-flash-lite",
+  "successfulLiveRequests": 0,
+  "records": [
+    {
+      "id": "robotics-detailed",
+      "status": "error",
+      "code": "provider",
+      "message": "Gemini could not complete this request. Your draft is unchanged; retry or continue manually.",
+      "durationMs": 2507.5491
+    },
+    {
+      "id": "cleanup-partial",
+      "status": "error",
+      "code": "invalid_output",
+      "message": "Gemini returned an incomplete or invalid plan. Nothing was applied. Retry or build the plan manually.",
+      "durationMs": 5007.4815
+    },
+    {
+      "id": "donation-ambiguous",
+      "status": "error",
+      "code": "provider",
+      "message": "Gemini could not complete this request. Your draft is unchanged; retry or continue manually.",
+      "durationMs": 1158.4286999999995
+    }
+  ],
+  "instructions": "These are actual provider outcomes, not mocked responses."
+}

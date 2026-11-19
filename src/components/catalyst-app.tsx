@@ -539,13 +539,17 @@ export default function CatalystApp() {
                 <div>
                   <Users size={18} />
                   <span>
-                    <strong>{project.volunteers.length}</strong> volunteers
+                    <strong>{project.volunteers.length}</strong>{" "}
+                    {project.volunteers.length === 1
+                      ? "volunteer"
+                      : "volunteers"}
                   </span>
                 </div>
                 <div>
                   <GitBranch size={18} />
                   <span>
-                    <strong>{project.tasks.length}</strong> connected tasks
+                    <strong>{project.tasks.length}</strong> connected{" "}
+                    {project.tasks.length === 1 ? "task" : "tasks"}
                   </span>
                 </div>
                 <div>

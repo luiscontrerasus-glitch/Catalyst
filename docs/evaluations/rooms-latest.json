@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-19T17:18:32.171Z",
+  "generatedAt": "2026-11-19T18:28:02.298Z",
   "status": "passed",
   "kind": "real local HTTP API with independent cookie sessions; not a browser UI test",
   "serverMode": "production",
