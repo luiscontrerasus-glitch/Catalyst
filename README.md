@@ -6,7 +6,7 @@ Catalyst answers: **what is the smallest useful contribution that could make thi
 
 ## Run locally
 
-Requires Node.js 22.13+ and npm. Tested with Node.js 24.14.1.
+Requires Node.js 24.x and npm. Tested with Node.js 24.14.1.
 
 ```powershell
 cd C:\Users\luisc\OneDrive\Documents\ChatGPT\hackathons\catalyst
@@ -18,13 +18,17 @@ Open [http://127.0.0.1:3100](http://127.0.0.1:3100). Production: `npm run build`
 
 Click **Try the live demo → Preview this change** to see the robotics plan move from 7/8 to a verified 8/8 in a hypothetical preview. Applying a simulated repair is separate from receiving an actual participant contribution.
 
+## Production preparation
+
+Vercel Node 24 plus a hosted **libSQL-engine Turso database** are the prepared target. Remote storage uses the HTTP client; Vercel cannot silently fall back to local SQLite. `npm run check:production` checks readiness without printing secrets, `npm run db:migrate` creates/replays the additive schema, and `npm run verify:secrets` scans source, browser bundles and Git history. Managed deployments use database-backed quotas. Follow the [exact account/setup handoff](docs/VERCEL_HANDOFF.md); actual hosting remains unverified.
+
 ## Shared project rooms
 
 Choose **Create shared room**, enter a fictional display name, and copy the private invitation. An invited participant joins with a display name, contributes their own skills, declared qualifications, availability or existing supplies, and every connected session checks for updates every two seconds. Contributions change the actual model and rerun the solver. Only the organizer can replace requirements or invitations. Revision checks reject stale drafts; request IDs make retries safe. Activity records identify model changes.
 
 Rooms require room-specific HttpOnly sessions. Invite tokens are sensitive bearer access, expire after seven days, and appear in URL fragments that are removed after opening. Session expiry is 30 days. The database stores token hashes. Protect the organizer browser session: there is no account-based organizer recovery or member-removal interface yet. Rotating an invitation prevents new joins with the old link; it does not revoke existing sessions. This prototype is for fictional, low-sensitivity planning data.
 
-Local links work across browsers **on the same computer**. Remote participants need approved hosting. Managed persistence is implemented but not exercised against a remote account because hosting and database credentials are absent. A contributor in native Brave and an organizer in the in-app browser were independently verified: joining, volunteer/supply contributions, synchronized verified plans, permissions, reload and stale-edit rejection. Desktop/mobile robotics and a fresh AI-assisted custom project were also tested. A same-page invitation-navigation fix still needs its final browser regression check after native browser control stopped. See [current verification](docs/FINAL_VERIFICATION.md) and [deployment configuration](docs/DEPLOYMENT.md).
+Local links work across browsers **on the same computer**. Remote participants need approved hosting. Managed persistence is implemented but not exercised against a remote account because hosting and database credentials are absent. A contributor in native Brave and an organizer in the in-app browser were independently verified: joining, volunteer/supply contributions, synchronized verified plans, permissions, reload and stale-edit rejection. Desktop/mobile robotics and a fresh AI-assisted custom project were also tested. The same-page invitation regression now passes in a real browser, including contributor contribution and organizer permissions. See [current verification](docs/FINAL_VERIFICATION.md) and [deployment configuration](docs/DEPLOYMENT.md).
 
 ## Create a project
 
@@ -54,7 +58,7 @@ Copy `.env.example` to `.env.local` in **this project**, set `GEMINI_API_KEY` th
 
 Default model: `gemini-3.5-flash-lite`, configurable with `GEMINI_MODEL`. The official Google GenAI SDK (`@google/genai`) uses the documented Interactions API and schema-constrained JSON. Model and structured-output support were checked in [Google's model documentation](https://aistudio.google.com/docs/models/gemini-3.5-flash-lite). [Google's pricing page](https://aistudio.google.com/docs/pricing#gemini-3.5-flash-lite) lists free-tier text input/output; account eligibility, limits, billing, and access remain provider-dependent.
 
-Requests have a 40-second timeout, no SDK retry/automatic continuation, a 6,000-output-token cap, and five local drafting attempts per minute per server process. No grounding or paid external tools are enabled. Only the brief is sent when the user requests drafting. Free-tier provider data handling differs from paid tiers; keep personal/sensitive information out of briefs and review the provider's terms.
+Requests have a 40-second timeout, no SDK retry/automatic continuation, a 6,000-output-token cap, and five drafting attempts per minute (shared across instances with managed storage; per-process locally). No grounding or paid external tools are enabled. Only the brief is sent when the user requests drafting. Free-tier provider data handling differs from paid tiers; keep personal/sensitive information out of briefs and review the provider's terms.
 
 **Live Gemini verified:** the three fictional evaluation briefs produce valid proposals on `gemini-3.5-flash-lite` with SDK 3.6.1, including ambiguous inputs. A fourth accepted proposal completed the real production-browser approval and deterministic-solver workflow. Debugging exposed provider schema-complexity rejection and invalid identifiers; the provider grammar is now smaller while strict application validation is retained. The [call ledger](docs/evaluations/ai-call-ledger.json) records four accepted proposals and nine earlier unsuccessful attempts. Returned assumptions and questions still require semantic review; some questions repeat already provided facts. Missing-key, malformed-output, timeout, rate-limit and redacted-error unit tests remain clearly labeled tests. No staged responses exist in the product.
 
@@ -71,7 +75,7 @@ npm run evaluate:ai
 npm run evaluate:rooms
 ```
 
-There are **130 passing tests**, preserving all original 100 Milestone 2 tests, including the original 35 solver tests unchanged. New room tests use real SQLite: permissions, independent session tokens, HTTP cookies/origins, stale writes, concurrent commits, retry deduplication, expiry, invite rotation, disk reopen persistence and fail-closed managed configuration. AI provider-schema and repeated-contribution regression tests cover the final fixes. The original suite also compares 100 seeded small CSPs against an independent oracle. See [current verification](docs/FINAL_VERIFICATION.md) for actual UI evidence and limits.
+There are **143 passing tests**, preserving all original 100 Milestone 2 tests, including the original 35 solver tests unchanged. New room tests use real SQLite: permissions, independent session tokens, HTTP cookies/origins, stale writes, concurrent commits, retry deduplication, expiry, invite rotation, disk reopen persistence and fail-closed managed configuration. AI provider-schema and repeated-contribution regression tests cover the final fixes. The original suite also compares 100 seeded small CSPs against an independent oracle. See [current verification](docs/FINAL_VERIFICATION.md) for actual UI evidence and limits.
 
 The separate reproducible benchmark gets **19/19 defined outcomes correct**, **200/200 additional seeded oracle matches**, and verified repairs on **12/12 defined repairable fixtures** after fixing paired identical volunteer contributions. Three identical new volunteers in one bundle remain outside the bounded candidate space. First-fit greedy misses the specialist-ordering fixture that exact search solves. All returned feasible certificates and repairs pass the independent checker. Small synthetic timings are machine-specific and do not establish production scalability. See [results and limitations](docs/evaluations/solver-latest.md) and machine-readable artifacts alongside it.
 
@@ -85,6 +89,6 @@ Models use fixed times on one event day: up to 16 tasks, 24 volunteers, 32 role 
 
 OpenAI Codex assisted with architecture, implementation, UI design, fictional data, tests, debugging, and documentation. Humans must review and understand the work before presenting. Runtime AI uses Google Gemini only when configured and explicitly requested. See [AI disclosure](docs/AI_DISCLOSURE.md) and [hackathon requirements](docs/HACKATHONS.md).
 
-Libraries: Next.js, React, TypeScript, Tailwind CSS, React Flow, Zod, Lucide, Vitest, ESLint, the official Google GenAI SDK, and their dependencies. Exact versions and dependency licenses are available via the lockfile and installed packages. The original CSS/SVG artwork is retained. No stock testimonials or real impact metrics are used.
+Libraries: Next.js, React, TypeScript, Tailwind CSS, React Flow, Zod, Lucide, Vitest, ESLint, the libSQL/Turso client, the official Google GenAI SDK, and their dependencies. Exact versions and dependency licenses are available via the lockfile and installed packages. The original CSS/SVG artwork is retained. No stock testimonials or real impact metrics are used.
 
-The [demo script](docs/submission/DEMO_SCRIPT.md), [Devpost draft](docs/submission/DEVPOST.md), [submission checklist](docs/submission/CHECKLIST.md), and deployment recipe are prepared for review. Remaining release gates include the invitation edge-case regression and hosted managed-backend verification. Docker Compose validates, but the Docker engine is unavailable for container execution. Existing local Git history is preserved. Nothing has been pushed, publicly deployed, or submitted; those actions require approval. Cross-submission permission and team eligibility remain unresolved.
+The [demo script](docs/submission/DEMO_SCRIPT.md), [Devpost draft](docs/submission/DEVPOST.md), [submission checklist](docs/submission/CHECKLIST.md), and deployment recipe are prepared for review. Remaining release gates are approved publication and hosted managed-backend/HTTPS verification. Vercel/Turso setup is prepared in [the handoff](docs/VERCEL_HANDOFF.md). Docker Compose validates, but the Docker engine is unavailable for container execution. Existing local Git history is preserved. Nothing has been pushed, publicly deployed, or submitted; those actions require approval. Cross-submission permission and team eligibility remain unresolved.

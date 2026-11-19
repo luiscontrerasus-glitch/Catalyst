@@ -12,7 +12,10 @@
     "test:watch": "vitest",
     "evaluate": "tsx scripts/evaluate.ts",
     "evaluate:ai": "node --conditions=react-server --import tsx scripts/evaluate-ai.ts",
-    "evaluate:rooms": "tsx scripts/evaluate-rooms.ts"
+    "evaluate:rooms": "tsx scripts/evaluate-rooms.ts",
+    "check:production": "tsx scripts/check-production.ts",
+    "db:migrate": "tsx scripts/migrate-rooms.ts",
+    "verify:secrets": "tsx scripts/verify-secrets.ts"
   },
   "dependencies": {
     "@google/genai": "^3.6.1",
@@ -36,5 +39,8 @@
     "tsx": "^4.23.15",
     "typescript": "^5.9.0",
     "vitest": "^4.0.0"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }

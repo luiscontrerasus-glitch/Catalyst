@@ -1,5 +1,6 @@
 import { createHash, randomBytes, randomUUID } from "node:crypto";
 import type { Client, Transaction } from "@libsql/client";
+import { migrateRooms } from "./migrations";
 import { projectSchema } from "@/engine/model";
 import {
   createRoomSchema,
@@ -14,21 +15,13 @@ const digest = (value: string) =>
 const secret = () => randomBytes(32).toString("hex");
 const now = () => new Date().toISOString();
 const expiry = () => Date.now() + 30 * 86400000;
-const schemas = [
-  "CREATE TABLE IF NOT EXISTS rooms (id TEXT PRIMARY KEY, project TEXT NOT NULL, revision INTEGER NOT NULL, invite_hash TEXT NOT NULL UNIQUE, invite_expires INTEGER NOT NULL, created_at TEXT NOT NULL)",
-  "CREATE TABLE IF NOT EXISTS room_sessions (id TEXT PRIMARY KEY, room_id TEXT NOT NULL REFERENCES rooms(id), secret_hash TEXT NOT NULL UNIQUE, name TEXT NOT NULL, role TEXT NOT NULL CHECK(role IN ('owner','contributor')), expires INTEGER NOT NULL)",
-  "CREATE INDEX IF NOT EXISTS room_sessions_room ON room_sessions(room_id)",
-  "CREATE TABLE IF NOT EXISTS room_activity (id TEXT PRIMARY KEY, room_id TEXT NOT NULL REFERENCES rooms(id), revision INTEGER NOT NULL, actor TEXT NOT NULL, summary TEXT NOT NULL, at TEXT NOT NULL)",
-  "CREATE INDEX IF NOT EXISTS room_activity_room ON room_activity(room_id,revision)",
-  "CREATE TABLE IF NOT EXISTS room_requests (room_id TEXT NOT NULL, member_id TEXT NOT NULL, request_id TEXT NOT NULL, fingerprint TEXT NOT NULL, PRIMARY KEY(room_id,member_id,request_id))",
-];
 export function createRoomStore(
   db: Client,
   storage: "local" | "managed" = "local",
 ) {
   let initializing: Promise<unknown> | undefined;
   const ready = () =>
-    (initializing ??= db.batch(schemas, "write").catch((error) => {
+    (initializing ??= migrateRooms(db).catch((error) => {
       initializing = undefined;
       throw error;
     }));
@@ -134,6 +127,20 @@ export function createRoomStore(
   }
   return {
     ready,
+    async consumeRate(key: string, maximum: number, time = Date.now()) {
+      await ready();
+      const start = Math.floor(time / 60000) * 60000;
+      const result = await db.execute({
+        sql: `INSERT INTO request_limits(key,window_start,count) VALUES (?,?,1)
+          ON CONFLICT(key) DO UPDATE SET
+          count=CASE WHEN window_start<>excluded.window_start THEN 1 ELSE count+1 END,
+          window_start=excluded.window_start
+          WHERE window_start<>excluded.window_start OR count<?
+          RETURNING count`,
+        args: [key, start, maximum],
+      });
+      return result.rows.length > 0;
+    },
     async create(input: unknown) {
       const { name, project } = createRoomSchema.parse(input),
         id = randomBytes(12).toString("hex"),

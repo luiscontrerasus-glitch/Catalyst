@@ -1,27 +1,33 @@
 import { compileGoal, CompilerError } from "@/ai/compiler";
 import { generateProposal, providerStatus } from "@/ai/provider.server";
 import { applicationOrigin } from "@/lib/request-origin";
+import { BodyTooLarge, limitedText } from '@/lib/body';
 export const runtime = "nodejs";
+export const maxDuration = 60;
 let requests: number[] = [];
 const headers = { "Cache-Control": "no-store" };
 export function GET() {
   return Response.json(providerStatus(), { headers });
 }
 export async function POST(request: Request) {
-  const origin = request.headers.get("origin");
-  if (origin && origin !== applicationOrigin(request))
-    return Response.json(
-      { error: "Request origin is not allowed." },
-      { status: 403, headers },
-    );
   try {
-    const body = await request.text();
-    if (body.length > 12000)
-      throw new CompilerError(
-        "invalid_input",
-        "Keep your idea under 5,000 characters.",
-        413,
+    const origin = request.headers.get("origin");
+    let expected: string;
+    try {
+      expected = applicationOrigin(request);
+    } catch {
+      throw new CompilerError('unavailable', 'The server deployment configuration is incomplete. Continue manually.', 503);
+    }
+    if (!origin || origin !== expected)
+      return Response.json(
+        { error: "Request origin is not allowed." },
+        { status: 403, headers },
       );
+    if (!request.headers.get('content-type')?.startsWith('application/json'))
+      throw new CompilerError('invalid_input', 'Send a JSON project goal.', 415);
+    const body = await limitedText(request, 24000);
+    if (body.length > 12000)
+      throw new CompilerError('invalid_input', 'Keep your idea under 5,000 characters.', 413);
     let input: unknown;
     try {
       input = JSON.parse(body);
@@ -40,10 +46,19 @@ export async function POST(request: Request) {
       );
     const now = Date.now();
     requests = requests.filter((t) => now - t < 60000);
-    if (requests.length >= 5)
+    let allowed = requests.length < 5;
+    if (process.env.TURSO_DATABASE_URL || process.env.VERCEL === '1' || process.env.REQUIRE_MANAGED_ROOMS === 'true') {
+      try {
+        const { roomStore } = await import('@/rooms/runtime.server');
+        allowed = await (await roomStore()).consumeRate('ai-drafts', 5);
+      } catch {
+        throw new CompilerError('unavailable', 'Drafting is temporarily unavailable. Continue manually or retry later.', 503);
+      }
+    }
+    if (!allowed)
       throw new CompilerError(
         "rate_limit",
-        "Five drafts per minute are allowed locally. Wait a minute or continue manually.",
+        "Five drafts per minute are allowed. Wait a minute or continue manually.",
         429,
       );
     requests.push(now);
@@ -57,7 +72,8 @@ export async function POST(request: Request) {
       { headers },
     );
   } catch (error) {
-    const e =
+    const e = error instanceof BodyTooLarge
+      ? new CompilerError('invalid_input', 'Keep your idea under 5,000 characters.', 413) :
       error instanceof CompilerError
         ? error
         : new CompilerError(

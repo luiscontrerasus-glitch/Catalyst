@@ -2,6 +2,7 @@ import "server-only";
 import { z } from "zod";
 import { RoomError } from "./model";
 import { applicationOrigin } from "@/lib/request-origin";
+import { roomStore } from './runtime.server';
 export const privateHeaders = {
   "Cache-Control": "private, no-store",
   Vary: "Cookie",
@@ -35,7 +36,10 @@ export async function roomBody(request: Request) {
   const key = new URL(request.url).pathname.split("/").slice(0, 5).join("/"),
     time = Date.now(),
     limit = attempts.get(key);
-  if (!limit || time - limit.start > 60000)
+  if (process.env.TURSO_DATABASE_URL || process.env.VERCEL === '1' || process.env.REQUIRE_MANAGED_ROOMS === 'true') {
+    if (!await (await roomStore()).consumeRate('room-writes', 120))
+      throw new RoomError(429, 'rate_limit', 'Too many room changes. Wait a minute and retry.');
+  } else if (!limit || time - limit.start > 60000)
     attempts.set(key, { start: time, count: 1 });
   else if (++limit.count > 120)
     throw new RoomError(
@@ -83,7 +87,7 @@ export function roomFailure(error: unknown) {
   if (error instanceof RoomError)
     return Response.json(
       { code: error.code, error: error.message },
-      { status: error.status, headers: privateHeaders },
+      { status: error.status, headers: { ...privateHeaders, ...(error.status === 429 ? { 'Retry-After': '60' } : {}) } },
     );
   if (error instanceof z.ZodError)
     return Response.json(

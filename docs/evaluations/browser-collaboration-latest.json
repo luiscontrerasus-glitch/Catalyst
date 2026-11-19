@@ -18,7 +18,7 @@
       "passed": true
     },
     {
-      "check": "Contributor reviewed robotics skill, instruction qualification, 09:00–13:15 availability and 90-minute capacity",
+      "check": "Contributor reviewed robotics skill, instruction qualification, 09:00\u00e2\u20ac\u201c13:15 availability and 90-minute capacity",
       "passed": true
     },
     {
@@ -54,7 +54,10 @@
       "passed": true
     }
   ],
-  "mobileOrganizerViewport": { "width": 390, "height": 844 },
+  "mobileOrganizerViewport": {
+    "width": 390,
+    "height": 844
+  },
   "screenshots": [
     "../screenshots/milestone-3/two-browser-organizer.jpg",
     "../screenshots/milestone-3/two-browser-contributor.jpg",
@@ -66,7 +69,11 @@
     "observedDefect": "Pasting an invite fragment while already on the same unauthorized room required a manual reload",
     "fix": "Reload on an invitation hashchange so the initial validated invitation gate runs",
     "productionBuildAndChecks": "passed",
-    "finalBrowserRegression": "not completed: native Computer Use stopped because current browser URL could not be established confidently enough to enforce policy"
+    "finalBrowserRegression": "passed November 19: in-app browser on two cookie-isolated loopback origins; same-document invitation hash navigation triggered an actual document reload, join form appeared, fragment removed, contributor availability synchronized feasibility, owner-only editor stayed hidden from guest",
+    "screenshots": [
+      "../screenshots/release/invitation-regression-contributor.jpg",
+      "../screenshots/release/invitation-regression-organizer.jpg"
+    ]
   },
   "privacy": "No invitation tokens, session cookies, API keys, real participant information or unrelated browser chrome are stored. Native fullscreen mode and mobile viewport override were restored."
 }

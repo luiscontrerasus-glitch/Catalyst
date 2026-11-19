@@ -15,7 +15,7 @@ export async function POST(
   try {
     const { id } = await params;
     validRoomId(id);
-    const result = await roomStore().join(
+    const result = await (await roomStore()).join(
       id,
       await roomBody(request),
       roomToken(request, id),

@@ -4,7 +4,19 @@ Scope: continue `62963a3` / `c700cfc`, stabilize the product, verify real Gemini
 
 ## Current assessment
 
-The local production demonstration now includes real AI drafting through explicit approval to deterministic analysis, desktop/mobile robotics and a new custom plan, plus **genuine independent-browser collaboration** between a native Brave contributor and an in-app-browser organizer. Joining, volunteer/supply contributions, synchronization, permissions, concurrent edits and reload persistence were observed. **Full competition/public-production readiness is not claimed:** a same-page invitation fix needs its final browser regression, and managed hosting, HTTPS/proxy behavior and container execution are still unverified.
+The local production demonstration now includes real AI drafting through explicit approval to deterministic analysis, desktop/mobile robotics and a new custom plan, plus **genuine independent-browser collaboration** between a native Brave contributor and an in-app-browser organizer. Joining, volunteer/supply contributions, synchronization, permissions, concurrent edits and reload persistence were observed. **Full competition/public-production readiness is not claimed:** the invitation regression is closed, while managed hosting, HTTPS/proxy behavior and container execution remain unverified.
+
+## Production preparation from 5462920
+
+The same-page invitation browser regression is closed. The rebuilt production server retains room revision 3, organizer authorization and the contributed availability after restart, with independently verified 8/8 feasibility. The contributor remains distinct. Its mobile viewport measured 390 pixels, with no document horizontal overflow; the temporary override was reset. See [release screenshots](screenshots/release/).
+
+Prepared Vercel Node 24 configuration, mandatory managed storage and pinned HTTPS origin on Vercel, remote HTTP client selection, atomic additive schema initialization with a version ledger, secret-safe preflight/migration scripts, and database-backed AI/write quotas. Tests exercise concurrent quota consumption across two database clients, reopen persistence, byte-bounded AI input, missing origins and safe quota-storage failure. A generic route error boundary provides retry/workspace navigation without rendering raw errors; its build is verified, but a deliberate browser crash was not induced.
+
+Local gates: **143 tests / 15 files**, preserving all original 100 tests and the original solver/verifier; lint, typecheck, production build, and final production-server room evaluation **19/19** pass. The secret scan covers tracked and pending source, 33 browser artifacts and Git history; no matches or forbidden tracked paths. No new Gemini requests were made in this continuation: the existing exact model and four accepted/nine unsuccessful attempts below remain the ledger.
+
+Expected blockers: `check:production` detects Node 24 and the Gemini key but fails for the absent managed database and public HTTPS origin. `db:migrate` safely refuses missing managed credentials; no remote database was contacted or provisioned. Migrations and quota persistence pass against real local SQLite clients. Remote HTTP transactions, Vercel execution, HTTPS and multi-instance behavior remain unverified. Docker execution remains blocked by the unavailable daemon; Docker is not required for the chosen target.
+
+Follow [the exact Vercel/Turso handoff](VERCEL_HANDOFF.md). No public GitHub remote, hosted account or public origin is configured. No publication, paid provisioning or submission occurred. This is ready for an approved hosted rehearsal, not completed production sign-off.
 
 ## Live Gemini: actual calls and fixes
 
@@ -51,7 +63,7 @@ Avery entered robotics skill, the fictional `robotics_instruction` qualification
 
 Role behavior was also observed in the actual UI: Brave had no requirements editor or invitation controls. The organizer temporarily set the budget to zero from a 390×844 mobile viewport at revision 10; Brave synchronized the new budget shortage. Avery could preview the funding repair, but its apply button was disabled with “Only the organizer can apply this repair.” The organizer restored the $400 budget at revision 11, and both browsers returned to the verified feasible plan. Matching organizer/contributor screenshots show revision 11; the temporary native fullscreen mode was restored after saving screenshots that exclude private browser chrome.
 
-The test exposed a navigation edge case: pasting an invitation while already on that same room's bare URL changed only the fragment and did not open the join gate until a manual reload. The client now listens for an invitation hash change and reloads the room so the existing validated join path runs; the token stays in the fragment, and ordinary anchors do not trigger this reload. The patched production build, lint, tests and typecheck pass. A fresh-room browser regression was prepared, but native Computer Use stopped during navigation because it could not determine the current browser URL confidently enough to enforce policy. UI automation ended without a workaround. **The final browser retest of this specific fix remains open.** The independent collaboration results above were completed before that stop and do not rely on HTTP-only tests.
+The test exposed a navigation edge case: pasting an invitation while already on that same room's bare URL changed only the fragment and did not open the join gate until a manual reload. The client now listens for an invitation hash change and reloads the room so the existing validated join path runs; the token stays in the fragment, and ordinary anchors do not trigger this reload. The patched production build, lint, tests and typecheck pass. The final regression now passes in the in-app browser with cookie-isolated loopback origins: a bare room denied access; same-page invitation navigation caused an actual document reload; the join form appeared without manual refresh; and the token fragment disappeared. A fictional contributor joined and saved availability, both roles reached verified 8/8, and only the organizer displayed the requirements editor. These two origins supplement the earlier independent Brave evidence; they are not described as independent browser applications. The independent collaboration results above were completed before that stop and do not rely on HTTP-only tests.
 
 Observed message defects were fixed: stale offline warnings clear after reconnection, old success notices clear when a new contribution dialog opens, and old preview errors clear when opening a fresh preview. Stale writes still preserve drafts. Invitation-rotation retry handling now clears an obsolete copied link if a lost response cannot recover the newly generated secret; a fresh link can be generated.
 
@@ -71,16 +83,16 @@ The configured API-key value was absent from all scanned production browser arti
 
 ## Quality gates and deployment blockers
 
-- Lint: pass, zero warnings. Typecheck: pass. **130 tests pass** across 11 files.
+- Lint: pass, zero warnings. Typecheck: pass. **143 tests pass** across 15 files.
 - Next.js 16.4.6 Webpack production build: pass. A sandbox permission failure during an earlier prerender was resolved by an authorized build outside the sandbox.
 - Local production room HTTP evaluation: 19/19 checks with independent cookie sessions at the initial checkpoint; rerun against the final build is recorded in `rooms-latest.json`.
 - Actual SQLite close/reopen and production-server restart retain room data/session authorization. Managed-required configuration fails closed when credentials are missing.
 - Docker Compose validates. Dockerfile's copy of a nonexistent `public` directory was removed. The Docker Linux engine is unavailable, so no container build/run success is claimed.
 - Hosting, Turso URL/token, a public HTTPS origin, remote database transactions and multi-instance behavior are unconfigured/unverified. Owner instruction is to prepare locally. Deployment remains blocked until a target is chosen and approved for a hosted rehearsal.
-- Process-local request limits are not distributed abuse controls. Public runtime AI needs hosting-level budget/access controls before an unrestricted launch.
+- Managed deployments now use atomic fixed-window database quotas: five AI attempts/minute and 120 room writes/minute across the deployment. Cross-client concurrent consumption and reopen persistence pass locally. Hosted behavior, read-abuse protection and spending controls still require approved setup.
 
 ## Skeptical judge assessment
 
 The local first-minute path makes the contribution-first innovation visible: explain a specific conflict, preview a small repair, and inspect a verified assignment. Mobile graph text is readable through pan/zoom plus the task selector; the complete graph intentionally does not fit as tiny unreadable labels. Proposal assumptions, fictional commitments and model-only feasibility are visible. There are no claimed real users or measured community outcomes.
 
-Independent contributor-browser evidence is now available. The remaining technical gates are the invitation edge-case regression and hosted operation. Use the verified local planning/AI/room demonstration while preparing an approved hosted rehearsal. Public repository, hosting and Devpost publication remain subject to approval, and human eligibility/contribution/rules review is still required. See the [submission checklist](submission/CHECKLIST.md).
+Independent contributor-browser evidence is now available. The remaining technical gate is actual hosted operation. Use the verified local planning/AI/room demonstration while preparing an approved hosted rehearsal. Public repository, hosting and Devpost publication remain subject to approval, and human eligibility/contribution/rules review is still required. See the [submission checklist](submission/CHECKLIST.md).

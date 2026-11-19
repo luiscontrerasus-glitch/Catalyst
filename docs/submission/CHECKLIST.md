@@ -6,12 +6,12 @@ Target: owner-requested November 20, 2026 production readiness; STEM2Connect Nov
 
 - [x] Original solver/verifier and all original 100 tests preserved; intervention search has a focused multiplicity fix with new regression tests.
 - [x] Genuine persistent rooms, invitation/session separation, contribution ownership, organizer-only plan editing, activity, optimistic concurrency and idempotent retries implemented.
-- [x] 130 automated tests pass, including real SQLite, disk reopen, HTTP boundaries, provider grammar, repeated contributions and fail-closed production configuration.
+- [x] 143 automated tests pass, including real SQLite, disk reopen, HTTP boundaries, provider grammar, repeated contributions and fail-closed production configuration.
 - [x] Local real-server HTTP evaluation passes 19/19 checks with independent cookie sessions.
 - [x] Solver benchmark records 19/19 outcomes, 200/200 oracle matches, 12/12 repairable fixtures found; bounded-search limitations disclosed.
 - [x] Actual browser found and retested the localhost/127.0.0.1 origin issue; organizer room creation observed.
 - [x] Two genuinely independent browsers: native Brave contributor plus in-app organizer; join, availability, supplies, synchronized verified plans, contributor restrictions, stale draft and reload pass. Offline/reconnect was separately tested in the in-app browser.
-- [ ] Finish browser regression of the same-page invitation hash fix. The production build/checks pass; native browser control stopped before this final edge-case retest completed.
+- [x] Same-page invitation regression passes in a real browser: automatic reload, join form, fragment removal, contributor contribution, synchronized feasibility and organizer-only editing.
 - [x] Current desktop/mobile robotics and a fresh custom project pass UI checks; mobile room contributions, reload, shared same-session tabs, stale drafts and reconnect are exercised. This does not replace the independent-browser gate.
 - [x] Three live Gemini evaluation proposals and a fourth production-browser proposal accepted on `gemini-3.5-flash-lite`; actual earlier failures disclosed and strict validation/approval checked.
 - [x] Current npm production dependency audit: zero reported advisories. Exact configured key absent from 32 scanned browser build artifacts.
@@ -19,6 +19,9 @@ Target: owner-requested November 20, 2026 production readiness; STEM2Connect Nov
 - [ ] Rehearse deployed HTTPS cookie/origin behavior, persistence across restart and any multiple-instance sync.
 - [x] Confirm lint/typecheck/tests/build results in [final verification](../FINAL_VERIFICATION.md).
 - [x] Docker Compose configuration validates; nonexistent public-asset copy removed. Container execution remains blocked by unavailable Docker engine.
+
+- [x] Vercel/libSQL configuration, schema/preflight scripts, fail-closed serverless checks and database-backed quotas prepared and tested locally.
+- [ ] Complete every hosted acceptance item in [the handoff](../VERCEL_HANDOFF.md) after approval.
 
 ## Publication and human review
 
@@ -34,5 +37,7 @@ Target: owner-requested November 20, 2026 production readiness; STEM2Connect Nov
 ## Screenshot plan
 
 Fresh Milestone 3 evidence is in `docs/screenshots/milestone-3/`: landing, robotics preview, real Gemini proposal, approved custom plan, mobile editor/preview, organizer room, mobile contribution/verified room, and stale-draft rejection. Five new `two-browser-*` images show actual distinct roles, matching revision 11, contributor repair restrictions, cross-browser stale rejection and a mobile organizer view. No invitation fragments, cookies, API tokens or unrelated browser content are shown.
+
+New `docs/screenshots/release/` images show the invitation regression, restarted organizer room and 390-pixel contributor layout. Capture equivalent public HTTPS evidence after deployment.
 
 Older images outside the Milestone 3 subdirectory remain historical Milestone 1/2 evidence. Preserve the stable local planning demo as fallback until all room UI gates pass.

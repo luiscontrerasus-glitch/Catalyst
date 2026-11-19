@@ -1,5 +1,7 @@
 # Deployment preparation — no publication performed
 
+**Preferred target: Vercel Next.js on Node 24 plus a Turso libSQL-engine database. Follow [VERCEL_HANDOFF.md](VERCEL_HANDOFF.md) for exact accounts, environment variables, migrations and the hosted acceptance test.**
+
 The Node production build is the release artifact. Dockerfile and Compose are provided as an unexecuted deployment recipe; no container or hosted deployment is claimed verified. Use a single persistent Node server for file-based rooms, or a managed libSQL/Turso database for ephemeral or multiple instances. The implementation uses the official [libSQL TypeScript client](https://docs.turso.tech/sdk/ts/reference); Turso offers a [free plan](https://turso.tech/pricing), subject to current provider limits. No account has been created.
 
 Latest local production evidence, real Gemini results and remaining gates are in [final verification](FINAL_VERIFICATION.md). Docker Compose configuration now validates, and the nonexistent `public` asset copy was removed from the image recipe. The installed Docker Linux engine is unavailable, so container execution remains unverified. The owner confirmed that hosting is not configured and instructed local preparation only.
@@ -43,8 +45,8 @@ For managed hosting, configure both Turso variables, `REQUIRE_MANAGED_ROOMS=true
 ## Operational limits and release decision
 
 - Session-based display names, not identity verification. Qualifications are declarations, not credential checks. No sensitive/minor participant information is needed.
-- Invitation seven days; sessions 30 days. Rotating invites does not revoke joined members. No organizer recovery, member-removal UI, room deletion UI, scheduled cleanup, distributed abuse controls, or audited production authentication.
-- Process-local request limits are prototype safeguards, not distributed rate limiting. Avoid an unrestricted production launch without hosting-level limits.
+- Invitation seven days; sessions 30 days. Rotating invites does not revoke joined members. No organizer recovery, member-removal UI, room deletion UI, scheduled cleanup, or audited production authentication.
+- Managed deployments use atomic database quotas: 5 AI attempts/minute and 120 room writes/minute across instances, with safe denial if storage fails. Local file-backed servers retain process-local limits. Hosting-level read-abuse and spending controls remain necessary.
 - Polling every two seconds; no websocket or instant-sync guarantee. A disconnected browser retains its last received model and disables contribution buttons.
 - Exact search and intervention generation run in the browser with bounded model/search limits. Benchmark results cover small fixtures only.
 - Local planning remains available if shared storage fails. Preserve it as the demonstration fallback until independent-browser/mobile checks pass.

@@ -8,7 +8,7 @@ import {
 export const runtime = "nodejs";
 export async function POST(request: Request) {
   try {
-    const result = await roomStore().create(await roomBody(request));
+    const result = await (await roomStore()).create(await roomBody(request));
     return Response.json(
       { room: result.room, invite: result.invite },
       {
