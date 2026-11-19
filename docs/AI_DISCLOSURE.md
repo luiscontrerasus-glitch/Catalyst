@@ -1,4 +1,4 @@
-# AI use disclosure — Milestone 2
+# AI use disclosure — Milestone 3
 
 Draft for human review before submission. Do not claim human understanding, personal learning, or a completed review until those things have happened.
 
@@ -21,6 +21,10 @@ Missing credentials preserve manual planning with an explicit unavailable messag
 ## What was actually tested
 
 No Gemini key was configured in Catalyst or the process environment during this milestone. **No successful live Gemini request has been tested or claimed.** The real local HTTP endpoint's missing-key response and the browser's unavailable state were checked. Provider success/error/output cases use explicitly mocked test fixtures; they are not evidence of a live request. End-to-end manual project creation and real deterministic feasibility were tested separately in the running production app.
+
+Milestone 3 rechecked the installed official Google GenAI SDK (3.6.1) and documented stable default model. `npm run evaluate:ai` records three predefined fictional goals: a detailed robotics event, a partial cleanup description and an ambiguous donation project. The current artifact explicitly records missing credentials, zero attempted provider calls and zero live successes. Once a key is configured locally, the script makes real requests and records schema/compiler acceptance, assumptions/questions, approval blocking, absence of invented roster/inventory, sanitized failures, and the actual approved-model solver result. Automated checks do not replace human semantic review of each proposal.
+
+Shared-room contributions are participant-entered declarations, not AI-generated commitments. Hypothetical intervention volunteers remain labeled simulated model changes. Neither joining a room nor previewing a repair creates a claim that a real volunteer agreed to help. All room evaluation data is fictional. Development assistance also covers shared-room implementation, evaluation fixtures, deployment recipes and submission drafts.
 
 ## Attribution and submission
 

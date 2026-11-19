@@ -1,0 +1,12 @@
+services:
+  catalyst:
+    build: .
+    ports:
+      - "127.0.0.1:3100:3100"
+    env_file:
+      - .env.local
+    volumes:
+      - catalyst-data:/app/data
+    restart: unless-stopped
+volumes:
+  catalyst-data:

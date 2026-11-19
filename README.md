@@ -2,7 +2,7 @@
 
 **Turn ideas into collective action.**
 
-Catalyst models whether a community project can satisfy its stated requirements, explains bottlenecks, and verifies hypothetical repairs. Milestone 2 extends the original interface and deterministic engine with custom project creation, optional Gemini drafting, multiple fictional scenarios, and previewable counterfactuals.
+Catalyst answers: **what is the smallest useful contribution that could make this community project possible?** It models requirements, explains bottlenecks, and independently verifies hypothetical repairs. Custom plans, optional Gemini drafting, three fictional scenarios, and durable shared project rooms use the same deterministic engine. Repairs are ranked within a bounded candidate set; a global minimum is not claimed.
 
 ## Run locally
 
@@ -14,7 +14,17 @@ npm ci
 npm run dev
 ```
 
-Open [http://127.0.0.1:3100](http://127.0.0.1:3100). Production: `npm run build`, then `npm start`. Builds use the supported Webpack option because Turbopack's production CSS worker failed on this Windows environment. Local servers bind only to loopback. No authentication, database, or API key is required for manual planning and the demos.
+Open [http://127.0.0.1:3100](http://127.0.0.1:3100). Production: `npm run build`, then `npm start`. Builds use the supported Webpack option because Turbopack's production CSS worker failed on this Windows environment. Local scripts bind only to loopback. Manual planning and demos need no account or API key. Shared rooms automatically use SQLite in ignored `data/catalyst.db`, or a configured managed Turso database.
+
+Click **Try the live demo → Preview this change** to see the robotics plan move from 7/8 to a verified 8/8 in a hypothetical preview. Applying a simulated repair is separate from receiving an actual participant contribution.
+
+## Shared project rooms
+
+Choose **Create shared room**, enter a fictional display name, and copy the private invitation. An invited participant joins with a display name, contributes their own skills, declared qualifications, availability or existing supplies, and every connected session checks for updates every two seconds. Contributions change the actual model and rerun the solver. Only the organizer can replace requirements or invitations. Revision checks reject stale drafts; request IDs make retries safe. Activity records identify model changes.
+
+Rooms require room-specific HttpOnly sessions. Invite tokens are sensitive bearer access, expire after seven days, and appear in URL fragments that are removed after opening. Session expiry is 30 days. The database stores token hashes. Protect the organizer browser session: there is no account-based organizer recovery or member-removal interface yet. Rotating an invitation prevents new joins with the old link; it does not revoke existing sessions. This prototype is for fictional, low-sensitivity planning data.
+
+Local links work across browsers **on the same computer**. Remote participants need approved hosting. Managed persistence is implemented but not exercised against a remote account because credentials are absent. Backend independent-session tests pass; full two-independent-browser and Milestone 3 mobile UI QA remain pending after Computer Use stopped. See [current verification](docs/VERIFICATION_M3.md) and [deployment configuration](docs/DEPLOYMENT.md).
 
 ## Create a project
 
@@ -55,9 +65,15 @@ npm run lint
 npm run typecheck
 npm test
 npm run build
+npm run evaluate
+npm run evaluate:ai
+# With the local app running:
+npm run evaluate:rooms
 ```
 
-There are 100 passing tests, including all original 35 unchanged, plus 100 seeded small CSPs compared against an independent exhaustive oracle inside one original test. Coverage includes custom approval/editing, strict AI schemas, malformed output, missing configuration, redacted errors, HTTP limits, scenario switching, resets, storage migration/failure, optional scope, procurement/funding bundles, reproducibility, and independently verified interventions. See [verification](docs/VERIFICATION.md) for browser evidence and screenshots.
+There are **122 passing tests**, preserving all original 100 Milestone 2 tests, including the original 35 solver tests unchanged. New room tests use real SQLite: permissions, independent session tokens, HTTP cookies/origins, stale writes, concurrent commits, retry deduplication, expiry, invite rotation, and disk reopen persistence. The original suite also compares 100 seeded small CSPs against an independent oracle. Historical desktop/mobile evidence is in [Milestone 2 verification](docs/VERIFICATION.md); current status is in [Milestone 3 verification](docs/VERIFICATION_M3.md).
+
+The separate reproducible benchmark gets **19/19 defined outcomes correct**, **200/200 additional seeded oracle matches**, and verified repairs on **11/12 defined repairable fixtures**. First-fit greedy misses the specialist-ordering fixture that exact search solves. All returned feasible certificates and repairs pass the independent checker. Measured median solve times were **0.078–0.362 ms** on this machine; these small synthetic fixtures do not establish production scalability. See [results and limitations](docs/evaluations/solver-latest.md) and machine-readable artifacts alongside it.
 
 ## Architecture and limits
 
@@ -71,4 +87,4 @@ OpenAI Codex assisted with architecture, implementation, UI design, fictional da
 
 Libraries: Next.js, React, TypeScript, Tailwind CSS, React Flow, Zod, Lucide, Vitest, ESLint, the official Google GenAI SDK, and their dependencies. Exact versions and dependency licenses are available via the lockfile and installed packages. The original CSS/SVG artwork is retained. No stock testimonials or real impact metrics are used.
 
-Recommended Milestone 3: durable shared project rooms, collaboration and permission design, stronger benchmarks and larger-model execution, deeper bounded repair search, accessibility audits, backup/import, evaluation of real Gemini output once credentials are supplied, deployment, and submission materials. Existing local Git history is preserved with meaningful checkpoint commits. Nothing has been pushed, publicly deployed, or submitted; those actions still require approval. Cross-submission permission and team eligibility remain unresolved.
+The [demo script](docs/submission/DEMO_SCRIPT.md), [Devpost draft](docs/submission/DEVPOST.md), [submission checklist](docs/submission/CHECKLIST.md), and deployment recipe are prepared for review. Remaining release gates include live Gemini evaluation, independent-browser/mobile QA, and hosted managed-backend verification. Existing local Git history is preserved. Nothing has been pushed, publicly deployed, or submitted; those actions require approval. Cross-submission permission and team eligibility remain unresolved.
