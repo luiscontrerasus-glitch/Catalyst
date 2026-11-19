@@ -1,5 +1,6 @@
 import { compileGoal, CompilerError } from "@/ai/compiler";
 import { generateProposal, providerStatus } from "@/ai/provider.server";
+import { applicationOrigin } from "@/lib/request-origin";
 export const runtime = "nodejs";
 let requests: number[] = [];
 const headers = { "Cache-Control": "no-store" };
@@ -8,7 +9,7 @@ export function GET() {
 }
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== new URL(request.url).origin)
+  if (origin && origin !== applicationOrigin(request))
     return Response.json(
       { error: "Request origin is not allowed." },
       { status: 403, headers },

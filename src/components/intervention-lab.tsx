@@ -91,12 +91,18 @@ export function InterventionPreview({
   intervention: i,
   onClose,
   onApply,
+  applyDisabled = false,
+  applyLabel,
+  externalError,
 }: {
   project: Project;
   baseline: SolveResult;
   intervention: Intervention;
   onClose: () => void;
   onApply: () => void;
+  applyDisabled?: boolean;
+  applyLabel?: string;
+  externalError?: string;
 }) {
   const next = applyIntervention(project, i);
   return (
@@ -176,13 +182,22 @@ export function InterventionPreview({
           partial staffing assignment is not a valid full-project certificate.
         </p>
       </details>
+      {externalError && (
+        <p role="alert" className="editor-error">
+          {externalError}
+        </p>
+      )}
       <div className="editor-footer">
         <button className="quiet-button" onClick={onClose}>
           Keep current plan
         </button>
-        <button className="button primary small" onClick={onApply}>
-          Apply{" "}
-          {i.metrics?.changes === 1 ? "modeled change" : "modeled changes"}
+        <button
+          className="button primary small"
+          onClick={onApply}
+          disabled={applyDisabled}
+        >
+          {applyLabel ??
+            `Apply ${i.metrics?.changes === 1 ? "modeled change" : "modeled changes"}`}
         </button>
       </div>
     </Modal>

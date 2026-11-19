@@ -1,4 +1,5 @@
 "use client";
+import { useSyncExternalStore } from "react";
 import {
   Background,
   Controls,
@@ -54,6 +55,12 @@ function TaskCard({ data }: NodeProps<TaskNode>) {
   );
 }
 const nodeTypes = { task: TaskCard };
+const compactSnapshot = () => window.matchMedia("(max-width: 640px)").matches;
+const subscribeCompact = (listener: () => void) => {
+  const query = window.matchMedia("(max-width: 640px)");
+  query.addEventListener("change", listener);
+  return () => query.removeEventListener("change", listener);
+};
 export function layoutTasks(
   project: Project,
 ): Record<string, { x: number; y: number }> {
@@ -83,7 +90,7 @@ export function layoutTasks(
       return [
         t.id,
         {
-          x: r * 235,
+          x: r * 210,
           y: 120 + (group.indexOf(t.id) - (group.length - 1) / 2) * 180,
         },
       ];
@@ -102,6 +109,11 @@ export function ProjectGraph({
   onSelect: (id: string) => void;
 }) {
   const slots = slotsFor(project);
+  const compact = useSyncExternalStore(
+    subscribeCompact,
+    compactSnapshot,
+    () => false,
+  );
   const positions = layoutTasks(project);
   const nodes: TaskNode[] = project.tasks.map((t) => {
     const taskSlots = slots.filter((s) => s.task.id === t.id),
@@ -140,11 +152,12 @@ export function ProjectGraph({
   return (
     <div className="graph-canvas" aria-label="Project task dependency graph">
       <ReactFlow
+        key={compact ? "compact" : "wide"}
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
         fitView
-        fitViewOptions={{ padding: 0.09 }}
+        fitViewOptions={{ padding: 0.09, minZoom: compact ? 0.8 : 0.3 }}
         nodesDraggable={false}
         nodesConnectable={false}
         onNodeClick={(_, node) => onSelect(node.id)}
@@ -153,8 +166,16 @@ export function ProjectGraph({
         proOptions={{ hideAttribution: false }}
       >
         <Background color="#cfdbd5" gap={19} size={1} />
-        <Controls showInteractive={false} />
+        <Controls
+          showInteractive={false}
+          fitViewOptions={{ padding: 0.09, minZoom: compact ? 0.8 : 0.3 }}
+        />
       </ReactFlow>
+      {compact && (
+        <span className="graph-pan-hint">
+          Drag to explore · full details in the task selector
+        </span>
+      )}
     </div>
   );
 }

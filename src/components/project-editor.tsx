@@ -134,12 +134,14 @@ export function ProjectEditor({
   onClose,
   onApprove,
   initialStep = 0,
+  externalError,
 }: {
   initial: Project;
   editing: boolean;
   onClose: () => void;
   onApprove: (p: Project) => void;
   initialStep?: number;
+  externalError?: string;
 }) {
   const [draft, setDraft] = useState(() => structuredClone(initial)),
     [step, setStep] = useState(initialStep),
@@ -970,7 +972,8 @@ export function ProjectEditor({
                                 ? {
                                     ...x,
                                     kind: e.target.value as
-                                      "reusable" | "consumable",
+                                      | "reusable"
+                                      | "consumable",
                                   }
                                 : x,
                             ),
@@ -1228,6 +1231,11 @@ export function ProjectEditor({
           </div>
         )}
       </div>
+      {externalError && (
+        <p className="editor-error" role="alert">
+          {externalError}
+        </p>
+      )}
       <div className="editor-footer">
         <button
           className="quiet-button"

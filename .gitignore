@@ -8,3 +8,8 @@ coverage/
 .DS_Store
 *.log
 .runtime/
+data/
+*.db
+*.db-shm
+*.db-wal
+.room-secrets/

@@ -4,7 +4,6 @@ import {
   Activity,
   Beaker,
   Check,
-  CheckCheck,
   CircleAlert,
   Clock3,
   Code2,
@@ -26,6 +25,8 @@ import {
   Zap,
 } from "lucide-react";
 import { ProjectGraph } from "./project-graph";
+import { CreateRoomDialog } from "./create-room";
+import { AnalysisSummary } from "./analysis-summary";
 import { scenarioFor } from "@/data/scenarios";
 import { blankProject } from "@/lib/projects";
 import { Modal } from "./dialog";
@@ -56,14 +57,6 @@ import {
 
 type Tab = "overview" | "people" | "resources" | "lab";
 const skillName = (s: string) => s.replaceAll("_", " ");
-const statusText = (r: SolveResult) =>
-  r.status === "feasible"
-    ? "Ready to make it happen"
-    : r.status === "infeasible"
-      ? "A little support. A big difference."
-      : r.status === "unknown"
-        ? "Search limit reached"
-        : "Check project requirements";
 
 function Brand({ light = false }: { light?: boolean }) {
   return (
@@ -122,6 +115,7 @@ export default function CatalystApp() {
   );
   const [notice, setNotice] = useState("");
   const [showAdd, setShowAdd] = useState(false);
+  const [showRoom, setShowRoom] = useState(false);
   const [showMethod, setShowMethod] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const result = useMemo(() => solve(project), [project]);
@@ -257,7 +251,7 @@ export default function CatalystApp() {
                 <Plus size={18} />
                 Create a project
               </button>
-              <a className="button secondary" href="#workspace">
+              <a className="button secondary" href="#turning-point">
                 <FlaskConical size={18} /> Try the live demo
               </a>
               <a className="text-link" href="#how-it-works">
@@ -405,6 +399,13 @@ export default function CatalystApp() {
             </button>
             <button className="quiet-button" onClick={() => editProject()}>
               Edit requirements
+            </button>
+            <button
+              className="button secondary small"
+              onClick={() => setShowRoom(true)}
+            >
+              <Users size={15} />
+              Create shared room
             </button>
           </div>
           <div className="workspace">
@@ -573,6 +574,11 @@ export default function CatalystApp() {
                   {stored.error}
                 </p>
               )}
+              <AnalysisSummary
+                result={result}
+                primary={primary}
+                onPreview={setPreview}
+              />
               <div
                 id="workspace-panel"
                 role="tabpanel"
@@ -957,92 +963,6 @@ export default function CatalystApp() {
                   </div>
                 )}
               </div>
-              <div
-                className={`feasibility-panel ${result.status === "feasible" ? "is-feasible" : ""}`}
-                aria-live="polite"
-              >
-                <div className="feasibility-message">
-                  <span className="result-icon">
-                    {result.status === "feasible" ? (
-                      <CheckCheck size={25} />
-                    ) : (
-                      <CircleAlert size={25} />
-                    )}
-                  </span>
-                  <div>
-                    <span className="result-eyebrow">
-                      {result.status === "feasible"
-                        ? "MODELED REQUIREMENTS SATISFIED"
-                        : result.status === "infeasible"
-                          ? "HERE’S THE TURNING POINT"
-                          : "SOLVER STATUS"}
-                    </span>
-                    <h4>{statusText(result)}</h4>
-                    <p>
-                      {result.status === "feasible"
-                        ? `All ${result.totalSlots} role slots have valid assignments. Budget, supplies, timing, and dependencies pass.`
-                        : (result.issues[0]?.message ??
-                          "The search did not complete. No feasibility verdict has been established.")}
-                    </p>
-                  </div>
-                </div>
-                <div className="role-count">
-                  <strong>
-                    {result.filledSlots}
-                    <span>/{result.totalSlots}</span>
-                  </strong>
-                  <span>role slots covered</span>
-                  <div className="coverage-track">
-                    {Array.from({ length: result.totalSlots }, (_, i) => (
-                      <i
-                        key={i}
-                        className={i < result.filledSlots ? "filled" : ""}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-              {result.issues.length > 1 && (
-                <div className="additional-issues">
-                  {result.issues.slice(1).map((i, n) => (
-                    <p key={`${i.kind}-${n}`}>
-                      <CircleAlert size={14} />
-                      {i.message}
-                    </p>
-                  ))}
-                </div>
-              )}
-              {primary && (
-                <div className="intervention-panel">
-                  <div className="intervention-symbol">
-                    <Zap size={21} />
-                  </div>
-                  <div>
-                    <div className="intervention-title">
-                      <strong>{primary.label}</strong>
-                      <span>
-                        {primary.resolves ? "VERIFIED FIX" : "TESTED CHANGE"}
-                      </span>
-                    </div>
-                    <p>
-                      {primary.resolves
-                        ? `Re-solved and independently verified: ${primary.metrics?.changes ?? 1} modeled ${primary.metrics?.changes === 1 ? "change satisfies" : "changes satisfy"} all requirements.`
-                        : `Re-solved: ${primary.result.filledSlots}/${primary.result.totalSlots} role slots covered; other constraints may still need attention.`}
-                    </p>
-                    <details>
-                      <summary>View simulation assumptions</summary>
-                      <p>{primary.explanation}</p>
-                    </details>
-                  </div>
-                  <button
-                    className="button primary small"
-                    onClick={() => setPreview(primary)}
-                  >
-                    <Plus size={16} />
-                    Preview this change
-                  </button>
-                </div>
-              )}
               {tab === "lab" && interventions.length > 0 && (
                 <InterventionOptions
                   interventions={interventions}
@@ -1114,7 +1034,7 @@ export default function CatalystApp() {
       <footer className="site-footer">
         <Brand />
         <span>Turn ideas into collective action.</span>
-        <span>Milestone 2 · Local planning workspace</span>
+        <span>Local plans & shared project rooms</span>
       </footer>
       <div role="status" className={notice ? "toast" : "sr-only"} key={notice}>
         {notice && (
@@ -1130,6 +1050,12 @@ export default function CatalystApp() {
           </>
         )}
       </div>
+      {showRoom && (
+        <CreateRoomDialog
+          project={project}
+          onClose={() => setShowRoom(false)}
+        />
+      )}
       {showAdd && (
         <AddVolunteerModal
           project={project}
