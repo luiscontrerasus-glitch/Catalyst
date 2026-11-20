@@ -1,0 +1,15 @@
+# Keep local credentials, databases and deployment tools out of CLI uploads.
+.env*
+!.env.example
+.git
+.vercel
+.runtime
+data
+.room-secrets
+node_modules
+.next
+coverage
+*.db*
+*.log
+*.tsbuildinfo
+docs/screenshots

@@ -8,6 +8,7 @@ coverage/
 .DS_Store
 *.log
 .runtime/
+.vercel/
 data/
 *.db
 *.db-shm

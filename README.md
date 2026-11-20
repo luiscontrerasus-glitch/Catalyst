@@ -20,6 +20,8 @@ Click **Try the live demo → Preview this change** to see the robotics plan mov
 
 ## Production preparation
 
+Public source: [luiscontrerasus-glitch/Catalyst](https://github.com/luiscontrerasus-glitch/Catalyst). Deployment on Vercel Hobby and Turso Free is approved and in progress; see [hosted verification status](docs/PRODUCTION_VERIFICATION.md). Hosted results remain pending until actually tested.
+
 Vercel Node 24 plus a hosted **libSQL-engine Turso database** are the prepared target. Remote storage uses the HTTP client; Vercel cannot silently fall back to local SQLite. `npm run check:production` checks readiness without printing secrets, `npm run db:migrate` creates/replays the additive schema, and `npm run verify:secrets` scans source, browser bundles and Git history. Managed deployments use database-backed quotas. Follow the [exact account/setup handoff](docs/VERCEL_HANDOFF.md); actual hosting remains unverified.
 
 ## Shared project rooms
@@ -91,4 +93,4 @@ OpenAI Codex assisted with architecture, implementation, UI design, fictional da
 
 Libraries: Next.js, React, TypeScript, Tailwind CSS, React Flow, Zod, Lucide, Vitest, ESLint, the libSQL/Turso client, the official Google GenAI SDK, and their dependencies. Exact versions and dependency licenses are available via the lockfile and installed packages. The original CSS/SVG artwork is retained. No stock testimonials or real impact metrics are used.
 
-The [demo script](docs/submission/DEMO_SCRIPT.md), [Devpost draft](docs/submission/DEVPOST.md), [submission checklist](docs/submission/CHECKLIST.md), and deployment recipe are prepared for review. Remaining release gates are approved publication and hosted managed-backend/HTTPS verification. Vercel/Turso setup is prepared in [the handoff](docs/VERCEL_HANDOFF.md). Docker Compose validates, but the Docker engine is unavailable for container execution. Existing local Git history is preserved. Nothing has been pushed, publicly deployed, or submitted; those actions require approval. Cross-submission permission and team eligibility remain unresolved.
+The [demo script](docs/submission/DEMO_SCRIPT.md), [Devpost draft](docs/submission/DEVPOST.md), [submission checklist](docs/submission/CHECKLIST.md), and deployment recipe are prepared for review. Source is published and free-tier deployment is approved; hosted managed-backend/HTTPS verification remains pending. Vercel/Turso setup is prepared in [the handoff](docs/VERCEL_HANDOFF.md). Docker Compose validates, but the Docker engine is unavailable for container execution. Existing local Git history is preserved. Source publication is complete. Public app deployment is in progress; video publication and Devpost submission have not occurred. Cross-submission permission and team eligibility remain unresolved.
