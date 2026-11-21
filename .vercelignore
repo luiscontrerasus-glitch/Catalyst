@@ -4,7 +4,7 @@
 .git
 .vercel
 .runtime
-data
+/data/
 .room-secrets
 node_modules
 .next
