@@ -10,9 +10,7 @@ import {
   Download,
   FlaskConical,
   GitBranch,
-  HeartHandshake,
   Layers3,
-  Leaf,
   Menu,
   Minus,
   Plus,
@@ -22,8 +20,9 @@ import {
   Users,
   Wallet,
   X,
-  Zap,
 } from "lucide-react";
+import { Brand } from "./brand";
+import { MarketingIntro } from "./marketing";
 import { ProjectGraph } from "./project-graph";
 import { CreateRoomDialog } from "./create-room";
 import { AnalysisSummary } from "./analysis-summary";
@@ -57,21 +56,6 @@ import {
 
 type Tab = "overview" | "people" | "resources" | "lab";
 const skillName = (s: string) => s.replaceAll("_", " ");
-
-function Brand({ light = false }: { light?: boolean }) {
-  return (
-    <a
-      className={`brand ${light ? "light" : ""}`}
-      href="#"
-      aria-label="Catalyst home"
-    >
-      <span className="brand-mark">
-        <Zap size={22} fill="currentColor" />
-      </span>
-      catalyst<span className="brand-period">.</span>
-    </a>
-  );
-}
 
 export default function CatalystApp() {
   const stored = useSyncExternalStore(
@@ -200,10 +184,10 @@ export default function CatalystApp() {
             aria-label="Main navigation"
           >
             <a href="#how-it-works" onClick={() => setMobileMenu(false)}>
-              The idea
+              How it works
             </a>
             <a href="#workspace" onClick={() => setMobileMenu(false)}>
-              Explore the demo
+              Workspace
             </a>
             <button
               onClick={() => {
@@ -211,7 +195,7 @@ export default function CatalystApp() {
                 setMobileMenu(false);
               }}
             >
-              Under the hood <Code2 size={14} />
+              The method <Code2 size={14} />
             </button>
           </nav>
           <button className="header-cta" onClick={createProject}>
@@ -228,148 +212,16 @@ export default function CatalystApp() {
         </div>
       </header>
       <main>
-        <section className="hero">
-          <div className="hero-copy">
-            <div className="eyebrow">
-              <span className="small-spark">✳</span> GOOD IDEAS DESERVE A WAY
-              FORWARD
-            </div>
-            <h1>
-              Big ideas.
-              <br />
-              Real people.
-              <br />
-              <span>Possible, together.</span>
-            </h1>
-            <p>
-              Turn ideas into collective action. Find what your community
-              project needs, see what’s holding it back, and discover the
-              contribution that changes everything.
-            </p>
-            <div className="hero-actions">
-              <button className="button primary" onClick={createProject}>
-                <Plus size={18} />
-                Create a project
-              </button>
-              <a className="button secondary" href="#turning-point">
-                <FlaskConical size={18} /> Try the live demo
-              </a>
-              <a className="text-link" href="#how-it-works">
-                Meet your possibility engine
-              </a>
-            </div>
-            <div className="hero-footnote">
-              <ShieldCheck size={16} /> Real constraints. Verifiable answers.
-              Human possibilities.
-            </div>
-          </div>
-          <div
-            className="hero-visual"
-            aria-label="Illustration of people and resources connecting around a community project"
-          >
-            <div className="orbit orbit-one" />
-            <div className="orbit orbit-two" />
-            <div className="orbit orbit-three" />
-            <svg
-              className="hero-connections"
-              viewBox="0 0 600 480"
-              aria-hidden="true"
-            >
-              <path d="M145 115 Q300 115 300 235 T470 350 M455 100 Q455 235 300 235 T120 360 M300 235 L490 235" />
-            </svg>
-            <div className="floating-label label-people">
-              <span className="float-icon">
-                <Users size={18} />
-              </span>
-              <div>
-                <strong>People with purpose</strong>
-                <small>A little time. The right skills.</small>
-              </div>
-            </div>
-            <div className="mini-person person-one">MP</div>
-            <div className="mini-person person-two">JL</div>
-            <div className="mini-person person-three">SR</div>
-            <div className="idea-center">
-              <span className="center-spark">✳</span>
-              <strong>
-                What if
-                <br />
-                we could?
-              </strong>
-              <span>YOUR NEXT BIG IDEA</span>
-            </div>
-            <div className="floating-label label-resources">
-              <span className="float-icon">
-                <Layers3 size={18} />
-              </span>
-              <div>
-                <strong>Resources that add up</strong>
-                <small>Every contribution counts.</small>
-              </div>
-            </div>
-            <div className="possibility-card">
-              <span className="possibility-icon">
-                <Check size={22} />
-              </span>
-              <div>
-                <small>THE RIGHT CONTRIBUTION</small>
-                <strong>Changes what’s possible.</strong>
-              </div>
-              <div className="card-rays">✳</div>
-            </div>
-            <span className="visual-note">
-              Less “maybe someday.”
-              <br />
-              More “here’s how.”
-            </span>
-            <span className="decor-plus plus-one">+</span>
-            <span className="decor-plus plus-two">+</span>
-          </div>
-        </section>
-        <section
-          id="how-it-works"
-          className="principles"
-          aria-label="How Catalyst works"
-        >
-          <div>
-            <span className="principle-icon">
-              <HeartHandshake />
-            </span>
-            <p>
-              <strong>Start with a shared idea</strong>
-              <span>A workshop. A cleanup. A little good.</span>
-            </p>
-          </div>
-          <div>
-            <span className="principle-icon">
-              <GitBranch />
-            </span>
-            <p>
-              <strong>See the whole picture</strong>
-              <span>People, time, supplies, and dependencies.</span>
-            </p>
-          </div>
-          <div>
-            <span className="principle-icon">
-              <Zap />
-            </span>
-            <p>
-              <strong>Find your turning point</strong>
-              <span>Test the change that makes it possible.</span>
-            </p>
-          </div>
-        </section>
+        <MarketingIntro onCreate={createProject} />
 
         <section className="workspace-section" id="workspace">
           <div className="section-intro">
             <div>
-              <div className="eyebrow">THE POSSIBILITY ENGINE, IN ACTION</div>
-              <h2>
-                One more person. <span>A whole new possibility.</span>
-              </h2>
+              <div className="eyebrow">THE WORKSPACE</div>
+              <h2>A clear view of what’s possible.</h2>
               <p>
-                Build your own plan or explore three fictional community
-                projects. Make a change. See the real result.
+                Explore three fictional projects, or create your own. Every
+                finding comes from the requirements you can inspect and edit.
               </p>
             </div>
             <span className="demo-badge">
@@ -410,7 +262,7 @@ export default function CatalystApp() {
           </div>
           <div className="workspace">
             <aside className="sidebar">
-              <div className="sidebar-title">YOUR PROJECT SPACE</div>
+              <div className="sidebar-title">PROJECT WORKSPACE</div>
               <div className="project-switch">
                 <span className="project-icon">
                   <Activity size={20} />
@@ -429,7 +281,7 @@ export default function CatalystApp() {
                   [
                     {
                       id: "overview",
-                      label: "Project overview",
+                      label: "Plan & analysis",
                       icon: GitBranch,
                     },
                     { id: "people", label: "People & skills", icon: Users },
@@ -440,7 +292,7 @@ export default function CatalystApp() {
                     },
                     {
                       id: "lab",
-                      label: "What-if laboratory",
+                      label: "Interventions",
                       icon: FlaskConical,
                     },
                   ] as const
@@ -456,22 +308,15 @@ export default function CatalystApp() {
                   >
                     <item.icon size={18} />
                     {item.label}
-                    {item.id === "lab" && (
-                      <span className="new-label">TRY IT</span>
-                    )}
                   </button>
                 ))}
               </div>
               <div className="sidebar-note">
-                <Leaf size={23} />
-                <strong>
-                  Small inputs.
-                  <br />
-                  Collective impact.
-                </strong>
+                <ShieldCheck size={19} />
+                <strong>A plan you can inspect.</strong>
                 <p>
-                  Every great community project starts with people showing up
-                  for each other.
+                  Explicit inputs. Deterministic analysis. Independently checked
+                  assignments.
                 </p>
               </div>
               <div className="local-label">
@@ -505,9 +350,7 @@ export default function CatalystApp() {
               </div>
               <div className="project-heading">
                 <div>
-                  <span className="project-kicker">
-                    A LITTLE CURIOSITY GOES A LONG WAY
-                  </span>
+                  <span className="project-kicker">PROJECT PLAN</span>
                   <h3>{project.name}</h3>
                   <p>
                     {project.audience} planned participants ·{" "}
@@ -578,394 +421,404 @@ export default function CatalystApp() {
                   {stored.error}
                 </p>
               )}
-              <AnalysisSummary
-                result={result}
-                primary={primary}
-                onPreview={setPreview}
-              />
-              <div
-                id="workspace-panel"
-                role="tabpanel"
-                aria-labelledby={`tab-${tab}`}
-              >
-                {tab === "overview" && (
-                  <>
-                    <div className="graph-heading">
-                      <div>
-                        <h4>The path from idea to impact</h4>
-                        <p>
-                          Connected tasks. Shared resources. One clear picture.
-                        </p>
-                      </div>
-                      <span className="graph-legend">
-                        <i className="legend-ready" />
-                        Roles covered
-                        <i className="legend-blocked" />
-                        Needs support
-                      </span>
-                    </div>
-                    <ProjectGraph
-                      key={project.id}
-                      project={project}
-                      result={result}
-                      selectedTask={selected.id}
-                      onSelect={setSelectedTask}
-                    />
-                    <div className="task-strip">
-                      <div>
-                        <strong>{selected.name}</strong>
-                        <span>
-                          {formatTime(selected.start)}–
-                          {formatTime(selected.end)} ·{" "}
-                          {money(selected.costCents)} planned expenses
+              <div className="workspace-body">
+                <div
+                  id="workspace-panel"
+                  role="tabpanel"
+                  aria-labelledby={`tab-${tab}`}
+                >
+                  {tab === "overview" && (
+                    <>
+                      <div className="graph-heading">
+                        <div>
+                          <h4>The project, connected</h4>
+                          <p>
+                            Select a task to inspect its requirements and
+                            assignments.
+                          </p>
+                        </div>
+                        <span className="graph-legend">
+                          <i className="legend-ready" />
+                          Roles covered
+                          <i className="legend-blocked" />
+                          Needs support
                         </span>
                       </div>
-                      <div className="task-chips">
-                        {slots
-                          .filter((s) => s.task.id === selected.id)
-                          .map((s) => {
-                            const a = result.assignments.find(
-                                (a) => a.slotId === s.id,
-                              ),
-                              v = project.volunteers.find(
-                                (v) => v.id === a?.volunteerId,
+                      <ProjectGraph
+                        key={project.id}
+                        project={project}
+                        result={result}
+                        selectedTask={selected.id}
+                        onSelect={setSelectedTask}
+                      />
+                      <div className="task-strip">
+                        <div>
+                          <strong>{selected.name}</strong>
+                          <span>
+                            {formatTime(selected.start)}–
+                            {formatTime(selected.end)} ·{" "}
+                            {money(selected.costCents)} planned expenses
+                          </span>
+                        </div>
+                        <div className="task-chips">
+                          {slots
+                            .filter((s) => s.task.id === selected.id)
+                            .map((s) => {
+                              const a = result.assignments.find(
+                                  (a) => a.slotId === s.id,
+                                ),
+                                v = project.volunteers.find(
+                                  (v) => v.id === a?.volunteerId,
+                                );
+                              return (
+                                <span
+                                  key={s.id}
+                                  className={
+                                    v
+                                      ? "assignment-chip"
+                                      : "assignment-chip missing"
+                                  }
+                                >
+                                  {v ? (
+                                    <Check size={12} />
+                                  ) : (
+                                    <CircleAlert size={12} />
+                                  )}
+                                  {s.role.name}: {v?.name ?? "Unfilled"}
+                                </span>
                               );
-                            return (
-                              <span
-                                key={s.id}
-                                className={
-                                  v
-                                    ? "assignment-chip"
-                                    : "assignment-chip missing"
-                                }
-                              >
-                                {v ? (
-                                  <Check size={12} />
-                                ) : (
-                                  <CircleAlert size={12} />
-                                )}
-                                {s.role.name}: {v?.name ?? "Unfilled"}
-                              </span>
-                            );
-                          })}
+                            })}
+                        </div>
                       </div>
-                    </div>
-                    <div className="task-access">
-                      <label htmlFor="task-picker">Inspect a task</label>
-                      <select
-                        id="task-picker"
-                        value={selected.id}
-                        onChange={(e) => setSelectedTask(e.target.value)}
-                      >
-                        {project.tasks.map((t) => (
-                          <option key={t.id} value={t.id}>
-                            {t.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </>
-                )}
-                {tab === "people" && (
-                  <div className="tab-content">
-                    <div className="panel-heading">
-                      <div>
-                        <h4>The people behind the possibility</h4>
-                        <p>
-                          {scenario
-                            ? "Skills and availability are explicit fictional inputs."
-                            : "Capabilities and commitments come from your approved inputs."}
-                        </p>
-                        <button
-                          className="quiet-button"
-                          onClick={() => editProject(2)}
+                      <div className="task-access">
+                        <label htmlFor="task-picker">Inspect a task</label>
+                        <select
+                          id="task-picker"
+                          value={selected.id}
+                          onChange={(e) => setSelectedTask(e.target.value)}
                         >
-                          Edit roster, skills & availability
-                        </button>
+                          {project.tasks.map((t) => (
+                            <option key={t.id} value={t.id}>
+                              {t.name}
+                            </option>
+                          ))}
+                        </select>
                       </div>
-                      <button
-                        className="button small primary"
-                        onClick={() => setShowAdd(true)}
-                      >
-                        <Plus size={15} />
-                        Add volunteer
-                      </button>
-                    </div>
-                    <div className="people-grid">
-                      {project.volunteers.map((v, index) => (
-                        <VolunteerCard
-                          key={v.id}
-                          volunteer={v}
-                          index={index}
-                          project={project}
-                          result={result}
-                          onWithdraw={() => withdraw(v)}
-                        />
-                      ))}
-                    </div>
-                    {project.volunteers.length === 0 && (
-                      <p className="empty-state">
-                        No volunteers remain. Add a simulated volunteer to
-                        explore a possible plan.
-                      </p>
-                    )}
-                    <div className="restore-roster">
-                      {baselineProject.volunteers
-                        .filter(
-                          (v) => !project.volunteers.some((x) => x.id === v.id),
-                        )
-                        .map((v) => (
+                    </>
+                  )}
+                  {tab === "people" && (
+                    <div className="tab-content">
+                      <div className="panel-heading">
+                        <div>
+                          <h4>People & commitments</h4>
+                          <p>
+                            {scenario
+                              ? "Skills and availability are explicit fictional inputs."
+                              : "Capabilities and commitments come from your approved inputs."}
+                          </p>
                           <button
-                            key={v.id}
                             className="quiet-button"
-                            onClick={() =>
-                              update(
-                                {
-                                  ...project,
-                                  volunteers: [
-                                    ...project.volunteers,
-                                    structuredClone(v),
-                                  ],
-                                },
-                                `${v.name} restored`,
-                              )
-                            }
+                            onClick={() => editProject(2)}
                           >
-                            <Plus size={14} />
-                            Restore {v.name}
+                            Edit roster, skills & availability
                           </button>
-                        ))}
-                    </div>
-                  </div>
-                )}
-                {tab === "resources" && (
-                  <div className="tab-content">
-                    <div className="panel-heading">
-                      <div>
-                        <h4>Make every resource count</h4>
-                        <p>
-                          Reusable inventory is checked at peak simultaneous
-                          demand.
-                        </p>
-                        <button
-                          className="quiet-button"
-                          onClick={() => editProject(3)}
-                        >
-                          Edit supplies & task requirements
-                        </button>
-                      </div>
-                    </div>
-                    <div className="resource-list">
-                      {project.resources.map((r) => (
-                        <div key={r.id} className="resource-row">
-                          <span className="resource-icon">
-                            <Layers3 size={20} />
-                          </span>
-                          <div>
-                            <strong>{r.name}</strong>
-                            <span>
-                              {r.kind === "reusable"
-                                ? "Reusable · peak concurrent demand"
-                                : "Consumable · total event demand"}
-                              : {resourceDemand(project, r.id)}
-                            </span>
-                          </div>
-                          <label>
-                            <span className="sr-only">{r.name} available</span>
-                            <input
-                              aria-label={`${r.name} available`}
-                              type="number"
-                              min="0"
-                              max="10000"
-                              value={r.quantity}
-                              onChange={(e) => {
-                                const quantity = e.target.valueAsNumber;
-                                if (
-                                  Number.isInteger(quantity) &&
-                                  quantity >= 0 &&
-                                  quantity <= 10000
-                                )
-                                  update(
-                                    {
-                                      ...project,
-                                      resources: project.resources.map((x) =>
-                                        x.id === r.id ? { ...x, quantity } : x,
-                                      ),
-                                    },
-                                    `${r.name} inventory changed to ${quantity}`,
-                                  );
-                              }}
-                            />
-                          </label>
-                          <span
-                            className={
-                              r.quantity >= resourceDemand(project, r.id)
-                                ? "inventory-ok"
-                                : "inventory-low"
-                            }
-                          >
-                            {r.quantity >= resourceDemand(project, r.id) ? (
-                              <Check size={17} />
-                            ) : (
-                              <CircleAlert size={17} />
-                            )}
-                          </span>
                         </div>
-                      ))}
-                    </div>
-                    <div className="budget-panel">
-                      <div>
-                        <h4>A transparent budget</h4>
-                        <p>
-                          All task expenses:{" "}
-                          <strong>{money(result.costCents)}</strong>
-                        </p>
-                        <p>
-                          Inventory is already on hand. Changing quantities does
-                          not model purchase costs.
-                        </p>
-                      </div>
-                      <label>
-                        Available funding (USD)
-                        <input
-                          aria-label="Available funding in dollars"
-                          type="number"
-                          min="0"
-                          max="1000000"
-                          step="1"
-                          value={project.budgetCents / 100}
-                          onChange={(e) => {
-                            const amount = e.target.valueAsNumber;
-                            if (
-                              Number.isFinite(amount) &&
-                              amount >= 0 &&
-                              amount <= 1000000
-                            )
-                              update(
-                                {
-                                  ...project,
-                                  budgetCents: Math.round(amount * 100),
-                                },
-                                `Budget changed to ${money(Math.round(amount * 100))}`,
-                              );
-                          }}
-                        />
-                      </label>
-                    </div>
-                    <div className="expense-table">
-                      {project.tasks.map((t) => (
-                        <div key={t.id}>
-                          <span>{t.name}</span>
-                          <strong>{money(t.costCents)}</strong>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {tab === "lab" && (
-                  <div className="tab-content">
-                    <div className="panel-heading">
-                      <div>
-                        <h4>What changes what’s possible?</h4>
-                        <p>
-                          Every experiment runs the constraint solver again.
-                        </p>
-                      </div>
-                      <FlaskConical size={23} className="teal-text" />
-                    </div>
-                    <div className="comparison">
-                      <div>
-                        <span>
-                          {before
-                            ? "BEFORE THE LAST CHANGE"
-                            : "SESSION BASELINE"}
-                        </span>
-                        <strong>
-                          {comparison.filledSlots}
-                          <small> / {comparison.totalSlots} roles</small>
-                        </strong>
-                        <p>
-                          {comparison.status === "feasible"
-                            ? "Requirements satisfied"
-                            : comparison.status === "infeasible"
-                              ? "Requirements unmet"
-                              : "Search incomplete"}
-                        </p>
-                      </div>
-                      <span className="compare-symbol">⇢</span>
-                      <div
-                        className={
-                          result.status === "feasible" ? "comparison-ready" : ""
-                        }
-                      >
-                        <span>CURRENT SCENARIO</span>
-                        <strong>
-                          {result.filledSlots}
-                          <small> / {result.totalSlots} roles</small>
-                        </strong>
-                        <p>
-                          {result.status === "feasible"
-                            ? "Requirements satisfied"
-                            : result.status === "infeasible"
-                              ? "Requirements unmet"
-                              : "Search incomplete"}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="last-action">{lastAction}</p>
-                    <div className="lab-options">
-                      <div>
-                        <h5>
-                          <Plus size={17} /> Bring someone in
-                        </h5>
-                        <p>
-                          Add a fictional person with explicit skills,
-                          availability, and workload limits.
-                        </p>
                         <button
-                          className="button secondary small"
+                          className="button small primary"
                           onClick={() => setShowAdd(true)}
                         >
-                          Build a volunteer profile
+                          <Plus size={15} />
+                          Add volunteer
                         </button>
                       </div>
-                      <div>
-                        <h5>
-                          <Minus size={17} /> Test a withdrawal
-                        </h5>
-                        <p>
-                          Remove someone from the plan. Discover which
-                          contribution you need to replace.
+                      <div className="people-grid">
+                        {project.volunteers.map((v, index) => (
+                          <VolunteerCard
+                            key={v.id}
+                            volunteer={v}
+                            index={index}
+                            project={project}
+                            result={result}
+                            onWithdraw={() => withdraw(v)}
+                          />
+                        ))}
+                      </div>
+                      {project.volunteers.length === 0 && (
+                        <p className="empty-state">
+                          No volunteers remain. Add a simulated volunteer to
+                          explore a possible plan.
                         </p>
-                        <div className="withdraw-buttons">
-                          {project.volunteers.map((v) => (
+                      )}
+                      <div className="restore-roster">
+                        {baselineProject.volunteers
+                          .filter(
+                            (v) =>
+                              !project.volunteers.some((x) => x.id === v.id),
+                          )
+                          .map((v) => (
                             <button
                               key={v.id}
-                              onClick={() => withdraw(v)}
-                              aria-label={`Withdraw ${v.name}`}
+                              className="quiet-button"
+                              onClick={() =>
+                                update(
+                                  {
+                                    ...project,
+                                    volunteers: [
+                                      ...project.volunteers,
+                                      structuredClone(v),
+                                    ],
+                                  },
+                                  `${v.name} restored`,
+                                )
+                              }
                             >
-                              {v.name}
-                              <X size={13} />
+                              <Plus size={14} />
+                              Restore {v.name}
                             </button>
                           ))}
-                        </div>
                       </div>
                     </div>
-                    <button
-                      className="text-link"
-                      onClick={() => setTab("resources")}
-                    >
-                      <SlidersHorizontal size={16} /> Experiment with supplies
-                      and funding
-                    </button>
-                    {!allOriginalPresent && (
-                      <button className="quiet-button" onClick={reset}>
-                        <RotateCcw size={14} />
-                        Restore original roster
+                  )}
+                  {tab === "resources" && (
+                    <div className="tab-content">
+                      <div className="panel-heading">
+                        <div>
+                          <h4>Supplies & available funding</h4>
+                          <p>
+                            Reusable inventory is checked at peak simultaneous
+                            demand.
+                          </p>
+                          <button
+                            className="quiet-button"
+                            onClick={() => editProject(3)}
+                          >
+                            Edit supplies & task requirements
+                          </button>
+                        </div>
+                      </div>
+                      <div className="resource-list">
+                        {project.resources.map((r) => (
+                          <div key={r.id} className="resource-row">
+                            <span className="resource-icon">
+                              <Layers3 size={20} />
+                            </span>
+                            <div>
+                              <strong>{r.name}</strong>
+                              <span>
+                                {r.kind === "reusable"
+                                  ? "Reusable · peak concurrent demand"
+                                  : "Consumable · total event demand"}
+                                : {resourceDemand(project, r.id)}
+                              </span>
+                            </div>
+                            <label>
+                              <span className="sr-only">
+                                {r.name} available
+                              </span>
+                              <input
+                                aria-label={`${r.name} available`}
+                                type="number"
+                                min="0"
+                                max="10000"
+                                value={r.quantity}
+                                onChange={(e) => {
+                                  const quantity = e.target.valueAsNumber;
+                                  if (
+                                    Number.isInteger(quantity) &&
+                                    quantity >= 0 &&
+                                    quantity <= 10000
+                                  )
+                                    update(
+                                      {
+                                        ...project,
+                                        resources: project.resources.map((x) =>
+                                          x.id === r.id
+                                            ? { ...x, quantity }
+                                            : x,
+                                        ),
+                                      },
+                                      `${r.name} inventory changed to ${quantity}`,
+                                    );
+                                }}
+                              />
+                            </label>
+                            <span
+                              className={
+                                r.quantity >= resourceDemand(project, r.id)
+                                  ? "inventory-ok"
+                                  : "inventory-low"
+                              }
+                            >
+                              {r.quantity >= resourceDemand(project, r.id) ? (
+                                <Check size={17} />
+                              ) : (
+                                <CircleAlert size={17} />
+                              )}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="budget-panel">
+                        <div>
+                          <h4>A transparent budget</h4>
+                          <p>
+                            All task expenses:{" "}
+                            <strong>{money(result.costCents)}</strong>
+                          </p>
+                          <p>
+                            Inventory is already on hand. Changing quantities
+                            does not model purchase costs.
+                          </p>
+                        </div>
+                        <label>
+                          Available funding (USD)
+                          <input
+                            aria-label="Available funding in dollars"
+                            type="number"
+                            min="0"
+                            max="1000000"
+                            step="1"
+                            value={project.budgetCents / 100}
+                            onChange={(e) => {
+                              const amount = e.target.valueAsNumber;
+                              if (
+                                Number.isFinite(amount) &&
+                                amount >= 0 &&
+                                amount <= 1000000
+                              )
+                                update(
+                                  {
+                                    ...project,
+                                    budgetCents: Math.round(amount * 100),
+                                  },
+                                  `Budget changed to ${money(Math.round(amount * 100))}`,
+                                );
+                            }}
+                          />
+                        </label>
+                      </div>
+                      <div className="expense-table">
+                        {project.tasks.map((t) => (
+                          <div key={t.id}>
+                            <span>{t.name}</span>
+                            <strong>{money(t.costCents)}</strong>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {tab === "lab" && (
+                    <div className="tab-content">
+                      <div className="panel-heading">
+                        <div>
+                          <h4>Test a different plan</h4>
+                          <p>
+                            Every experiment runs the constraint solver again.
+                          </p>
+                        </div>
+                        <FlaskConical size={23} className="teal-text" />
+                      </div>
+                      <div className="comparison">
+                        <div>
+                          <span>
+                            {before
+                              ? "BEFORE THE LAST CHANGE"
+                              : "SESSION BASELINE"}
+                          </span>
+                          <strong>
+                            {comparison.filledSlots}
+                            <small> / {comparison.totalSlots} roles</small>
+                          </strong>
+                          <p>
+                            {comparison.status === "feasible"
+                              ? "Requirements satisfied"
+                              : comparison.status === "infeasible"
+                                ? "Requirements unmet"
+                                : "Search incomplete"}
+                          </p>
+                        </div>
+                        <span className="compare-symbol">⇢</span>
+                        <div
+                          className={
+                            result.status === "feasible"
+                              ? "comparison-ready"
+                              : ""
+                          }
+                        >
+                          <span>CURRENT SCENARIO</span>
+                          <strong>
+                            {result.filledSlots}
+                            <small> / {result.totalSlots} roles</small>
+                          </strong>
+                          <p>
+                            {result.status === "feasible"
+                              ? "Requirements satisfied"
+                              : result.status === "infeasible"
+                                ? "Requirements unmet"
+                                : "Search incomplete"}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="last-action">{lastAction}</p>
+                      <div className="lab-options">
+                        <div>
+                          <h5>
+                            <Plus size={17} /> Bring someone in
+                          </h5>
+                          <p>
+                            Add a fictional person with explicit skills,
+                            availability, and workload limits.
+                          </p>
+                          <button
+                            className="button secondary small"
+                            onClick={() => setShowAdd(true)}
+                          >
+                            Build a volunteer profile
+                          </button>
+                        </div>
+                        <div>
+                          <h5>
+                            <Minus size={17} /> Test a withdrawal
+                          </h5>
+                          <p>
+                            Remove someone from the plan. Discover which
+                            contribution you need to replace.
+                          </p>
+                          <div className="withdraw-buttons">
+                            {project.volunteers.map((v) => (
+                              <button
+                                key={v.id}
+                                onClick={() => withdraw(v)}
+                                aria-label={`Withdraw ${v.name}`}
+                              >
+                                {v.name}
+                                <X size={13} />
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        className="text-link"
+                        onClick={() => setTab("resources")}
+                      >
+                        <SlidersHorizontal size={16} /> Experiment with supplies
+                        and funding
                       </button>
-                    )}
-                  </div>
-                )}
+                      {!allOriginalPresent && (
+                        <button className="quiet-button" onClick={reset}>
+                          <RotateCcw size={14} />
+                          Restore original roster
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
+                <AnalysisSummary
+                  result={result}
+                  primary={primary}
+                  onPreview={setPreview}
+                />
               </div>
               {tab === "lab" && interventions.length > 0 && (
                 <InterventionOptions
@@ -1019,25 +872,18 @@ export default function CatalystApp() {
           </div>
         </section>
         <section className="closing">
-          <span className="closing-spark">✳</span>
-          <h2>
-            Your community has the potential.
-            <br />
-            <span>Find what brings it together.</span>
-          </h2>
-          <p>
-            A missing skill. An extra hour. A shared resource.
-            <br />
-            Sometimes the smallest contribution is the catalyst.
-          </p>
-          <a className="button primary" href="#workspace">
-            Explore the possibilities <FlaskConical size={17} />
-          </a>
+          <div>
+            <p className="eyebrow">YOUR NEXT COMMUNITY PROJECT</p>
+            <h2>Make the next step a clear one.</h2>
+          </div>
+          <button className="button primary" onClick={createProject}>
+            Start your plan <Plus size={16} />
+          </button>
         </section>
       </main>
       <footer className="site-footer">
         <Brand />
-        <span>Turn ideas into collective action.</span>
+        <span>AI suggests. Catalyst verifies. You decide.</span>
         <span>Local plans & shared project rooms</span>
       </footer>
       <div role="status" className={notice ? "toast" : "sr-only"} key={notice}>

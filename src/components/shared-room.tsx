@@ -11,6 +11,7 @@ import Link from "next/link";
 import {
   ArrowLeft,
   Check,
+  CircleAlert,
   Copy,
   Download,
   FlaskConical,
@@ -33,6 +34,7 @@ import { tokens } from "@/lib/projects";
 import { ProjectGraph } from "./project-graph";
 import { ProjectEditor } from "./project-editor";
 import { Modal } from "./dialog";
+import { Brand } from "./brand";
 import { InterventionPreview, InterventionOptions } from "./intervention-lab";
 
 const subscribe = () => () => {};
@@ -51,6 +53,7 @@ export default function SharedRoom({ id }: { id: string }) {
   );
 }
 function RoomClient({ id }: { id: string }) {
+  const [roomView, setRoomView] = useState<"plan" | "collaboration">("plan");
   const [invitation, setInvitation] = useState(
     () =>
       new URLSearchParams(window.location.hash.slice(1)).get("invite") ?? "",
@@ -171,8 +174,8 @@ function RoomClient({ id }: { id: string }) {
     () =>
       Boolean(
         room &&
-          result?.status === "feasible" &&
-          verifyAssignment(room.project, result.assignments).valid,
+        result?.status === "feasible" &&
+        verifyAssignment(room.project, result.assignments).valid,
       ),
     [room, result],
   );
@@ -310,10 +313,7 @@ function RoomClient({ id }: { id: string }) {
   if (invitation && !room)
     return (
       <main className="join-shell">
-        <Link className="brand" href="/">
-          <Zap size={25} />
-          catalyst.
-        </Link>
+        <Brand href="/" />
         <section className="join-card">
           <span className="eyebrow">YOU’RE INVITED TO MAKE IT POSSIBLE</span>
           <h1>
@@ -358,9 +358,7 @@ function RoomClient({ id }: { id: string }) {
   if (!room || !result)
     return (
       <main className="room-loading">
-        <Link href="/" className="brand">
-          catalyst.
-        </Link>
+        <Brand href="/" />
         <h1>
           {connection === "unauthorized"
             ? "This room needs an invitation."
@@ -379,10 +377,7 @@ function RoomClient({ id }: { id: string }) {
   return (
     <>
       <header className="room-header">
-        <Link href="/" className="brand">
-          <Zap size={25} />
-          catalyst.
-        </Link>
+        <Brand href="/" />
         <Link href="/" className="quiet-button">
           <ArrowLeft size={15} />
           Local workspace
@@ -395,7 +390,7 @@ function RoomClient({ id }: { id: string }) {
       <main className="room-shell">
         <div className="room-heading">
           <div>
-            <div className="eyebrow">A SHARED PROJECT, A REAL POSSIBILITY</div>
+            <div className="eyebrow">SHARED PROJECT ROOM</div>
             <h1>{project.name}</h1>
             <p>
               {project.audience} planned participants · {project.date} ·{" "}
@@ -455,7 +450,52 @@ function RoomClient({ id }: { id: string }) {
             </button>
           </div>
         )}
-        <div className="room-layout">
+        <nav className="room-tabs" aria-label="Shared room views">
+          <button
+            aria-current={roomView === "plan" ? "page" : undefined}
+            onClick={() => setRoomView("plan")}
+          >
+            Plan & analysis
+          </button>
+          <button
+            aria-current={roomView === "collaboration" ? "page" : undefined}
+            onClick={() => setRoomView("collaboration")}
+          >
+            Collaboration <span>{room.members.length}</span>
+          </button>
+          <p>
+            <Users size={14} /> {room.members.length}{" "}
+            {room.members.length === 1 ? "member" : "members"} · declarations,
+            not confirmed commitments
+          </p>
+        </nav>
+        {roomView === "collaboration" && (
+          <div className="collaboration-intro">
+            <div>
+              <p className="eyebrow">THE PEOPLE BEHIND THE PLAN</p>
+              <h2>Contribute. Stay in the picture.</h2>
+              <p>
+                Your availability and supplies change the model. The activity
+                below records actual room changes.
+              </p>
+            </div>
+            <div className="collaboration-result" aria-live="polite">
+              <span>
+                {verified ? <Check size={14} /> : <CircleAlert size={14} />}
+                {verified ? "Verified feasible" : "Requirements need review"}
+              </span>
+              <strong>
+                {result.filledSlots}
+                <span>/{result.totalSlots}</span>
+                <small>roles covered</small>
+              </strong>
+              <button className="text-link" onClick={() => setRoomView("plan")}>
+                View the analysis →
+              </button>
+            </div>
+          </div>
+        )}
+        <div className={`room-layout room-view-${roomView}`}>
           <section className="room-main">
             <div
               className={`room-result ${verified ? "ready" : ""}`}
@@ -608,7 +648,7 @@ function RoomClient({ id }: { id: string }) {
             </div>
           </section>
           <aside className="room-aside">
-            <section className="room-side-card">
+            <section className="room-side-card room-contribute">
               <h3>
                 <Users size={19} />
                 Make your contribution
@@ -653,19 +693,26 @@ function RoomClient({ id }: { id: string }) {
               )}
             </section>
             {owner && (
-              <section className="room-side-card">
-                <h3>Invite the missing contribution</h3>
+              <section className="room-side-card room-invite">
+                <h3>Invite a contributor</h3>
                 <p>
                   Anyone with the invitation can join as a contributor. Only
                   your organizer session can edit the whole plan.
                 </p>
                 <p className="editor-note">
-                  Replacing the invitation stops new joins with the old link.
-                  Existing members keep access for up to 30 days; individual
-                  member revocation is not available. Organizer access belongs
-                  to this browser session and cannot be recovered through an
-                  account. Use fictional, low-sensitivity planning data.
+                  No member removal or account-based organizer recovery is
+                  available.
                 </p>
+                <details className="room-access-limits">
+                  <summary>Invitation & session limits</summary>
+                  <p className="editor-note">
+                    Replacing the invitation stops new joins with the old link.
+                    Existing members keep access for up to 30 days; individual
+                    member revocation is not available. Organizer access belongs
+                    to this browser session and cannot be recovered through an
+                    account. Use fictional, low-sensitivity planning data.
+                  </p>
+                </details>
                 {inviteLink && (
                   <>
                     <button
@@ -705,11 +752,21 @@ function RoomClient({ id }: { id: string }) {
                 )}
               </section>
             )}
-            <section className="room-side-card">
+            <section className="room-side-card room-people">
               <h3>People in this room</h3>
               {room.members.map((m) => (
                 <div className="room-member" key={m.id}>
-                  <span>{m.name}</span>
+                  <span className="member-identity">
+                    <span className="member-initial" aria-hidden="true">
+                      {m.name
+                        .split(" ")
+                        .filter(Boolean)
+                        .slice(-2)
+                        .map((n) => n[0])
+                        .join("")}
+                    </span>
+                    {m.name}
+                  </span>
                   <small>
                     {m.role === "owner" ? "Organizer" : "Contributor"}
                   </small>
@@ -721,7 +778,7 @@ function RoomClient({ id }: { id: string }) {
               </p>
             </section>
             <section className="room-side-card room-history">
-              <h3>What changed</h3>
+              <h3>Activity history</h3>
               {room.activity.map((a) => (
                 <article key={a.id}>
                   <strong>{a.actor}</strong>

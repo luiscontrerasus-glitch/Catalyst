@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-21T18:48:11.279Z",
+  "kind": "Actual built-in browser responsive layout observations on local production build",
+  "checks": [
+    {
+      "documentWidth": 305,
+      "heroControlBounds": true,
+      "pageOverflow": false,
+      "width": 320
+    },
+    {
+      "documentWidth": 375,
+      "heroControlBounds": true,
+      "pageOverflow": false,
+      "width": 390
+    },
+    {
+      "documentWidth": 753,
+      "heroControlBounds": true,
+      "pageOverflow": false,
+      "width": 768
+    },
+    {
+      "documentWidth": 1009,
+      "heroControlBounds": true,
+      "pageOverflow": false,
+      "width": 1024
+    },
+    {
+      "documentWidth": 1425,
+      "heroControlBounds": true,
+      "pageOverflow": false,
+      "width": 1440
+    }
+  ]
+}

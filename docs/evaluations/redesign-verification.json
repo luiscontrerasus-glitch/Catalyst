@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-21T22:13:23.115Z",
+  "branch": "codex/visual-redesign",
+  "baseRelease": "9cdf756",
+  "localPreview": "http://127.0.0.1:3100",
+  "published": false,
+  "quality": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "automatedTests": {
+      "passed": 143,
+      "files": 15
+    },
+    "productionBuild": "passed, Next.js 16.4.6 webpack / Node 24",
+    "localProductionRoomAPI": {
+      "passed": 19,
+      "total": 19
+    }
+  },
+  "unchanged": [
+    "engine",
+    "independent verifier",
+    "intervention ranking and limits",
+    "AI compiler/provider",
+    "room database and migrations",
+    "API routes",
+    "credentials/environment files",
+    "dependencies",
+    "production security configuration",
+    "original tests"
+  ],
+  "browser": {
+    "actualLocalProductionBuild": true,
+    "scenarios": {
+      "robotics": "7/8 to verified 8/8, apply and reset",
+      "cleanup": "4/5 to verified 5/5, apply and reset",
+      "donation": "4/4 to 3/4 after driver withdrawal; verified repair preview; reset"
+    },
+    "customProject": "real AI proposal, review/approval, 0/1 then verified 1/1; mobile edit/reapproval and reload",
+    "rooms": "organizer creation, availability/supplies, roles and activity after restart; separate contributor room joins on same page, fragment removed, contributes, synchronizes with API organizer and persists on reload",
+    "staleDraft": "same-session browser tabs, visible rejection with draft retained and newer revision preserved",
+    "contributorApplyDisabled": true,
+    "graphKeyboardActivation": "passed",
+    "modalFocusWrap": "passed",
+    "independentSameRoomBrowserUI": "UNVERIFIED: isolated contexts unsupported; API sessions do not substitute",
+    "viewports": [
+      320,
+      390,
+      768,
+      1024,
+      1440
+    ],
+    "pageHorizontalOverflow": false
+  },
+  "geminiThisRedesign": {
+    "model": "gemini-3.5-flash-lite",
+    "accepted": 2,
+    "failed": 0,
+    "beforeAuditPublic": 1,
+    "afterLocalProduction": 1
+  },
+  "limitations": [
+    "member revocation absent",
+    "account organizer recovery absent",
+    "bounded repair search unchanged",
+    "fatal React error boundary not deliberately induced",
+    "redesigned frontend not publicly hosted until owner review/approval"
+  ],
+  "evidence": [
+    "redesign-browser-layouts.json",
+    "redesign-text-contrast.json",
+    "redesign-reduced-motion.json",
+    "rooms-latest.json",
+    "security-release.json"
+  ]
+}

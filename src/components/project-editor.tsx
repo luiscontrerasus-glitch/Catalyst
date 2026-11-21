@@ -291,11 +291,7 @@ export function ProjectEditor({
   }
   return (
     <Modal
-      title={
-        editing
-          ? "Shape your project’s next chapter."
-          : "What could your community make possible?"
-      }
+      title={editing ? "Edit your project plan" : "Start a community project"}
       onClose={onClose}
       wide
     >
@@ -323,9 +319,10 @@ export function ProjectEditor({
             <div className="editor-section-title">
               <Sparkles size={20} />
               <div>
-                <h4>A clear idea is a powerful start.</h4>
+                <h4>What would you like to make possible?</h4>
                 <p>
-                  Live AI can suggest requirements. You make every commitment.
+                  Start with your idea. Add the requirements yourself, or ask
+                  for an optional AI draft.
                 </p>
               </div>
             </div>
@@ -343,7 +340,7 @@ export function ProjectEditor({
             </Field>
             <div className="ai-compiler-row">
               <button
-                className="button primary small"
+                className="button secondary small"
                 onClick={compile}
                 disabled={
                   busy ||
@@ -1085,7 +1082,7 @@ export function ProjectEditor({
             <div className="editor-section-title">
               <ClipboardCheck size={20} />
               <div>
-                <h4>Make the assumptions yours.</h4>
+                <h4>Review. Then make it your plan.</h4>
                 <p>
                   {aiUsed
                     ? "AI helped draft requirements. You approve the final inputs; the deterministic engine alone evaluates feasibility."

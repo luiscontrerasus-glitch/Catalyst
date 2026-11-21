@@ -3,8 +3,8 @@
   "kind": "Observed provider-reaching application attempts, November 19–21; excludes no-key and invalid-input/quota probes",
   "model": "gemini-3.5-flash-lite",
   "sdkVersion": "3.6.1",
-  "calls": 15,
-  "acceptedProposals": 6,
+  "calls": 17,
+  "acceptedProposals": 8,
   "providerErrors": 7,
   "returnedResponsesRejectedByApplicationValidation": 2,
   "phases": [
@@ -65,7 +65,25 @@
       "artifact": "hosted-ai-latest.json",
       "evidence": "../screenshots/production/gemini-live-proposal.jpg",
       "browserWorkflow": "Review removed unrequested preparation task; explicit approval; 0/1 staffing, then independently verified 1/1 with fictional reviewed volunteer"
+    },
+    {
+      "phase": "Visual redesign audit and local production browser",
+      "date": "2026-11-21",
+      "calls": 2,
+      "accepted": 2,
+      "providerErrors": 0,
+      "invalidOutput": 0,
+      "model": "gemini-3.5-flash-lite",
+      "environments": [
+        "Existing public deployment, before-design audit",
+        "Redesigned local production build"
+      ],
+      "evidence": [
+        "../screenshots/redesign/before/gemini-proposal.jpg",
+        "../screenshots/redesign/after/gemini-desktop.jpg"
+      ],
+      "workflow": "Proposal stayed unapproved; editable assumptions/questions retained; explicit approval; 0/1 staffing then independently verified 1/1 with a reviewed fictional volunteer; mobile reapproval and reload passed"
     }
   ],
-  "notes": "Counts are application-level attempts observed from tools and the browser. Returned invalid output is not counted as a validated successful proposal. No raw provider errors or credentials are stored. Final browser plan: 0/1 staffing with no roster, then independently verified 1/1 after a fictional reviewed commitment. Two additional accepted public Vercel calls on November 21 are included. Controlled malformed/short/oversized/origin/quota probes and one browser quota rejection do not invoke Gemini and are excluded. No provider retry was enabled."
+  "notes": "Counts are application-level attempts observed from tools and the browser. Returned invalid output is not counted as a validated successful proposal. No raw provider errors or credentials are stored. Final browser plan: 0/1 staffing with no roster, then independently verified 1/1 after a fictional reviewed commitment. Two additional accepted public Vercel calls on November 21 are included. Controlled malformed/short/oversized/origin/quota probes and one browser quota rejection do not invoke Gemini and are excluded. No provider retry was enabled. Two accepted requests during visual-redesign verification are included: one deployed before audit and one local production browser flow. The redesign itself is not pushed or deployed."
 }

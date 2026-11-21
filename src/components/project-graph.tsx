@@ -26,17 +26,21 @@ type TaskNode = Node<
     total: number;
     blocked: boolean;
     selected: boolean;
+    inspect: () => void;
   },
   "task"
 >;
 function TaskCard({ data }: NodeProps<TaskNode>) {
   return (
-    <div
+    <button
+      type="button"
+      onClick={data.inspect}
+      aria-label={`${data.title}, ${data.filled} of ${data.total} roles covered`}
       className={`task-node ${data.blocked ? "blocked" : ""} ${data.selected ? "selected" : ""}`}
     >
       <Handle type="target" position={Position.Left} />
       <div className="node-top">
-        <span>{data.blocked ? "NEEDS SUPPORT" : "ROLES COVERED"}</span>
+        <span>{data.blocked ? "Needs support" : "Roles covered"}</span>
         {data.blocked ? <CircleAlert size={15} /> : <Check size={15} />}
       </div>
       <strong>{data.title}</strong>
@@ -51,7 +55,7 @@ function TaskCard({ data }: NodeProps<TaskNode>) {
         </span>
       </div>
       <Handle type="source" position={Position.Right} />
-    </div>
+    </button>
   );
 }
 const nodeTypes = { task: TaskCard };
@@ -135,9 +139,10 @@ export function ProjectGraph({
             (i) => i.taskIds.includes(t.id) && i.kind !== "staffing",
           ),
         selected: selectedTask === t.id,
+        inspect: () => onSelect(t.id),
       },
       ariaLabel: `${t.name}, ${filled} of ${taskSlots.length} roles covered`,
-      focusable: true,
+      focusable: false,
     };
   });
   const edges = project.tasks.flatMap((t) =>
@@ -146,7 +151,7 @@ export function ProjectGraph({
       source: d,
       target: t.id,
       type: "smoothstep",
-      style: { stroke: "#b7c6c0", strokeWidth: 1.5 },
+      style: { stroke: "#9EAD9F", strokeWidth: 1.5 },
     })),
   );
   return (
@@ -165,7 +170,7 @@ export function ProjectGraph({
         maxZoom={1.5}
         proOptions={{ hideAttribution: false }}
       >
-        <Background color="#cfdbd5" gap={19} size={1} />
+        <Background color="#d8ddd3" gap={24} size={0.7} />
         <Controls
           showInteractive={false}
           fitViewOptions={{ padding: 0.09, minZoom: compact ? 0.8 : 0.3 }}

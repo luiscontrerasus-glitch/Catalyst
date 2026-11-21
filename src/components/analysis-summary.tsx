@@ -18,28 +18,30 @@ export function AnalysisSummary({
       className={`feasibility-panel analysis-summary ${ready ? "is-feasible" : ""}`}
       aria-live="polite"
     >
+      <div className="findings-heading">
+        <span>Findings</span>
+        <CheckCheck size={17} aria-hidden="true" />
+      </div>
       <div className="feasibility-message">
         <span className="result-icon">
           {ready ? <CheckCheck size={25} /> : <CircleAlert size={25} />}
         </span>
         <div>
           <span className="result-eyebrow">
-            {ready
-              ? "MODELED REQUIREMENTS SATISFIED"
-              : "WHAT CONTRIBUTION COULD MAKE THIS POSSIBLE?"}
+            {ready ? "ALL MODELED REQUIREMENTS PASS" : "FEASIBILITY ANALYSIS"}
           </span>
           <h4>
             {ready
-              ? "Ready to make it happen"
+              ? "Verified feasible"
               : result.status === "unknown"
                 ? "Search incomplete — no feasibility verdict"
                 : result.status === "invalid"
                   ? "Review the project inputs"
-                  : "Here’s the contribution you need."}
+                  : "The plan needs support."}
           </h4>
           <p>
             {ready
-              ? "Every required role has a valid assignment. Budget, supplies, timing, and dependencies pass."
+              ? "A complete assignment passes the independent checker, including budget, supplies, availability, and dependencies."
               : result.issues[0]?.message}
           </p>
           {result.issues.length > 1 && (
