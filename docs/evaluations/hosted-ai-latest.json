@@ -1,0 +1,199 @@
+{
+  "date": "2026-11-21T17:25:31.438Z",
+  "kind": "Actual production Gemini request through deployed app, not a mock",
+  "model": "gemini-3.5-flash-lite",
+  "httpStatus": 200,
+  "accepted": true,
+  "durationMs": 2595,
+  "approvalRequired": true,
+  "volunteersInvented": 0,
+  "availableInventoryInvented": false,
+  "assumptions": 3,
+  "questions": 7,
+  "approvedEmptyRosterAnalysis": "infeasible",
+  "proposal": {
+    "title": "Small Neighborhood Cleanup",
+    "summary": "A suggested plan for a small neighborhood cleanup event requiring confirmation on dates, budget, venue, and volunteer availability.",
+    "facts": [
+      {
+        "statement": "Help us plan a small neighborhood cleanup.",
+        "evidenceQuote": "Help us plan a small neighborhood cleanup."
+      },
+      {
+        "statement": "We do not know when it will happen or how many people can help.",
+        "evidenceQuote": "We do not know when it will happen or how many people can help."
+      },
+      {
+        "statement": "No volunteers or supplies are committed.",
+        "evidenceQuote": "No volunteers or supplies are committed."
+      }
+    ],
+    "assumptions": [
+      "Every task time, cost, skill, qualification, dependency, and resource requirement is a suggestion pending human confirmation.",
+      "No people are committed.",
+      "Any suggested capability requirement is an assumption without formal qualification mandates."
+    ],
+    "questions": [
+      "What is the missing event date?",
+      "What is the budget?",
+      "Who is the target audience?",
+      "What is the venue?",
+      "What is the volunteer availability?",
+      "What are the required qualifications?",
+      "What is the inventory and procurement cost?"
+    ],
+    "tasks": [
+      {
+        "id": "t1",
+        "name": "Initial Planning and Scope",
+        "start": 480,
+        "end": 540,
+        "dependencies": [],
+        "roles": [
+          {
+            "id": "planner",
+            "name": "Event Planner",
+            "count": 1,
+            "skills": [
+              "organizing"
+            ],
+            "qualifications": []
+          }
+        ],
+        "resources": [
+          {
+            "resourceId": "r1",
+            "quantity": 1
+          }
+        ],
+        "costCents": 0,
+        "optional": false
+      },
+      {
+        "id": "t2",
+        "name": "Volunteer Recruitment",
+        "start": 540,
+        "end": 600,
+        "dependencies": [
+          "t1"
+        ],
+        "roles": [
+          {
+            "id": "recruiter",
+            "name": "Volunteer Coordinator",
+            "count": 1,
+            "skills": [
+              "outreach"
+            ],
+            "qualifications": []
+          }
+        ],
+        "resources": [
+          {
+            "resourceId": "r1",
+            "quantity": 1
+          }
+        ],
+        "costCents": 0,
+        "optional": false
+      },
+      {
+        "id": "t3",
+        "name": "Supply Gathering",
+        "start": 600,
+        "end": 660,
+        "dependencies": [
+          "t1"
+        ],
+        "roles": [
+          {
+            "id": "logistics",
+            "name": "Logistics Lead",
+            "count": 1,
+            "skills": [
+              "procurement"
+            ],
+            "qualifications": []
+          }
+        ],
+        "resources": [
+          {
+            "resourceId": "r2",
+            "quantity": 10
+          }
+        ],
+        "costCents": 5000,
+        "optional": false
+      },
+      {
+        "id": "t4",
+        "name": "Cleanup Execution",
+        "start": 720,
+        "end": 960,
+        "dependencies": [
+          "t2",
+          "t3"
+        ],
+        "roles": [
+          {
+            "id": "cleaner",
+            "name": "Cleanup Volunteer",
+            "count": 5,
+            "skills": [
+              "general_labor"
+            ],
+            "qualifications": []
+          }
+        ],
+        "resources": [
+          {
+            "resourceId": "r2",
+            "quantity": 10
+          }
+        ],
+        "costCents": 0,
+        "optional": false
+      },
+      {
+        "id": "t5",
+        "name": "Wrap Up and Disposal",
+        "start": 960,
+        "end": 1020,
+        "dependencies": [
+          "t4"
+        ],
+        "roles": [
+          {
+            "id": "cleaner",
+            "name": "Cleanup Volunteer",
+            "count": 2,
+            "skills": [
+              "general_labor"
+            ],
+            "qualifications": []
+          }
+        ],
+        "resources": [
+          {
+            "resourceId": "r2",
+            "quantity": 10
+          }
+        ],
+        "costCents": 0,
+        "optional": false
+      }
+    ],
+    "resources": [
+      {
+        "id": "r1",
+        "name": "Planning Laptop",
+        "kind": "reusable"
+      },
+      {
+        "id": "r2",
+        "name": "Trash Bag",
+        "kind": "consumable"
+      }
+    ]
+  }
+}

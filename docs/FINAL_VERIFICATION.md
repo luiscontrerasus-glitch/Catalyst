@@ -1,5 +1,7 @@
 # Final verification — November 19, 2026
 
+**Historical local checkpoint.** Public GitHub/Vercel publication was subsequently approved and completed. See the [November 21 production verification](PRODUCTION_VERIFICATION.md) for the actual live URL, current counts, hosted results and independent-browser limitation. Pending setup/approval statements below describe the earlier local-only state, not current deployment status.
+
 Scope: continue `62963a3` / `c700cfc`, stabilize the product, verify real Gemini and production behavior, and prepare locally. The owner confirmed hosting is **not configured**. No push, public deployment, video publication or submission is authorized or performed.
 
 ## Current assessment

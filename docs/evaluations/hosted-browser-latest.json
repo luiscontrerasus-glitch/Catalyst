@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-21T17:36:51.333Z",
+  "origin": "https://catalyst-luiscontrerasus-glitch.vercel.app",
+  "kind": "Observed real production UI checks in built-in Codex browser",
+  "independentBrowserSameRoomStatus": "UNVERIFIED",
+  "independentContextSupported": false,
+  "limitation": "One shared-profile browser. Context creation explicitly unsupported. Same-session organizer tabs are not independent sessions. Contributor UI uses a separate fictional room with an independent API organizer.",
+  "historicalLocalTwoBrowserResultsAreNotHostedEvidence": true,
+  "observed": [
+    "Robotics repair preview, apply and reset",
+    "Real Gemini proposal, edit/review, explicit approval and deterministic solve",
+    "Custom project 0/1 staffing then verified 1/1 after reviewed fictional commitment",
+    "Mobile custom editing/reapproval and reload",
+    "Managed organizer room creation and contributions",
+    "Unauthenticated bare room denial",
+    "Same-page fragment invitation joining and fragment removal",
+    "Contributor availability and supply input",
+    "Live API-organizer budget change visible to contributor UI",
+    "Contributor repair preview allowed, organizer-only Apply disabled",
+    "Same-auth organizer tabs live update and stale draft rejection with draft retained",
+    "Roles, room revisions, activity, supplies and verified feasibility persist after actual redeployment",
+    "Hosted quota error preserves brief and manual task creation remains available",
+    "Actual organizer invite canonical HTTPS origin and fragment capability"
+  ],
+  "desktopViewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "mobileViewport": {
+    "width": 390,
+    "height": 844
+  },
+  "mobileDocumentHorizontalOverflow": false,
+  "redeployedRoomRevisions": {
+    "organizerTestRoom": 3,
+    "contributorTestRoom": 6
+  },
+  "screenshotsDirectory": "../screenshots/production",
+  "noRawCapabilitiesRecorded": true,
+  "notInducedLive": [
+    "Provider credential rejection",
+    "Provider timeout",
+    "Current provider outage",
+    "Fatal React error boundary"
+  ]
+}

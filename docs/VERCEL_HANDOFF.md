@@ -1,6 +1,6 @@
-# Vercel deployment handoff — approval required
+# Vercel deployment and operations handoff
 
-Prepared November 19, 2026, from `5462920`. No repository has been published, resource provisioned, or public deployment performed. Local verification and hosted verification are separate gates.
+Originally prepared November 19 from `5462920`; updated November 21 after explicit owner approval. GitHub and Vercel Hobby/Turso Free are live: https://catalyst-luiscontrerasus-glitch.vercel.app. All six Production secrets/settings, Git connection, Node 24 and schema v2 are configured. No new credential action is needed. [Actual acceptance report and limitations](PRODUCTION_VERIFICATION.md) supersedes pending setup language in the reusable recipe below.
 
 ## Chosen architecture
 
@@ -36,7 +36,7 @@ Do not paste secrets into chat, source, screenshots, build arguments or `NEXT_PU
    turso db tokens create catalyst-production
    ```
 
-   The last command displays a secret: run it privately and save the database token directly in the environment manager. Use the dashboard's token expiry/rotation options; maintain a reminder before expiry. Do not run the command in a recorded demo. Omit `--tursodb`; confirm the database engine is libSQL. No command above has been executed by the agent.
+   The last command displays a secret: run it privately and save the database token directly in the environment manager. Use the dashboard's token expiry/rotation options; maintain a reminder before expiry. Do not run the command in a recorded demo. Omit `--tursodb`; confirm the database engine is libSQL. Initial resources were configured through the dashboard and authenticated Vercel CLI; these Turso CLI commands are a reusable alternative, not an execution log.
 3. In Vercel, import the approved GitHub repository. Root directory is `.` when Catalyst is the repository root, otherwise select the actual Catalyst subdirectory. Framework: **Next.js**. Node: **24.x**. Leave Output Directory at the framework default; do not export static HTML. `vercel.json` runs `npm ci`, then configuration checks and `npm run build` using Webpack.
 4. Before the first deployment, set these variables in the **Production** environment:
 
@@ -77,4 +77,4 @@ Member revocation and account-based organizer recovery do not exist. Sessions la
 
 Keep the verified local demonstration as fallback. Roll back application code through Vercel if acceptance fails; the current migrations are additive and do not require deleting existing data. Disable the runtime AI credential to stop AI spending while retaining manual planning, or restrict deployment access during an incident. Do not delete database data or publish a broken build as a completed production verification.
 
-**Current decision:** configuration is prepared for an approved hosted rehearsal. Actual remote persistence, provider calls from Vercel, HTTPS and multi-instance behavior remain blocked by unconfigured accounts/credentials and publication approval.
+**Current decision:** the public app, actual remote persistence, provider requests from Vercel, HTTPS, role UIs, mobile layouts, quotas and persistence across redeployment passed the checks in [production verification](PRODUCTION_VERIFICATION.md). The two-independent-browser same-room UI gate remains unverified, not passed. Checklist items combining verified and unverified actions remain open. Sustained multi-instance/load behavior is not established. Rotate the current DB token before December 19, 2026, 7:45 PM EST. No paid upgrade or Devpost submission is authorized.

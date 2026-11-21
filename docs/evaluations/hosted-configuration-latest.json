@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-21T17:38:20.846Z",
+  "origin": "https://catalyst-luiscontrerasus-glitch.vercel.app",
+  "plan": "hobby",
+  "nodeVersion": "24.x",
+  "githubConnected": true,
+  "envMetadata": [
+    {
+      "name": "GEMINI_API_KEY",
+      "configured": true,
+      "sensitive": true,
+      "productionOnly": true
+    },
+    {
+      "name": "GEMINI_MODEL",
+      "configured": true,
+      "sensitive": true,
+      "productionOnly": true
+    },
+    {
+      "name": "TURSO_DATABASE_URL",
+      "configured": true,
+      "sensitive": true,
+      "productionOnly": true
+    },
+    {
+      "name": "TURSO_AUTH_TOKEN",
+      "configured": true,
+      "sensitive": true,
+      "productionOnly": true
+    },
+    {
+      "name": "APP_ORIGIN",
+      "configured": true,
+      "sensitive": true,
+      "productionOnly": true
+    },
+    {
+      "name": "REQUIRE_MANAGED_ROOMS",
+      "configured": true,
+      "sensitive": true,
+      "productionOnly": true
+    }
+  ],
+  "health": {
+    "status": 200,
+    "managed": true
+  },
+  "paidResourcesAuthorized": false,
+  "passed": true
+}

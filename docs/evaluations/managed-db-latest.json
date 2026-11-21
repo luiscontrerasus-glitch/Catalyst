@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-20T03:40:46.175Z",
+  "kind": "Actual hosted Turso HTTP database integration; not a browser UI test",
+  "passed": 10,
+  "total": 10,
+  "durationMs": 3062,
+  "checks": [
+    {
+      "name": "Real managed HTTP write transaction",
+      "passed": true
+    },
+    {
+      "name": "Independent managed sessions",
+      "passed": true
+    },
+    {
+      "name": "Unauthenticated access denied",
+      "passed": true
+    },
+    {
+      "name": "Contribution persists and produces an independently verified feasible plan",
+      "passed": true
+    },
+    {
+      "name": "Contributor cannot replace organizer requirements",
+      "passed": true
+    },
+    {
+      "name": "Concurrent edits preserve exactly one winning revision",
+      "passed": true
+    },
+    {
+      "name": "Activity history retained",
+      "passed": true
+    },
+    {
+      "name": "Fresh connection retains project, membership and revision",
+      "passed": true
+    },
+    {
+      "name": "Atomic shared quota across HTTP clients",
+      "passed": true
+    },
+    {
+      "name": "Quota retained after store reinitialization",
+      "passed": true
+    }
+  ]
+}

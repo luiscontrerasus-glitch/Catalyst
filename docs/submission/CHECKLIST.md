@@ -1,43 +1,47 @@
-# Release and submission checklist
+# Release and submission checklist — November 21, 2026
 
-Target: owner-requested November 20, 2026 production readiness; STEM2Connect November 21. Rule notes in [HACKATHONS.md](../HACKATHONS.md) were checked November 18 and must be rechecked before submission. Do not infer team eligibility or cross-submission permission.
+Deadline **today at 11:59 PM EST**, rechecked against [official rules](https://stem2connect-online-hackathon.devpost.com/rules) and [event page](https://stem2connect-online-hackathon.devpost.com/). Full evidence: [production verification](../PRODUCTION_VERIFICATION.md). No Devpost submission has occurred.
 
-## Engineering evidence
+## Engineering and publication
 
-- [x] Original solver/verifier and all original 100 tests preserved; intervention search has a focused multiplicity fix with new regression tests.
-- [x] Genuine persistent rooms, invitation/session separation, contribution ownership, organizer-only plan editing, activity, optimistic concurrency and idempotent retries implemented.
-- [x] 143 automated tests pass, including real SQLite, disk reopen, HTTP boundaries, provider grammar, repeated contributions and fail-closed production configuration.
-- [x] Local real-server HTTP evaluation passes 19/19 checks with independent cookie sessions.
-- [x] Solver benchmark records 19/19 outcomes, 200/200 oracle matches, 12/12 repairable fixtures found; bounded-search limitations disclosed.
-- [x] Actual browser found and retested the localhost/127.0.0.1 origin issue; organizer room creation observed.
-- [x] Two genuinely independent browsers: native Brave contributor plus in-app organizer; join, availability, supplies, synchronized verified plans, contributor restrictions, stale draft and reload pass. Offline/reconnect was separately tested in the in-app browser.
-- [x] Same-page invitation regression passes in a real browser: automatic reload, join form, fragment removal, contributor contribution, synchronized feasibility and organizer-only editing.
-- [x] Current desktop/mobile robotics and a fresh custom project pass UI checks; mobile room contributions, reload, shared same-session tabs, stale drafts and reconnect are exercised. This does not replace the independent-browser gate.
-- [x] Three live Gemini evaluation proposals and a fourth production-browser proposal accepted on `gemini-3.5-flash-lite`; actual earlier failures disclosed and strict validation/approval checked.
-- [x] Current npm production dependency audit: zero reported advisories. Exact configured key absent from 32 scanned browser build artifacts.
-- [ ] Test managed Turso configuration and transaction behavior on approved staging hosting.
-- [ ] Rehearse deployed HTTPS cookie/origin behavior, persistence across restart and any multiple-instance sync.
-- [x] Confirm lint/typecheck/tests/build results in [final verification](../FINAL_VERIFICATION.md).
-- [x] Docker Compose configuration validates; nonexistent public-asset copy removed. Container execution remains blocked by unavailable Docker engine.
+- [x] Original engine and all original 100 tests preserved; 143 tests / 15 files pass. Lint, typecheck and cloud production build pass.
+- [x] Solver benchmark: 19/19 outcomes, 200/200 additional oracle matches, 12/12 defined repairable fixtures. Bounded-search limits disclosed.
+- [x] Approved public GitHub: https://github.com/luiscontrerasus-glitch/Catalyst.
+- [x] Approved Vercel Hobby/Turso Free app: https://catalyst-luiscontrerasus-glitch.vercel.app. No billing or paid upgrade enabled.
+- [x] Node 24, all six sensitive Production-only variables, exact HTTPS `APP_ORIGIN`, fail-closed managed storage and schema-v2 remote migration verified.
+- [x] Managed DB integration 10/10 and hosted room API 19/19. Cookies, roles, invitation rotation, CAS/stale writes, retry deduplication, activity and persistence tested.
+- [x] Two new actual public Gemini requests accepted on `gemini-3.5-flash-lite`; totals 6 accepted / 9 historical unsuccessful across 15 provider-reaching attempts. Invalid/quota probes excluded.
+- [x] Browser custom project review/approval, solver, repairs, desktop/mobile, same-page invitation joining, contributions and contributor restrictions passed.
+- [x] Room roles, revisions, activity and contributions survived actual redeployment and reload.
+- [x] Hosted security/input checks 27/27, actual public JS credential scan clean; safe quota message preserves brief and manual planning. Source/history/build secret scan clean.
+- [ ] **Hosted two-independent-browser UI test in the same room.** Built-in browser isolated contexts are unsupported. Separate role UIs and independent API sessions passed; this checkbox remains open and is not replaced by HTTP tests.
+- [x] No organizer recovery or member revocation claimed. Existing sessions survive invite rotation up to 30 days. Repair-search, AI semantic-review and load-test limits disclosed.
 
-- [x] Vercel/libSQL configuration, schema/preflight scripts, fail-closed serverless checks and database-backed quotas prepared and tested locally.
-- [ ] Complete every hosted acceptance item in [the handoff](../VERCEL_HANDOFF.md) after approval.
+## Human submission work — still required
 
-## Publication and human review
+- [ ] Review code, licenses/credits, mathematical claims and [AI disclosure](../AI_DISCLOSURE.md); be able to explain the work and actual human contributions.
+- [ ] Confirm student eligibility (13+), team size at most six, registration and applicable guardian permission. No eligibility is inferred.
+- [ ] Add authentic team members, their contributions, challenges and learning to the [Devpost draft](DEVPOST.md). Select **Community Impact** as the primary track.
+- [ ] Record the [2–3 minute demo](DEMO_SCRIPT.md), publish on YouTube/Vimeo publicly or unlisted (six-minute maximum), and check the video signed out. Video publication has not occurred.
+- [ ] Complete Devpost with public GitHub, live app, video, description/AI/learning, track and all members; verify every link.
+- [ ] Submit personally before **November 21, 2026, 11:59 PM EST**, or explicitly authorize that separate action. The agent has not submitted.
+- [ ] Follow organizer instructions for live/prerecorded **November 24 Demo Day**.
+- [ ] Before entering a second event, separately confirm its rules/eligibility and cross-submission permission. This is not a prerequisite invented for a STEM2Connect-only entry.
 
-- [x] README, architecture/mathematics, disclosure, evaluation artifacts, deployment recipe, demo script and Devpost draft prepared.
-- [ ] Human review of code, licenses, mathematical claims, credentials handling and actual team contributions.
-- [ ] Confirm participants' eligibility, team size, registration, guardian permissions where applicable, and any AI-credit exception.
-- [ ] Confirm cross-submission permission with both organizers before entering both events. CSC deadline discrepancy remains unresolved.
-- [ ] Owner approves public GitHub push, hosting and video publication. No such approval or publication is assumed.
-- [ ] Publish approved repository/README, approved hosted app and 2–3 minute video; verify links from a signed-out browser.
-- [ ] Add actual team members and authentic learning/challenge narrative to Devpost.
-- [ ] Explicit owner approval before Devpost submission; no submission performed.
+## Screenshot and video plan
 
-## Screenshot plan
+Use only fictional data and hide invitation fragments, cookies, private configuration, logs and unrelated tabs. Fresh HTTPS evidence is in `docs/screenshots/production/`:
 
-Fresh Milestone 3 evidence is in `docs/screenshots/milestone-3/`: landing, robotics preview, real Gemini proposal, approved custom plan, mobile editor/preview, organizer room, mobile contribution/verified room, and stale-draft rejection. Five new `two-browser-*` images show actual distinct roles, matching revision 11, contributor repair restrictions, cross-browser stale rejection and a mobile organizer view. No invitation fragments, cookies, API tokens or unrelated browser content are shown.
+1. `landing-full.jpg` — public entry and core interface.
+2. `robotics-repair-preview.jpg` — 7/8 → verified 8/8 hypothetical repair.
+3. `gemini-live-proposal.jpg` — actual returned proposal before approval.
+4. `custom-project-full.jpg` — approved project with independent feasible certificate.
+5. `mobile-custom-full.jpg` — 390×844 responsive layout, no document overflow.
+6. `room-organizer-redeployed.jpg` / `contributor-redeployed.jpg` — actual role interfaces and managed persistence, **separate test rooms**, not a passed two-browser test.
+7. `stale-draft-rejected.jpg`, `contributor-permissions.jpg`, `safe-rate-limit.jpg` — rejection and permissions evidence.
 
-New `docs/screenshots/release/` images show the invitation regression, restarted organizer room and 390-pixel contributor layout. Capture equivalent public HTTPS evidence after deployment.
+Older `milestone-*` and `release/` images are local historical evidence. Do not present them as hosted same-room two-browser verification. Screenshots are evidence, not a substitute for the required working demo video.
 
-Older images outside the Milestone 3 subdirectory remain historical Milestone 1/2 evidence. Preserve the stable local planning demo as fallback until all room UI gates pass.
+## Operations after submission
+
+Rotate the Turso database-scoped token before **December 19, 2026, 7:45 PM EST**; update the Production value, redeploy, verify `/api/health` reports managed. No reminder is scheduled. Monitor free-tier quotas; do not enable billing or paid upgrades without separate owner approval. No source changes or additional product features are required for the prepared demo.

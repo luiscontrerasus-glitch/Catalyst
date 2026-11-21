@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-11-21T17:15:56.358Z",
+  "status": "passed",
+  "kind": "real production HTTPS API with independent cookie sessions; not a browser UI test",
+  "serverMode": "production",
+  "checks": [
+    {
+      "name": "Database health",
+      "passed": true
+    },
+    {
+      "name": "Create a persisted room",
+      "passed": true
+    },
+    {
+      "name": "Room-scoped HttpOnly cookie",
+      "passed": true
+    },
+    {
+      "name": "Private data denied without a session",
+      "passed": true
+    },
+    {
+      "name": "Cross-origin write denied",
+      "passed": true
+    },
+    {
+      "name": "Independent contributor joins",
+      "passed": true
+    },
+    {
+      "name": "Separate owner and contributor sessions",
+      "passed": true
+    },
+    {
+      "name": "Contributor saves availability and skills",
+      "passed": true
+    },
+    {
+      "name": "Both independent HTTP sessions receive identical project and revision",
+      "passed": true
+    },
+    {
+      "name": "Contribution changes robotics from 7/8 to verified 8/8",
+      "passed": true
+    },
+    {
+      "name": "Unchanged authorized poll returns 304",
+      "passed": true
+    },
+    {
+      "name": "Supply contribution commits",
+      "passed": true
+    },
+    {
+      "name": "Retry confirms original write without duplication",
+      "passed": true
+    },
+    {
+      "name": "Stale organizer replacement rejected",
+      "passed": true
+    },
+    {
+      "name": "Contributor cannot replace whole plan",
+      "passed": true
+    },
+    {
+      "name": "Activity and inventory survive fresh reads",
+      "passed": true
+    },
+    {
+      "name": "Organizer can replace invitation",
+      "passed": true
+    },
+    {
+      "name": "Replaced invitation cannot join",
+      "passed": true
+    },
+    {
+      "name": "Existing sessions survive invitation replacement",
+      "passed": true
+    }
+  ],
+  "passed": 19,
+  "total": 19
+}

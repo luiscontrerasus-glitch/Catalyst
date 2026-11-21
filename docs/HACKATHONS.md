@@ -1,6 +1,6 @@
 # Hackathon requirements
 
-Official rules and judging pages checked before implementation on November 18, 2026 (America/New_York). Summaries below are planning notes; revisit official sources before submission. Eligibility has not been established for the owner or team.
+Official rules and judging pages checked before implementation on November 18, 2026 (America/New_York). STEM2Connect official rules and event page were rechecked November 21, 2026; its deadline and required source/video/description/track/team items are unchanged. CSC notes below remain historical and need separate rechecking. Eligibility has not been established for the owner or team.
 
 ## STEM2Connect AI Hackathon
 
@@ -12,7 +12,7 @@ Community Impact is the chosen primary track. Submit working software, a public 
 
 Disclose/attribute AI coding assistance in both README and Devpost, and credit outside libraries/data/APIs. A runtime AI feature is encouraged; the rules describe an API-credit exception. Do not presume the exception applies to this team. No deceptive content or unconsented personal-data collection.
 
-Five equally weighted judging categories: problem/impact, AI contribution, functionality, learning/growth, presentation. The current milestone supports a demonstrable constraint solver, clear limitations, disclosed assistance, and explainable tests. Runtime AI and personal learning narratives remain follow-up work.
+Five equally weighted judging categories: problem/impact, AI contribution, functionality, learning/growth, presentation. The current milestone supports a demonstrable constraint solver, clear limitations, disclosed assistance, and explainable tests. Runtime AI is now verified locally and on public Vercel; authentic personal learning narratives remain human follow-up work.
 
 ## CSC Winter Sparkathon
 
@@ -30,5 +30,5 @@ Judging: learning, design, creativity, functionality, impact. The prototype's wo
 
 - **Cross-submission permission is unconfirmed.** Neither reviewed rules page explicitly establishes permission to enter this same project in both events. Do not equate silence with approval; seek both organizers' confirmation. No organizer contact has been sent.
 - Team eligibility, registration, guardian permissions, prize opt-in, and any runtime-AI credit exception remain to be confirmed by the owner.
-- Public repository, hosting, video publication, and Devpost submissions require owner approval and have not been performed.
+- Public repository and Vercel Hobby/Turso Free hosting were explicitly approved and completed. Video publication and Devpost submission have not occurred.
 - Keep all demo data fictional. No real minors' sensitive information is needed.

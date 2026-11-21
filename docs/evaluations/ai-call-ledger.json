@@ -1,10 +1,10 @@
 {
-  "date": "2026-11-19",
-  "kind": "Observed call ledger for this verification session; excludes earlier missing-credential runs",
+  "date": "2026-11-21",
+  "kind": "Observed provider-reaching application attempts, November 19–21; excludes no-key and invalid-input/quota probes",
   "model": "gemini-3.5-flash-lite",
   "sdkVersion": "3.6.1",
-  "calls": 13,
-  "acceptedProposals": 4,
+  "calls": 15,
+  "acceptedProposals": 6,
   "providerErrors": 7,
   "returnedResponsesRejectedByApplicationValidation": 2,
   "phases": [
@@ -53,7 +53,19 @@
       "providerErrors": 0,
       "invalidOutput": 0,
       "evidence": "../screenshots/milestone-3/gemini-live-proposal.jpg"
+    },
+    {
+      "phase": "Public Vercel production browser and ambiguous-cleanup API acceptance",
+      "date": "2026-11-21",
+      "calls": 2,
+      "accepted": 2,
+      "providerErrors": 0,
+      "invalidOutput": 0,
+      "model": "gemini-3.5-flash-lite",
+      "artifact": "hosted-ai-latest.json",
+      "evidence": "../screenshots/production/gemini-live-proposal.jpg",
+      "browserWorkflow": "Review removed unrequested preparation task; explicit approval; 0/1 staffing, then independently verified 1/1 with fictional reviewed volunteer"
     }
   ],
-  "notes": "Counts are application-level attempts observed from tools and the browser. Returned invalid output is not counted as a validated successful proposal. No raw provider errors or credentials are stored. Final browser plan: 0/1 staffing with no roster, then independently verified 1/1 after a fictional reviewed commitment."
+  "notes": "Counts are application-level attempts observed from tools and the browser. Returned invalid output is not counted as a validated successful proposal. No raw provider errors or credentials are stored. Final browser plan: 0/1 staffing with no roster, then independently verified 1/1 after a fictional reviewed commitment. Two additional accepted public Vercel calls on November 21 are included. Controlled malformed/short/oversized/origin/quota probes and one browser quota rejection do not invoke Gemini and are excluded. No provider retry was enabled."
 }

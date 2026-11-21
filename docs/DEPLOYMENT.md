@@ -1,10 +1,10 @@
-# Deployment preparation — no publication performed
+# Deployment and operations
 
 **Preferred target: Vercel Next.js on Node 24 plus a Turso libSQL-engine database. Follow [VERCEL_HANDOFF.md](VERCEL_HANDOFF.md) for exact accounts, environment variables, migrations and the hosted acceptance test.**
 
-The Node production build is the release artifact. Dockerfile and Compose are provided as an unexecuted deployment recipe; no container or hosted deployment is claimed verified. Use a single persistent Node server for file-based rooms, or a managed libSQL/Turso database for ephemeral or multiple instances. The implementation uses the official [libSQL TypeScript client](https://docs.turso.tech/sdk/ts/reference); Turso offers a [free plan](https://turso.tech/pricing), subject to current provider limits. No account has been created.
+The app is deployed at [Catalyst](https://catalyst-luiscontrerasus-glitch.vercel.app) on Vercel Hobby with Turso Free libSQL after owner approval. Node 24, six sensitive Production-only variables, exact canonical HTTPS origin and schema-v2 migrations are configured. The implementation uses the official [libSQL TypeScript client](https://docs.turso.tech/sdk/ts/reference). Shared rooms use HTTP remote storage; Vercel cannot fall back to local disk. Dockerfile and Compose remain an unexecuted alternative recipe; container execution is not claimed verified.
 
-Latest local production evidence, real Gemini results and remaining gates are in [final verification](FINAL_VERIFICATION.md). Docker Compose configuration now validates, and the nonexistent `public` asset copy was removed from the image recipe. The installed Docker Linux engine is unavailable, so container execution remains unverified. The owner confirmed that hosting is not configured and instructed local preparation only.
+Latest hosted Gemini, browser, database, security and remaining-gate evidence is in [production verification](PRODUCTION_VERIFICATION.md). The earlier [local checkpoint](FINAL_VERIFICATION.md) is historical. The hosted two-independent-browser UI gate remains unverified because the built-in browser cannot create isolated contexts; the separate API and role-UI checks do not replace it. Docker Compose configuration validates, but the installed Linux engine is unavailable. Rotate the DB token before December 19, 2026, 7:45 PM EST; no extra credential setup is currently needed.
 
 ## Environment
 

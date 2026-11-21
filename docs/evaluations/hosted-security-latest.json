@@ -1,0 +1,141 @@
+{
+  "date": "2026-11-21T17:32:16.391Z",
+  "origin": "https://catalyst-luiscontrerasus-glitch.vercel.app",
+  "kind": "Actual hosted HTTPS security and controlled invalid-input checks; no Gemini provider calls",
+  "total": 27,
+  "passed": 27,
+  "checks": [
+    {
+      "name": "HTTPS root",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "name": "HSTS",
+      "passed": true
+    },
+    {
+      "name": "Content type protection",
+      "passed": true
+    },
+    {
+      "name": "Framing protection",
+      "passed": true
+    },
+    {
+      "name": "Referrer protection",
+      "passed": true
+    },
+    {
+      "name": "HTTP redirects to HTTPS",
+      "passed": true,
+      "status": 308
+    },
+    {
+      "name": "Actual public HTML and JavaScript contain no configured credentials",
+      "passed": true,
+      "configuredSecrets": 2,
+      "javascriptAssets": 11,
+      "matches": 0,
+      "assetFailures": 0
+    },
+    {
+      "name": "Private path unavailable: /.env.local",
+      "passed": true,
+      "status": 404
+    },
+    {
+      "name": "Private path unavailable: /.runtime/production.env",
+      "passed": true,
+      "status": 404
+    },
+    {
+      "name": "Private path unavailable: /data/catalyst.db",
+      "passed": true,
+      "status": 404
+    },
+    {
+      "name": "Room no-referrer policy",
+      "passed": true
+    },
+    {
+      "name": "Room requires session",
+      "passed": true,
+      "status": 401
+    },
+    {
+      "name": "Room API private no-store",
+      "passed": true
+    },
+    {
+      "name": "Gemini is configured server-side",
+      "passed": true
+    },
+    {
+      "name": "Compiler rejects missing Origin",
+      "passed": true,
+      "status": 403
+    },
+    {
+      "name": "Compiler rejects foreign Origin",
+      "passed": true,
+      "status": 403
+    },
+    {
+      "name": "Compiler rejects non-JSON input",
+      "passed": true,
+      "status": 415
+    },
+    {
+      "name": "Compiler rejects malformed JSON",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Compiler rejects oversized input",
+      "passed": true,
+      "status": 413
+    },
+    {
+      "name": "Invalid-goal probe 1 is safe",
+      "passed": true
+    },
+    {
+      "name": "Invalid-goal probe 2 is safe",
+      "passed": true
+    },
+    {
+      "name": "Invalid-goal probe 3 is safe",
+      "passed": true
+    },
+    {
+      "name": "Invalid-goal probe 4 is safe",
+      "passed": true
+    },
+    {
+      "name": "Invalid-goal probe 5 is safe",
+      "passed": true
+    },
+    {
+      "name": "Invalid-goal probe 6 is safe",
+      "passed": true
+    },
+    {
+      "name": "Quota returns Retry-After",
+      "passed": true
+    },
+    {
+      "name": "Shared AI quota rejects excess requests",
+      "passed": true,
+      "statuses": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        429
+      ],
+      "providerCalls": 0
+    }
+  ]
+}
