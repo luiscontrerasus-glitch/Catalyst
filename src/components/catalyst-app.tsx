@@ -1,8 +1,6 @@
 "use client";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import {
-  Activity,
-  Beaker,
   Check,
   CircleAlert,
   Clock3,
@@ -18,7 +16,6 @@ import {
   ShieldCheck,
   SlidersHorizontal,
   Users,
-  Wallet,
   X,
 } from "lucide-react";
 import { Brand } from "./brand";
@@ -195,12 +192,9 @@ export default function CatalystApp() {
                 setMobileMenu(false);
               }}
             >
-              The method <Code2 size={14} />
+              The method
             </button>
           </nav>
-          <button className="header-cta" onClick={createProject}>
-            Create a project <Plus size={16} />
-          </button>
           <button
             className="mobile-toggle icon-button"
             aria-label="Toggle navigation"
@@ -216,18 +210,8 @@ export default function CatalystApp() {
 
         <section className="workspace-section" id="workspace">
           <div className="section-intro">
-            <div>
-              <div className="eyebrow">THE WORKSPACE</div>
-              <h2>A clear view of what’s possible.</h2>
-              <p>
-                Explore three fictional projects, or create your own. Every
-                finding comes from the requirements you can inspect and edit.
-              </p>
-            </div>
-            <span className="demo-badge">
-              <Beaker size={15} />{" "}
-              {scenario ? "FICTIONAL SCENARIO" : "YOUR APPROVED PLAN"}
-            </span>
+            <h2>Project workspace</h2>
+            <p>Explore a fictional project, or make your own.</p>
           </div>
           <div className="project-toolbar">
             <label>
@@ -262,16 +246,6 @@ export default function CatalystApp() {
           </div>
           <div className="workspace">
             <aside className="sidebar">
-              <div className="sidebar-title">PROJECT WORKSPACE</div>
-              <div className="project-switch">
-                <span className="project-icon">
-                  <Activity size={20} />
-                </span>
-                <div>
-                  <strong>{scenario?.label ?? "Your community project"}</strong>
-                  <span>{scenario?.theme ?? "Custom project"}</span>
-                </div>
-              </div>
               <div
                 className="sidebar-nav"
                 role="tablist"
@@ -306,29 +280,9 @@ export default function CatalystApp() {
                     className={tab === item.id ? "active" : ""}
                     onClick={() => setTab(item.id)}
                   >
-                    <item.icon size={18} />
                     {item.label}
                   </button>
                 ))}
-              </div>
-              <div className="sidebar-note">
-                <ShieldCheck size={19} />
-                <strong>A plan you can inspect.</strong>
-                <p>
-                  Explicit inputs. Deterministic analysis. Independently checked
-                  assignments.
-                </p>
-              </div>
-              <div className="local-label">
-                <ShieldCheck size={13} />
-                {stored.storage === "saved"
-                  ? "Saved on this device"
-                  : stored.storage === "session"
-                    ? "Session only"
-                    : "Local demo"}
-                <span>
-                  {scenario ? "Fictional people & data" : "Your approved model"}
-                </span>
               </div>
             </aside>
             <div className="workspace-main">
@@ -350,7 +304,6 @@ export default function CatalystApp() {
               </div>
               <div className="project-heading">
                 <div>
-                  <span className="project-kicker">PROJECT PLAN</span>
                   <h3>{project.name}</h3>
                   <p>
                     {project.audience} planned participants ·{" "}
@@ -361,26 +314,9 @@ export default function CatalystApp() {
                     · {project.timezone.replaceAll("_", " ")}
                   </p>
                 </div>
-                <span
-                  className={`status-pill ${result.status === "feasible" ? "green" : "amber"}`}
-                >
-                  {result.status === "feasible" ? (
-                    <Check size={14} />
-                  ) : (
-                    <CircleAlert size={14} />
-                  )}
-                  {result.status === "feasible"
-                    ? "Requirements satisfied"
-                    : result.status === "infeasible"
-                      ? "Needs support"
-                      : result.status === "unknown"
-                        ? "Search incomplete"
-                        : "Invalid requirements"}
-                </span>
               </div>
               <div className="stats-row">
                 <div>
-                  <Users size={18} />
                   <span>
                     <strong>{project.volunteers.length}</strong>{" "}
                     {project.volunteers.length === 1
@@ -389,21 +325,18 @@ export default function CatalystApp() {
                   </span>
                 </div>
                 <div>
-                  <GitBranch size={18} />
                   <span>
                     <strong>{project.tasks.length}</strong> connected{" "}
                     {project.tasks.length === 1 ? "task" : "tasks"}
                   </span>
                 </div>
                 <div>
-                  <Wallet size={18} />
                   <span>
                     <strong>{money(project.budgetCents)}</strong> available
                     budget
                   </span>
                 </div>
                 <div>
-                  <Clock3 size={18} />
                   <span>
                     <strong>
                       {formatTime(
@@ -826,24 +759,10 @@ export default function CatalystApp() {
                   onPreview={setPreview}
                 />
               )}
-              {result.status === "feasible" && (
-                <div className="success-next">
-                  <span>
-                    <ShieldCheck size={17} />
-                    {verified
-                      ? "Assignment independently verified"
-                      : "Verification needs review"}{" "}
-                    · This is a model, not a real-world guarantee.
-                  </span>
-                  <button className="text-link" onClick={() => setTab("lab")}>
-                    Now test a volunteer withdrawal <FlaskConical size={16} />
-                  </button>
-                </div>
-              )}
               <div className="solver-footer">
                 <span>
                   <span className="engine-dot" />
-                  Deterministic constraint engine
+                  {verified ? "Assignment independently checked" : "Deterministic constraint engine"}
                 </span>
                 <span>
                   {result.exploredNodes} search nodes ·{" "}
@@ -868,23 +787,14 @@ export default function CatalystApp() {
                 : "Your approved requirements. "}
               Real computation. No AI-generated feasibility.
             </span>
-            <span>Built for people who make things happen.</span>
+            <span>{stored.storage === "saved" ? "Saved on this device" : stored.storage === "session" ? "Session only" : "Local demo"}</span>
           </div>
-        </section>
-        <section className="closing">
-          <div>
-            <p className="eyebrow">YOUR NEXT COMMUNITY PROJECT</p>
-            <h2>Make the next step a clear one.</h2>
-          </div>
-          <button className="button primary" onClick={createProject}>
-            Start your plan <Plus size={16} />
-          </button>
         </section>
       </main>
       <footer className="site-footer">
         <Brand />
         <span>AI suggests. Catalyst verifies. You decide.</span>
-        <span>Local plans & shared project rooms</span>
+
       </footer>
       <div role="status" className={notice ? "toast" : "sr-only"} key={notice}>
         {notice && (

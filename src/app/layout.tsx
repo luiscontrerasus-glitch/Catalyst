@@ -5,20 +5,14 @@ import "@/components/milestone-two.css";
 import "@/components/rooms.css";
 import "./design.css";
 const ui = localFont({
-  src: "./fonts/DMSans.ttf",
+  src: "./fonts/Geist.ttf",
   variable: "--font-ui",
   display: "swap",
-  weight: "100 1000",
+  weight: "100 900",
 });
 const editorial = localFont({
-  src: [
-    { path: "./fonts/Newsreader.ttf", style: "normal", weight: "200 800" },
-    {
-      path: "./fonts/Newsreader-Italic.ttf",
-      style: "italic",
-      weight: "200 800",
-    },
-  ],
+  src: "./fonts/InstrumentSerif-Regular.ttf",
+  weight: "400",
   variable: "--font-editorial",
   display: "swap",
 });

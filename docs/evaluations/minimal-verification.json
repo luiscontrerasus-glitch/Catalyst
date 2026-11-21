@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-11-21T23:04:14.001656+00:00",
+  "scope": "local minimal visual refinement; no push, deployment, video, or submission",
+  "comparisonBaseline": "e01944b",
+  "gates": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "tests": {
+      "files": 15,
+      "passed": 143,
+      "total": 143
+    },
+    "optimizedProductionBuild": "passed"
+  },
+  "roomApiSuite": {
+    "passed": 19,
+    "total": 19,
+    "kind": "real local production HTTP with independent cookie sessions, not independent browser UIs"
+  },
+  "browser": {
+    "tool": "built-in Computer Use",
+    "origin": "http://127.0.0.1:3100",
+    "finalServer": "Next production build",
+    "desktop": {
+      "width": 1440,
+      "height": 1000
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "physicalDevice": false
+    },
+    "layoutWidths": [
+      320,
+      390,
+      768,
+      1024,
+      1440
+    ],
+    "checks": [
+      "Manual fictional reading circle: task, person, review checkbox gating, approve, verified 1/1, reload persistence",
+      "Robotics 7/8 -> verified 8/8 preview, apply, reset",
+      "Cleanup 4/5 -> verified 5/5 preview, apply, reset",
+      "Donation drive 4/4 -> withdraw fictional driver -> 3/4 -> verified 4/4 repair preview, keep current, reset",
+      "Graph Enter selects task; full-text selector remains available",
+      "Mobile navigation open/close; hero Resources changes explanation",
+      "Dialog reverse-Tab wraps to final enabled control; Escape closes draft",
+      "Contributor saved fictional donated kit: revision 6 -> 7; activity, reload and server restart retain change",
+      "Organizer requirements action present; contributor requirements action absent; invitations/recovery limits visible",
+      "Final desktop/mobile screenshots inspected against supplied references and previous redesign",
+      "No page overflow at five widths; sampled 14 text styles minimum contrast 5.4:1; reduced motion respected"
+    ],
+    "independentSameRoomBrowserContexts": "not verified; browser shares one profile; organizer and contributor UI captures use different rooms"
+  },
+  "ai": {
+    "providerRequestsThisIteration": 0,
+    "configuredModelShownByExistingUi": "gemini-3.5-flash-lite",
+    "observedHistoricalLedger": {
+      "attempts": 17,
+      "accepted": 8,
+      "providerErrors": 7,
+      "validationRejections": 2
+    }
+  },
+  "unchanged": [
+    "solver",
+    "verifier",
+    "Gemini compiler/validation",
+    "approval authority",
+    "project editing logic",
+    "intervention enumeration",
+    "scenarios",
+    "API routes",
+    "database implementation/schema",
+    "room permissions",
+    "security configuration",
+    "package dependencies"
+  ],
+  "limitations": [
+    "No member revocation or account-based organizer recovery",
+    "Bounded repair search; no global minimum claimed",
+    "Independent same-room browser UI test remains unverified",
+    "Mobile inspection uses emulation rather than physical devices"
+  ],
+  "screenshots": [
+    "collaboration-desktop.jpg",
+    "collaboration-mobile.jpg",
+    "editor-desktop.jpg",
+    "editor-mobile.jpg",
+    "home-desktop.jpg",
+    "home-mobile.jpg",
+    "organizer-collaboration-desktop.jpg",
+    "people-mobile.jpg",
+    "resources-mobile.jpg",
+    "room-plan-desktop.jpg",
+    "workspace-desktop.jpg",
+    "workspace-mobile.jpg"
+  ]
+}

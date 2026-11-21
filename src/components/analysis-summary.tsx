@@ -1,5 +1,4 @@
 "use client";
-import { CheckCheck, CircleAlert, FlaskConical } from "lucide-react";
 import type { SolveResult } from "@/engine/model";
 import type { Intervention } from "@/engine/interventions";
 export function AnalysisSummary({
@@ -20,16 +19,10 @@ export function AnalysisSummary({
     >
       <div className="findings-heading">
         <span>Findings</span>
-        <CheckCheck size={17} aria-hidden="true" />
+        <span>{result.filledSlots}/{result.totalSlots} roles covered</span>
       </div>
       <div className="feasibility-message">
-        <span className="result-icon">
-          {ready ? <CheckCheck size={25} /> : <CircleAlert size={25} />}
-        </span>
         <div>
-          <span className="result-eyebrow">
-            {ready ? "ALL MODELED REQUIREMENTS PASS" : "FEASIBILITY ANALYSIS"}
-          </span>
           <h4>
             {ready
               ? "Verified feasible"
@@ -37,7 +30,7 @@ export function AnalysisSummary({
                 ? "Search incomplete — no feasibility verdict"
                 : result.status === "invalid"
                   ? "Review the project inputs"
-                  : "The plan needs support."}
+                    : "Needs attention"}
           </h4>
           <p>
             {ready
@@ -56,13 +49,6 @@ export function AnalysisSummary({
           )}
         </div>
       </div>
-      <div className="role-count">
-        <strong>
-          {result.filledSlots}
-          <span>/{result.totalSlots}</span>
-        </strong>
-        <span>role slots covered</span>
-      </div>
       {primary && (
         <div className="summary-intervention">
           <div>
@@ -77,7 +63,6 @@ export function AnalysisSummary({
             className="button primary small"
             onClick={() => onPreview(primary)}
           >
-            <FlaskConical size={15} />
             Preview this change
           </button>
         </div>

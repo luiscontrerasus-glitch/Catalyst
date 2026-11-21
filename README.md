@@ -2,7 +2,7 @@
 
 **Turn ideas into collective action.**
 
-**Local visual review, November 21:** a comprehensive redesign is implemented on `codex/visual-redesign` and available at [the loopback production preview](http://127.0.0.1:3100). It has not been pushed or deployed. See the [before-and-after gallery, decisions and verification](docs/DESIGN_REVIEW.md). The public website below still shows the prior release.
+**Local minimal refinement, November 21:** Instrument Serif is limited to the homepage headline; Geist serves the entire interface. Artwork, decorative sidebar content, duplicate verdicts, and most nested framing have been removed. Review the [comparison with the previous redesign and final screenshots](docs/MINIMAL_REFINEMENT_REVIEW.md), or open the [loopback production preview](http://127.0.0.1:3100). This work remains on `codex/visual-redesign`; it has not been pushed or deployed. The public website below still shows the prior production release.
 
 Catalyst answers: **what is the smallest useful contribution that could make this community project possible?** It models requirements, explains bottlenecks, and independently verifies hypothetical repairs. Custom plans, optional Gemini drafting, three fictional scenarios, and durable shared project rooms use the same deterministic engine. Repairs are ranked within a bounded candidate set; a global minimum is not claimed.
 
@@ -18,7 +18,7 @@ npm run dev
 
 Open [http://127.0.0.1:3100](http://127.0.0.1:3100). Production: `npm run build`, then `npm start`. Builds use the supported Webpack option because Turbopack's production CSS worker failed on this Windows environment. Local scripts bind only to loopback. Manual planning and demos need no account or API key. Shared rooms automatically use SQLite in ignored `data/catalyst.db`, or a configured managed Turso database.
 
-Click **Try the live demo → Preview this change** to see the robotics plan move from 7/8 to a verified 8/8 in a hypothetical preview. Applying a simulated repair is separate from receiving an actual participant contribution.
+Click **Explore the demo → Preview this change** to see the robotics plan move from 7/8 to a verified 8/8 in a hypothetical preview. Applying a simulated repair is separate from receiving an actual participant contribution.
 
 ## Live production
 

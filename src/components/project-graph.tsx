@@ -9,7 +9,7 @@ import {
   type NodeProps,
   type Node,
 } from "@xyflow/react";
-import { Check, CircleAlert, Clock3, Users } from "lucide-react";
+import { Check, CircleAlert } from "lucide-react";
 import {
   formatTime,
   slotsFor,
@@ -40,17 +40,15 @@ function TaskCard({ data }: NodeProps<TaskNode>) {
     >
       <Handle type="target" position={Position.Left} />
       <div className="node-top">
-        <span>{data.blocked ? "Needs support" : "Roles covered"}</span>
+        <strong>{data.title}</strong>
         {data.blocked ? <CircleAlert size={15} /> : <Check size={15} />}
       </div>
-      <strong>{data.title}</strong>
+      <span className="sr-only">{data.blocked ? "Needs support" : "Roles covered"}</span>
       <div className="node-bottom">
         <span>
-          <Clock3 size={13} />
           {data.time}
         </span>
         <span>
-          <Users size={13} />
           {data.filled}/{data.total}
         </span>
       </div>

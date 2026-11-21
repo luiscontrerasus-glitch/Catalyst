@@ -1,9 +1,9 @@
 {
-  "date": "2026-11-21T22:15:28.892Z",
+  "date": "2026-11-21T23:06:43.916Z",
   "configuredSecretCount": 2,
-  "trackedFilesScanned": 221,
+  "trackedFilesScanned": 240,
   "pendingFilesScanned": 0,
-  "browserFilesScanned": 38,
+  "browserFilesScanned": 36,
   "configuredSecretOrGoogleKeyMatches": 0,
   "historyMatched": false,
   "forbiddenTrackedPaths": 0

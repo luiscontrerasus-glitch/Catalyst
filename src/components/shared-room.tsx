@@ -461,7 +461,7 @@ function RoomClient({ id }: { id: string }) {
             aria-current={roomView === "collaboration" ? "page" : undefined}
             onClick={() => setRoomView("collaboration")}
           >
-            Collaboration <span>{room.members.length}</span>
+            Collaboration
           </button>
           <p>
             <Users size={14} /> {room.members.length}{" "}
@@ -471,14 +471,7 @@ function RoomClient({ id }: { id: string }) {
         </nav>
         {roomView === "collaboration" && (
           <div className="collaboration-intro">
-            <div>
-              <p className="eyebrow">THE PEOPLE BEHIND THE PLAN</p>
-              <h2>Contribute. Stay in the picture.</h2>
-              <p>
-                Your availability and supplies change the model. The activity
-                below records actual room changes.
-              </p>
-            </div>
+            <h2>Activity & contributions</h2>
             <div className="collaboration-result" aria-live="polite">
               <span>
                 {verified ? <Check size={14} /> : <CircleAlert size={14} />}
