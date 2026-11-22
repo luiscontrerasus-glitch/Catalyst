@@ -5,16 +5,10 @@ import "@/components/milestone-two.css";
 import "@/components/rooms.css";
 import "./design.css";
 const ui = localFont({
-  src: "./fonts/Geist.ttf",
+  src: "./fonts/PlusJakartaSans.ttf",
   variable: "--font-ui",
   display: "swap",
-  weight: "100 900",
-});
-const editorial = localFont({
-  src: "./fonts/InstrumentSerif-Regular.ttf",
-  weight: "400",
-  variable: "--font-editorial",
-  display: "swap",
+  weight: "200 800",
 });
 export const metadata: Metadata = {
   title: "Catalyst — Possible, together.",
@@ -26,7 +20,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${ui.variable} ${editorial.variable}`}>{children}</body>
+      <body className={ui.variable}>{children}</body>
     </html>
   );
 }

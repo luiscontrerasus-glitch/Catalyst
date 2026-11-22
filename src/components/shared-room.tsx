@@ -390,10 +390,10 @@ function RoomClient({ id }: { id: string }) {
       <main className="room-shell">
         <div className="room-heading">
           <div>
-            <div className="eyebrow">SHARED PROJECT ROOM</div>
+            <div className="eyebrow">Shared project</div>
             <h1>{project.name}</h1>
             <p>
-              {project.audience} planned participants · {project.date} ·{" "}
+              {project.audience} participants · {project.date} ·{" "}
               {project.timezone}
             </p>
           </div>
@@ -424,15 +424,10 @@ function RoomClient({ id }: { id: string }) {
         >
           <span>
             {connection === "live"
-              ? "Connected · checks for updates every 2 seconds"
-              : "Connection interrupted · last received model"}
+              ? "Live updates"
+              : "Offline · showing the last update"}
           </span>
-          <span>
-            Revision {room.revision} ·{" "}
-            {room.storage === "managed"
-              ? "Managed shared storage"
-              : "Durable storage on this server"}
-          </span>
+          <span>Revision {room.revision}</span>
           <button className="quiet-button" onClick={() => void refresh()}>
             <RefreshCw size={13} />
             Refresh now
@@ -455,7 +450,7 @@ function RoomClient({ id }: { id: string }) {
             aria-current={roomView === "plan" ? "page" : undefined}
             onClick={() => setRoomView("plan")}
           >
-            Plan & analysis
+            Plan
           </button>
           <button
             aria-current={roomView === "collaboration" ? "page" : undefined}
@@ -465,13 +460,11 @@ function RoomClient({ id }: { id: string }) {
           </button>
           <p>
             <Users size={14} /> {room.members.length}{" "}
-            {room.members.length === 1 ? "member" : "members"} · declarations,
-            not confirmed commitments
+            {room.members.length === 1 ? "person" : "people"}
           </p>
         </nav>
         {roomView === "collaboration" && (
           <div className="collaboration-intro">
-            <h2>Activity & contributions</h2>
             <div className="collaboration-result" aria-live="polite">
               <span>
                 {verified ? <Check size={14} /> : <CircleAlert size={14} />}
@@ -482,9 +475,6 @@ function RoomClient({ id }: { id: string }) {
                 <span>/{result.totalSlots}</span>
                 <small>roles covered</small>
               </strong>
-              <button className="text-link" onClick={() => setRoomView("plan")}>
-                View the analysis →
-              </button>
             </div>
           </div>
         )}
@@ -501,16 +491,16 @@ function RoomClient({ id }: { id: string }) {
               </span>
               <h2>
                 {verified
-                  ? "The modeled plan is feasible."
+                  ? "Verified feasible"
                   : result.status === "unknown"
                     ? "Search incomplete."
                     : result.status === "invalid"
                       ? "Review these requirements."
-                      : "A contribution can change the plan."}
+                      : "Needs attention"}
               </h2>
               <p>
                 {verified
-                  ? "The complete assignment is independently verified; budget, supplies, availability, and dependencies pass."
+                  ? "Modeled requirements pass the independent check."
                   : result.issues[0]?.message}
               </p>
               <strong>
@@ -526,14 +516,8 @@ function RoomClient({ id }: { id: string }) {
               </div>
             )}
             <div className="graph-heading">
-              <div>
-                <h4>How the project fits together</h4>
-                <p>Select a task to inspect the actual assignments.</p>
-              </div>
-              <span>
-                {project.tasks.length} tasks · {money(result.costCents)}{" "}
-                expenses / {money(project.budgetCents)} limit
-              </span>
+              <p className="graph-instruction">Choose a task to see its requirements.</p>
+              <span>{project.tasks.length} tasks · {money(result.costCents)} / {money(project.budgetCents)}</span>
             </div>
             <ProjectGraph
               key={`${id}-${project.tasks.length}`}
@@ -543,7 +527,7 @@ function RoomClient({ id }: { id: string }) {
               onSelect={setSelected}
             />
             <div className="task-access">
-              <label htmlFor="shared-task">Inspect a task</label>
+              <label htmlFor="shared-task">Choose a task</label>
               <select
                 id="shared-task"
                 value={task.id}
@@ -629,15 +613,13 @@ function RoomClient({ id }: { id: string }) {
               </>
             )}
             <div className="solver-footer">
-              <span>
-                Deterministic solver · {result.exploredNodes} search nodes
-              </span>
-              <span>
-                {verified
-                  ? "Independent verification passed"
-                  : "Partial assignments are diagnostic"}{" "}
-                · Model satisfiability is not a real-world guarantee.
-              </span>
+              <details className="analysis-notes">
+                <summary>About this result</summary>
+                <div>
+                  <p>Deterministic solver · {result.exploredNodes} search nodes.</p>
+                  <p>{verified ? "Independent verification passed." : "Partial assignments are diagnostic."} Modeled results are not a real-world guarantee.</p>
+                </div>
+              </details>
             </div>
           </section>
           <aside className="room-aside">
@@ -647,8 +629,7 @@ function RoomClient({ id }: { id: string }) {
                 Make your contribution
               </h3>
               <p>
-                Your declarations become explicit model inputs. Qualifications
-                are participant-provided, not credential checks.
+                Add availability or supplies. Qualifications are self-reported.
               </p>
               <button
                 className="button primary small"
@@ -658,7 +639,7 @@ function RoomClient({ id }: { id: string }) {
                   setContribute({ kind: "volunteer", revision: room.revision });
                 }}
               >
-                Contribute my availability
+                Add availability
               </button>
               <button
                 className="button secondary small"
@@ -671,7 +652,7 @@ function RoomClient({ id }: { id: string }) {
                 }}
               >
                 <Layers3 size={15} />
-                Contribute supplies
+                Add supplies
               </button>
               {project.volunteers.some(
                 (v) => v.id === room.self.volunteerId,
@@ -681,7 +662,7 @@ function RoomClient({ id }: { id: string }) {
                   disabled={busy || connection !== "live"}
                   onClick={() => void mutate({ kind: "withdraw" })}
                 >
-                  Withdraw my volunteer contribution
+                  Withdraw availability
                 </button>
               )}
             </section>
@@ -689,8 +670,7 @@ function RoomClient({ id }: { id: string }) {
               <section className="room-side-card room-invite">
                 <h3>Invite a contributor</h3>
                 <p>
-                  Anyone with the invitation can join as a contributor. Only
-                  your organizer session can edit the whole plan.
+                  An invitation grants contributor access. Only organizers edit the plan.
                 </p>
                 <p className="editor-note">
                   No member removal or account-based organizer recovery is
@@ -733,7 +713,7 @@ function RoomClient({ id }: { id: string }) {
                 >
                   {inviteLink
                     ? "Replace invitation link"
-                    : "Generate invitation link"}
+                    : "Create invitation"}
                 </button>
                 {["127.0.0.1", "localhost"].includes(
                   window.location.hostname,
@@ -746,7 +726,7 @@ function RoomClient({ id }: { id: string }) {
               </section>
             )}
             <section className="room-side-card room-people">
-              <h3>People in this room</h3>
+              <h3>People</h3>
               {room.members.map((m) => (
                 <div className="room-member" key={m.id}>
                   <span className="member-identity">
@@ -766,13 +746,12 @@ function RoomClient({ id }: { id: string }) {
                 </div>
               ))}
               <p className="editor-note">
-                Room membership does not imply availability. Only an explicit
-                volunteer contribution enters the solver.
+                Joining does not confirm availability. Add a contribution to enter the plan.
               </p>
             </section>
             <section className="room-side-card room-history">
-              <h3>Activity history</h3>
-              {room.activity.map((a) => (
+              <h3>Activity</h3>
+              {room.activity.slice(0, 4).map((a) => (
                 <article key={a.id}>
                   <strong>{a.actor}</strong>
                   <p>{a.summary}</p>
@@ -785,6 +764,24 @@ function RoomClient({ id }: { id: string }) {
                   </small>
                 </article>
               ))}
+              {room.activity.length > 4 && (
+                <details className="earlier-activity">
+                  <summary>Earlier activity ({room.activity.length - 4})</summary>
+              {room.activity.slice(4).map((a) => (
+                <article key={a.id}>
+                  <strong>{a.actor}</strong>
+                  <p>{a.summary}</p>
+                  <small>
+                    Revision {a.revision} ·{" "}
+                    {new Date(a.at).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </small>
+                </article>
+              ))}
+                </details>
+              )}
             </section>
           </aside>
         </div>

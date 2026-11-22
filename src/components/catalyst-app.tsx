@@ -209,10 +209,6 @@ export default function CatalystApp() {
         <MarketingIntro onCreate={createProject} />
 
         <section className="workspace-section" id="workspace">
-          <div className="section-intro">
-            <h2>Project workspace</h2>
-            <p>Explore a fictional project, or make your own.</p>
-          </div>
           <div className="project-toolbar">
             <label>
               Project
@@ -231,17 +227,14 @@ export default function CatalystApp() {
             </label>
             <button className="button secondary small" onClick={createProject}>
               <Plus size={15} />
-              Create a project
-            </button>
-            <button className="quiet-button" onClick={() => editProject()}>
-              Edit requirements
+              New project
             </button>
             <button
               className="button secondary small"
               onClick={() => setShowRoom(true)}
             >
               <Users size={15} />
-              Create shared room
+              Share project
             </button>
           </div>
           <div className="workspace">
@@ -255,13 +248,13 @@ export default function CatalystApp() {
                   [
                     {
                       id: "overview",
-                      label: "Plan & analysis",
+                      label: "Plan",
                       icon: GitBranch,
                     },
-                    { id: "people", label: "People & skills", icon: Users },
+                    { id: "people", label: "People", icon: Users },
                     {
                       id: "resources",
-                      label: "Resources & budget",
+                      label: "Resources",
                       icon: Layers3,
                     },
                     {
@@ -287,26 +280,20 @@ export default function CatalystApp() {
             </aside>
             <div className="workspace-main">
               <div className="project-topline">
-                <span>
-                  {scenario ? "Fictional demo" : "Your project"} <span>/</span>{" "}
-                  {scenario?.label ?? project.name}
-                </span>
-                <div>
-                  <button className="quiet-button" onClick={reset}>
-                    <RotateCcw size={14} />
-                    Reset scenario
-                  </button>
-                  <button className="quiet-button" onClick={exportPlan}>
-                    <Download size={14} />
-                    Export plan
-                  </button>
-                </div>
+                <button className="quiet-button" onClick={() => editProject()}>Edit plan</button>
+                <details className="project-actions">
+                  <summary>More <span aria-hidden="true">⌄</span></summary>
+                  <div>
+                    <button className="quiet-button" onClick={reset}><RotateCcw size={16} />Reset scenario</button>
+                    <button className="quiet-button" onClick={exportPlan}><Download size={16} />Export plan</button>
+                  </div>
+                </details>
               </div>
               <div className="project-heading">
                 <div>
                   <h3>{project.name}</h3>
                   <p>
-                    {project.audience} planned participants ·{" "}
+                    {project.audience} participants ·{" "}
                     {new Intl.DateTimeFormat("en-US", {
                       dateStyle: "medium",
                       timeZone: "UTC",
@@ -326,14 +313,13 @@ export default function CatalystApp() {
                 </div>
                 <div>
                   <span>
-                    <strong>{project.tasks.length}</strong> connected{" "}
+                    <strong>{project.tasks.length}</strong>{" "}
                     {project.tasks.length === 1 ? "task" : "tasks"}
                   </span>
                 </div>
                 <div>
                   <span>
-                    <strong>{money(project.budgetCents)}</strong> available
-                    budget
+                    <strong>{money(project.budgetCents)}</strong> budget
                   </span>
                 </div>
                 <div>
@@ -362,21 +348,7 @@ export default function CatalystApp() {
                 >
                   {tab === "overview" && (
                     <>
-                      <div className="graph-heading">
-                        <div>
-                          <h4>The project, connected</h4>
-                          <p>
-                            Select a task to inspect its requirements and
-                            assignments.
-                          </p>
-                        </div>
-                        <span className="graph-legend">
-                          <i className="legend-ready" />
-                          Roles covered
-                          <i className="legend-blocked" />
-                          Needs support
-                        </span>
-                      </div>
+                      <p className="graph-instruction">Choose a task to see its requirements.</p>
                       <ProjectGraph
                         key={project.id}
                         project={project}
@@ -390,7 +362,7 @@ export default function CatalystApp() {
                           <span>
                             {formatTime(selected.start)}–
                             {formatTime(selected.end)} ·{" "}
-                            {money(selected.costCents)} planned expenses
+                            {money(selected.costCents)} planned costs
                           </span>
                         </div>
                         <div className="task-chips">
@@ -424,7 +396,7 @@ export default function CatalystApp() {
                         </div>
                       </div>
                       <div className="task-access">
-                        <label htmlFor="task-picker">Inspect a task</label>
+                        <label htmlFor="task-picker">Choose a task</label>
                         <select
                           id="task-picker"
                           value={selected.id}
@@ -760,22 +732,14 @@ export default function CatalystApp() {
                 />
               )}
               <div className="solver-footer">
-                <span>
-                  <span className="engine-dot" />
-                  {verified ? "Assignment independently checked" : "Deterministic constraint engine"}
-                </span>
-                <span>
-                  {result.exploredNodes} search nodes ·{" "}
-                  {result.exhaustive
-                    ? "Search completed"
-                    : "Node limit reached"}
-                  <button
-                    className="text-link"
-                    onClick={() => setShowMethod(true)}
-                  >
-                    How it works
-                  </button>
-                </span>
+                <span>{verified ? "Independently checked" : "Deterministic analysis"}</span>
+                <details className="analysis-notes">
+                  <summary>Analysis details</summary>
+                  <div>
+                    <p>{result.exploredNodes} search nodes · {result.exhaustive ? "Search completed" : "Node limit reached"}</p>
+                    <button className="text-link" onClick={() => setShowMethod(true)}>About the model</button>
+                  </div>
+                </details>
               </div>
             </div>
           </div>
@@ -783,9 +747,8 @@ export default function CatalystApp() {
             <span>
               <ShieldCheck size={15} />
               {scenario
-                ? "Fictional scenario. "
-                : "Your approved requirements. "}
-              Real computation. No AI-generated feasibility.
+                ? "Fictional demo. "
+                : "Approved plan. "}
             </span>
             <span>{stored.storage === "saved" ? "Saved on this device" : stored.storage === "session" ? "Session only" : "Local demo"}</span>
           </div>
@@ -793,8 +756,7 @@ export default function CatalystApp() {
       </main>
       <footer className="site-footer">
         <Brand />
-        <span>AI suggests. Catalyst verifies. You decide.</span>
-
+        <span>Possible, together.</span>
       </footer>
       <div role="status" className={notice ? "toast" : "sr-only"} key={notice}>
         {notice && (

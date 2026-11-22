@@ -1,7 +1,6 @@
 "use client";
 import { useSyncExternalStore } from "react";
 import {
-  Background,
   Controls,
   Handle,
   Position,
@@ -57,9 +56,9 @@ function TaskCard({ data }: NodeProps<TaskNode>) {
   );
 }
 const nodeTypes = { task: TaskCard };
-const compactSnapshot = () => window.matchMedia("(max-width: 640px)").matches;
+const compactSnapshot = () => window.matchMedia("(max-width: 1100px)").matches;
 const subscribeCompact = (listener: () => void) => {
-  const query = window.matchMedia("(max-width: 640px)");
+  const query = window.matchMedia("(max-width: 1100px)");
   query.addEventListener("change", listener);
   return () => query.removeEventListener("change", listener);
 };
@@ -92,7 +91,7 @@ export function layoutTasks(
       return [
         t.id,
         {
-          x: r * 210,
+          x: r * 235,
           y: 120 + (group.indexOf(t.id) - (group.length - 1) / 2) * 180,
         },
       ];
@@ -168,7 +167,6 @@ export function ProjectGraph({
         maxZoom={1.5}
         proOptions={{ hideAttribution: false }}
       >
-        <Background color="#d8ddd3" gap={24} size={0.7} />
         <Controls
           showInteractive={false}
           fitViewOptions={{ padding: 0.09, minZoom: compact ? 0.8 : 0.3 }}
@@ -176,7 +174,7 @@ export function ProjectGraph({
       </ReactFlow>
       {compact && (
         <span className="graph-pan-hint">
-          Drag to explore · full details in the task selector
+          Drag to explore · choose a task below
         </span>
       )}
     </div>

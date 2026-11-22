@@ -43,12 +43,9 @@ export function CreateRoomDialog({
     }
   }
   return (
-    <Modal title="Bring the right people together." onClose={onClose}>
+    <Modal title="Share this project" onClose={onClose}>
       <p className="modal-intro">
-        Create a durable shared copy of this approved project. Your local
-        project stays available. Invited people can contribute their own
-        availability and existing supplies; only you can change the plan’s
-        requirements.
+        Create a shared copy. People can add availability and supplies; only you can edit the requirements.
       </p>
       <form
         className="volunteer-form"
@@ -67,9 +64,7 @@ export function CreateRoomDialog({
           />
         </label>
         <p className="editor-note">
-          Use fictional names for the hackathon demo. No email or account is
-          needed. Room invitations grant access; share only with intended
-          participants.
+          Use fictional names. Anyone with the invitation can join.
         </p>
         {error && (
           <p className="editor-error" role="alert">

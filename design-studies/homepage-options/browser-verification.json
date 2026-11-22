@@ -1,0 +1,115 @@
+{
+  "date": "2026-11-22T00:16:31.693Z",
+  "kind": "Actual built-in browser inspection of isolated local homepage studies",
+  "scope": "Homepage approval only; product screens untouched",
+  "audit": [
+    {
+      "option": "A",
+      "layouts": [
+        {
+          "documentWidth": 320,
+          "overflow": false,
+          "width": 320
+        },
+        {
+          "documentWidth": 390,
+          "overflow": false,
+          "width": 390
+        },
+        {
+          "documentWidth": 1440,
+          "overflow": false,
+          "width": 1440
+        }
+      ],
+      "type": {
+        "body": {
+          "size": "18px",
+          "weight": "500"
+        },
+        "buttonWeight": "700",
+        "dependencyEdges": 2,
+        "family": "Plus Jakarta Sans",
+        "gradients": 0,
+        "headline": {
+          "lineHeight": "79.55px",
+          "size": "74px",
+          "weight": "780"
+        },
+        "images": 0,
+        "navigationWeight": "650"
+      }
+    },
+    {
+      "option": "B",
+      "layouts": [
+        {
+          "documentWidth": 320,
+          "overflow": false,
+          "width": 320
+        },
+        {
+          "documentWidth": 390,
+          "overflow": false,
+          "width": 390
+        },
+        {
+          "documentWidth": 1425,
+          "overflow": false,
+          "width": 1440
+        }
+      ],
+      "type": {
+        "body": {
+          "size": "18px",
+          "weight": "500"
+        },
+        "buttonWeight": "700",
+        "dependencyEdges": 2,
+        "family": "Manrope",
+        "gradients": 0,
+        "headline": {
+          "lineHeight": "79.55px",
+          "size": "74px",
+          "weight": "780"
+        },
+        "images": 0,
+        "navigationWeight": "650"
+      }
+    }
+  ],
+  "renderedFonts": [
+    {
+      "option": "A",
+      "fonts": [
+        {
+          "familyName": "Plus Jakarta Sans",
+          "glyphCount": 27,
+          "isCustomFont": true,
+          "postScriptName": "PlusJakartaSans-ExtraBold"
+        }
+      ]
+    },
+    {
+      "option": "B",
+      "fonts": [
+        {
+          "familyName": "Manrope ExtraLight",
+          "glyphCount": 27,
+          "isCustomFont": true,
+          "postScriptName": "Manrope-ExtraBold"
+        }
+      ]
+    }
+  ],
+  "interactions": [
+    "A: delivery click reveals qualified driver and delivery van",
+    "B: Enter on intake reveals intake host and no supply requirement",
+    "Primary CTA opens existing Catalyst workspace",
+    "Restored both examples to the sorting task before screenshots"
+  ],
+  "screenshots": [
+    "a-plus-jakarta-desktop.jpg",
+    "b-manrope-desktop.jpg"
+  ]
+}

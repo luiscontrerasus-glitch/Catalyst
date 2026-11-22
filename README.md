@@ -2,7 +2,7 @@
 
 **Turn ideas into collective action.**
 
-**Local minimal refinement, November 21:** Instrument Serif is limited to the homepage headline; Geist serves the entire interface. Artwork, decorative sidebar content, duplicate verdicts, and most nested framing have been removed. Review the [comparison with the previous redesign and final screenshots](docs/MINIMAL_REFINEMENT_REVIEW.md), or open the [loopback production preview](http://127.0.0.1:3100). This work remains on `codex/visual-redesign`; it has not been pushed or deployed. The public website below still shows the prior production release.
+**Local Plus Jakarta Sans redesign, November 21:** the approved Option A now carries through the homepage, workspace, editor, and shared rooms. Bold readable type, warm surfaces, shorter copy, and actual interactive project diagrams replace the previous editorial direction. [Review the completed desktop/mobile gallery and verification](docs/JAKARTA_DESIGN_REVIEW.md), or open the [local production preview](http://127.0.0.1:3100). This work remains on `codex/visual-redesign`, pending visual review; it has not been pushed or deployed. The public website below still shows the prior production release.
 
 Catalyst answers: **what is the smallest useful contribution that could make this community project possible?** It models requirements, explains bottlenecks, and independently verifies hypothetical repairs. Custom plans, optional Gemini drafting, three fictional scenarios, and durable shared project rooms use the same deterministic engine. Repairs are ranked within a bounded candidate set; a global minimum is not claimed.
 
@@ -18,7 +18,7 @@ npm run dev
 
 Open [http://127.0.0.1:3100](http://127.0.0.1:3100). Production: `npm run build`, then `npm start`. Builds use the supported Webpack option because Turbopack's production CSS worker failed on this Windows environment. Local scripts bind only to loopback. Manual planning and demos need no account or API key. Shared rooms automatically use SQLite in ignored `data/catalyst.db`, or a configured managed Turso database.
 
-Click **Explore the demo → Preview this change** to see the robotics plan move from 7/8 to a verified 8/8 in a hypothetical preview. Applying a simulated repair is separate from receiving an actual participant contribution.
+Choose the robotics example, then **Preview change** to see the robotics plan move from 7/8 to a verified 8/8 in a hypothetical preview. Applying a simulated repair is separate from receiving an actual participant contribution.
 
 ## Live production
 
@@ -28,7 +28,7 @@ Production runs Vercel Node 24 plus a hosted **libSQL-engine Turso database**. R
 
 ## Shared project rooms
 
-Choose **Create shared room**, enter a fictional display name, and copy the private invitation. An invited participant joins with a display name, contributes their own skills, declared qualifications, availability or existing supplies, and every connected session checks for updates every two seconds. Contributions change the actual model and rerun the solver. Only the organizer can replace requirements or invitations. Revision checks reject stale drafts; request IDs make retries safe. Activity records identify model changes.
+Choose **Share project → Create shared room**, enter a fictional display name, and copy the private invitation. An invited participant joins with a display name, contributes their own skills, declared qualifications, availability or existing supplies, and every connected session checks for updates every two seconds. Contributions change the actual model and rerun the solver. Only the organizer can replace requirements or invitations. Revision checks reject stale drafts; request IDs make retries safe. Activity records identify model changes.
 
 Rooms require room-specific HttpOnly sessions. Invite tokens are sensitive bearer access, expire after seven days, and appear in URL fragments that are removed after opening. Session expiry is 30 days. The database stores token hashes. Protect the organizer browser session: there is no account-based organizer recovery or member-removal interface yet. Rotating an invitation prevents new joins with the old link; it does not revoke existing sessions. This prototype is for fictional, low-sensitivity planning data.
 
@@ -36,7 +36,7 @@ Public HTTPS links support remote participants using managed storage. Independen
 
 ## Create a project
 
-1. Click **Create a project**. Describe your idea and set title, event date, time zone, audience, and available budget/spending limit.
+1. Click **Plan a project** or **New project**. Describe your idea and set title, event date, time zone, audience, and available budget/spending limit.
 2. Optionally request a real Gemini draft when a server credential is configured. Inspect extracted statements, quotations, suggested requirements, assumptions, and unanswered questions. Nothing is applied automatically.
 3. Add/edit tasks, times, expenses, dependencies, mandatory roles, skills, qualifications, volunteer profiles, availability windows, workload limits, supply types, inventory, and task-specific resource requirements.
 4. Review and explicitly approve the model. Only then is it saved to the workspace and analyzed by the deterministic constraint engine.
@@ -64,7 +64,7 @@ Default model: `gemini-3.5-flash-lite`, configurable with `GEMINI_MODEL`. The of
 
 Requests have a 40-second timeout, no SDK retry/automatic continuation, a 6,000-output-token cap, and five drafting attempts per minute (shared across instances with managed storage; per-process locally). No grounding or paid external tools are enabled. Only the brief is sent when the user requests drafting. Free-tier provider data handling differs from paid tiers; keep personal/sensitive information out of briefs and review the provider's terms.
 
-**Live Gemini verified:** the three fictional evaluation briefs produce valid proposals on `gemini-3.5-flash-lite` with SDK 3.6.1, including ambiguous inputs. A fourth accepted proposal completed the local production-mode browser flow; two additional public Vercel proposals passed on November 21, including browser review/approval/solver and ambiguous-input checks. Debugging exposed provider schema-complexity rejection and invalid identifiers; the provider grammar is now smaller while strict application validation is retained. The [call ledger](docs/evaluations/ai-call-ledger.json) records eight accepted proposals and nine earlier unsuccessful attempts across 17 observed provider-reaching attempts, including two accepted visual-redesign audit/local-production requests. Returned assumptions and questions still require semantic review; some questions repeat already provided facts. Missing-key, malformed-output, timeout, rate-limit and redacted-error unit tests remain clearly labeled tests. No staged responses exist in the product.
+**Live Gemini verified:** the three fictional evaluation briefs produce valid proposals on `gemini-3.5-flash-lite` with SDK 3.6.1, including ambiguous inputs. A fourth accepted proposal completed the local production-mode browser flow; two additional public Vercel proposals passed on November 21, including browser review/approval/solver and ambiguous-input checks. Debugging exposed provider schema-complexity rejection and invalid identifiers; the provider grammar is now smaller while strict application validation is retained. The [call ledger](docs/evaluations/ai-call-ledger.json) records nine accepted proposals and nine earlier unsuccessful attempts across 18 observed provider-reaching attempts, including the latest local Plus Jakarta Sans browser review/approval/solver flow. Returned assumptions and questions still require semantic review; some questions repeat already provided facts. Missing-key, malformed-output, timeout, rate-limit and redacted-error unit tests remain clearly labeled tests. No staged responses exist in the product.
 
 ## Verify
 

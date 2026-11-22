@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-21",
+  "scope": "Approved Plus Jakarta Sans visual rollout, local only",
+  "testSuite": {
+    "passed": 143,
+    "total": 143,
+    "files": 15
+  },
+  "lint": "passed, zero warnings",
+  "typecheck": "passed",
+  "build": "passed, optimized Next.js Webpack, final modal focus change included",
+  "deterministicEvaluation": {
+    "fixturesCorrect": 19,
+    "fixtures": 19,
+    "repairableWithVerifiedRepair": 12,
+    "repairable": 12,
+    "oracleMatches": 200,
+    "oracleSamples": 200
+  },
+  "roomApiEvaluation": {
+    "passed": 19,
+    "total": 19,
+    "mode": "local production, independent cookie sessions, not browser UI"
+  },
+  "liveGemini": {
+    "model": "gemini-3.5-flash-lite",
+    "attempts": 1,
+    "accepted": 1,
+    "providerErrors": 0,
+    "validationRejections": 0,
+    "workflow": "real browser draft -> human review -> explicit approval -> deterministic 0/1 -> manual fictional host -> reapproval -> independently verified 1/1 -> reload"
+  },
+  "credentialScan": {
+    "status": "passed",
+    "configuredSecretCount": 2,
+    "trackedFilesScanned": 230,
+    "pendingFilesScanned": 29,
+    "browserFilesScanned": 35,
+    "configuredSecretOrGoogleKeyMatches": 0,
+    "historyMatched": false,
+    "forbiddenTrackedPaths": 0,
+    "artifact": "security-release.json"
+  },
+  "browserEvidence": "jakarta-browser-verification.json",
+  "deployment": "not pushed or deployed",
+  "video": "not recorded",
+  "knownLimits": [
+    "No independent isolated two-browser UI verification",
+    "No member revocation",
+    "No account-based organizer recovery",
+    "Bounded intervention candidate search",
+    "AI suggestions still require semantic review"
+  ]
+}

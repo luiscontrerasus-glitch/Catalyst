@@ -16,10 +16,10 @@ export function Modal({
     const previous = document.activeElement as HTMLElement | null,
       old = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    document.querySelector<HTMLButtonElement>(".modal-close")?.focus();
+    document.querySelector<HTMLButtonElement>(".modal-close")?.focus({ preventScroll: true });
     return () => {
       document.body.style.overflow = old;
-      previous?.focus();
+      previous?.focus({ preventScroll: true });
     };
   }, []);
   return (

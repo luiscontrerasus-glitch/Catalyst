@@ -325,7 +325,7 @@
   margin: 24px 0;
 }
 .join-card h1 em {
-  font-family: Georgia, serif;
+  font-family: inherit;
   color: #79975d;
   font-weight: 400;
 }

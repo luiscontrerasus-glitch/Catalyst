@@ -1,0 +1,136 @@
+{
+  "date": "2026-11-21",
+  "environment": "local optimized Next.js production build, loopback, SQLite; no deployment",
+  "tool": "real built-in browser UI",
+  "homepageAndWorkspaceResponsive": [
+    {
+      "bodyWidth": 320,
+      "documentWidth": 320,
+      "graphHeight": 350.0000305175781,
+      "heroFont": "48px",
+      "heroWeight": "780",
+      "width": 320
+    },
+    {
+      "bodyWidth": 390,
+      "documentWidth": 390,
+      "graphHeight": 350.0000305175781,
+      "heroFont": "48.7857px",
+      "heroWeight": "780",
+      "width": 390
+    },
+    {
+      "bodyWidth": 768,
+      "documentWidth": 768,
+      "graphHeight": 420.0000305175781,
+      "heroFont": "70px",
+      "heroWeight": "780",
+      "width": 768
+    },
+    {
+      "bodyWidth": 1024,
+      "documentWidth": 1024,
+      "graphHeight": 420.0000305175781,
+      "heroFont": "68px",
+      "heroWeight": "780",
+      "width": 1024
+    },
+    {
+      "bodyWidth": 1440,
+      "documentWidth": 1440,
+      "graphHeight": 420.0000305175781,
+      "heroFont": "74px",
+      "heroWeight": "780",
+      "width": 1440
+    }
+  ],
+  "editorResponsive": [
+    {
+      "bodyFont": "16px",
+      "dialogHeight": 824.0000610351562,
+      "dialogLeft": 10,
+      "dialogWidth": 300,
+      "viewportHeight": 844,
+      "width": 320
+    },
+    {
+      "bodyFont": "16px",
+      "dialogHeight": 824.0000610351562,
+      "dialogLeft": 10,
+      "dialogWidth": 370.2857360839844,
+      "viewportHeight": 844,
+      "width": 390
+    },
+    {
+      "bodyFont": "16px",
+      "dialogHeight": 950.0000610351562,
+      "dialogLeft": 24.000001907348633,
+      "dialogWidth": 720.0000610351562,
+      "viewportHeight": 1000,
+      "width": 768
+    },
+    {
+      "bodyFont": "16px",
+      "dialogHeight": 950.0000610351562,
+      "dialogLeft": 240.00001525878903,
+      "dialogWidth": 960.0000610351562,
+      "viewportHeight": 1000,
+      "width": 1440
+    }
+  ],
+  "collaborationResponsive": [
+    {
+      "bodyWidth": 320,
+      "documentWidth": 320,
+      "width": 320
+    },
+    {
+      "bodyWidth": 390,
+      "documentWidth": 390,
+      "width": 390
+    },
+    {
+      "bodyWidth": 753,
+      "documentWidth": 753,
+      "width": 768
+    },
+    {
+      "bodyWidth": 1425,
+      "documentWidth": 1425,
+      "width": 1440
+    }
+  ],
+  "renderedFont": {
+    "hero": "Plus Jakarta Sans / PlusJakartaSans-ExtraBold",
+    "editor": "Plus Jakarta Sans / PlusJakartaSans-ExtraBold",
+    "sharedProject": "Plus Jakarta Sans / PlusJakartaSans-ExtraBold",
+    "customFont": true
+  },
+  "observations": [
+    "Homepage task selection updates actual role and supply requirements.",
+    "Robotics repair preview 7/8 -> 8/8; applying and resetting worked.",
+    "Cleanup two-change repair 4/5 -> 5/5; donation fixture 4/4.",
+    "Volunteer withdrawal changed robotics coverage 7/8 -> 6/8; restore worked.",
+    "Budget inputs and intervention navigation remained usable.",
+    "One real Gemini brief returned a validated proposal with editable assumptions and questions.",
+    "AI suggestion acceptance did not analyze or commit people or inventory.",
+    "Consent checkbox blocked approval; approved zero-roster plan showed 0/1.",
+    "Manual fictional hosting volunteer, reapproval, verified 1/1, and reload persistence passed.",
+    "Native date keyboard input persisted November 22; automation fill alone had not committed the native change.",
+    "Mobile navigation, share dialog, editor cancellation and Escape dismissal passed.",
+    "Contributor supply contribution saved revision 8 and survived reload.",
+    "Owner API budget change reached contributor UI through polling at revision 9, changed verdict to Requirements need review; restoring budget at revision 10 restored Verified feasible.",
+    "Expanded history exposed all nine observed revisions at revision 9; no entries removed.",
+    "Contributor UI has zero organizer-edit/invite controls; organizer UI exposes both.",
+    "Organizer editor still requires explicit review approval; canceled draft left room revision unchanged."
+  ],
+  "independentBrowserUI": "Not established: this browser does not provide isolated contexts. Owner and contributor role UIs were checked in separate rooms; same-room independent owner/contributor authorization and concurrency checks use HTTP sessions. Live polling was checked using an owner API mutation and contributor UI, not two independent browser UIs.",
+  "screenshots": "../screenshots/jakarta/after",
+  "physicalDeviceTested": false,
+  "notPerformed": [
+    "push",
+    "deployment",
+    "video recording",
+    "Devpost submission"
+  ]
+}

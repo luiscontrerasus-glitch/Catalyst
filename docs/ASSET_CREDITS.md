@@ -1,23 +1,17 @@
 # Visual asset credits
 
-## Fonts
+## Current application: Plus Jakarta Sans
 
-The current refinement self-hosts **Instrument Serif Regular** for the homepage headline and **Geist** for the interface with `next/font/local`. Files came from the [official Instrument Serif directory](https://github.com/google/fonts/tree/main/ofl/instrumentserif) and [official Geist directory](https://github.com/google/fonts/tree/main/ofl/geist). Original copyright and SIL Open Font License 1.1 notices are preserved in `src/app/fonts/InstrumentSerif-OFL.txt` and `src/app/fonts/Geist-OFL.txt`. No external font request, subscription, or package dependency is required at runtime or build time.
+The application self-hosts **Plus Jakarta Sans** through `next/font/local`. The variable font and its original SIL Open Font License 1.1 notice are in `src/app/fonts/PlusJakartaSans.ttf` and `src/app/fonts/PlusJakartaSans-OFL.txt`. They came from the [official Google Fonts directory](https://github.com/google/fonts/tree/main/ofl/plusjakartasans). Copyright and license wording are preserved; only trailing whitespace in the notice was normalized. No font request, subscription, or download is required at runtime or build time.
 
-Only trailing whitespace in the two license files was normalized; license and copyright wording is unchanged. Newsreader/DM Sans files and licenses belong to the earlier `e01944b` redesign. They remain as historical source assets but are no longer imported or loaded by the current application. Current headings outside the homepage hero, project titles, forms, graph nodes, counts, and navigation all use Geist.
+This is the only custom family imported by the application. Instrument Serif, Newsreader, Geist, and DM Sans files have been removed from the current source tree. The archived homepage comparison includes Manrope and its OFL notice solely to reproduce the previously requested Option B; Manrope is not loaded by the product.
 
-## Logo and diagrams
+## Original product visuals
 
-The Catalyst leaf/connection mark and favicon are original SVG code authored with Codex assistance. The four-part homepage model is implemented in React/SVG/CSS, with real explanatory controls and no invented project result. Product graph rendering uses the existing React Flow implementation. Icons remain Lucide, credited alongside the existing dependencies in the README.
+The homepage is an original React/SVG/CSS visualization of Catalyst's existing fictional donation-drive model. Task names, times, two dependencies, selected-task role/supply requirements, and 4/4 coverage come from the real fixture, solver, and independent verifier. Selecting a task changes its requirements. This is a working model illustration, not evidence of a real event or measured community impact.
 
-## Original community artwork
+The Catalyst leaf/connection mark and favicon are original SVG code authored with Codex assistance. Workspace/room graphs use React Flow; the existing icon system uses Lucide. No new illustration, photography, avatar photograph, or stock image was added. User-provided reference mockups are not redistributed.
 
-Saved project asset: `public/images/community-garden.png`.
+## Historical assets
 
-Generated using the **built-in image-generation tool**, not a CLI or a new production API integration. The image is an imagined garden scene. It appeared with an illustration caption in the earlier redesign; the entire artwork section is removed in the current minimal refinement, so this image is not requested by the current homepage. It is not evidence of an actual event, real participant, customer, testimonial or measured impact. The user-provided reference mockups guided the design direction; they were not copied into the source or redistributed as product assets.
-
-Exact generation prompt:
-
-> Use case: illustration-story. Asset type: original panoramic editorial illustration for the supporting section of Catalyst, a community project planning website. Primary request: a quiet, sophisticated hand-painted gouache and colored-pencil scene of neighbors of different adult ages collaborating in a small community garden, two people discussing a paper plan at a wooden potting table, another person tending a raised bed, flowering herbs and simple urban garden structures, a few understated buildings and trees behind them. Warm morning light, cream paper, muted forest green and sage foliage, warm ochre and terracotta details. Human-centered and inviting, beautiful refined magazine illustration with visible paper grain and natural imperfect brush texture, not generic corporate vector art, not photorealistic, no floating UI. Wide landscape composition about 2:1, detailed but calm, edge-to-edge scene suitable for a wide cropped supporting banner. No lettering, no text, no logos, no fake quotes or statistics, no screens, no devices, no gradients/glow, no giant exaggerated faces. This depicts a fictional illustrative scene, not an actual event. Save the completed original artwork as a local file and make the local file path available so it can be copied into the Catalyst workspace.
-
-The earlier version used `next/image` for responsive optimized copies. The unused source PNG remains in the repository for provenance. No generated image is used as a substitute for a working UI or an actual verification screenshot.
+The earlier generated fictional garden illustration and older font families can be found in historical commit `e01944b` and its asset-credit document. The unused `public/images/community-garden.png` has now been removed. Historical design reports and screenshots describe earlier versions; the current product contains no generated raster artwork. The approved study source and both comparison screenshots remain under `design-studies/homepage-options/` as review history.

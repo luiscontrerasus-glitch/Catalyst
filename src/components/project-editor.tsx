@@ -32,7 +32,7 @@ import {
 } from "@/lib/projects";
 import { proposalToDraft, validateProposal, type Proposal } from "@/ai/schema";
 
-const steps = ["The idea", "Tasks & roles", "People", "Supplies", "Review"];
+const steps = ["Idea", "Tasks", "People", "Supplies", "Review"];
 function Field({
   label,
   children,
@@ -92,7 +92,7 @@ function Tags({
   return (
     <Field
       label={label}
-      hint="Separate with commas. Spaces become underscores so skills match consistently."
+      hint="Separate with commas."
     >
       <input
         defaultValue={values.join(", ")}
@@ -291,14 +291,14 @@ export function ProjectEditor({
   }
   return (
     <Modal
-      title={editing ? "Edit your project plan" : "Start a community project"}
+      title={editing ? "Edit project" : "New project"}
       onClose={onClose}
       wide
     >
       <p className="editor-intro">
         {editing
-          ? "Edit a separate draft. Your analyzed project changes only when you approve it."
-          : "Start with an idea. Build the requirements. Then let the constraint engine find your turning point."}
+          ? "Changes stay in draft until you approve."
+          : "Build a draft. Review it before analysis."}
       </p>
       <nav className="editor-steps" aria-label="Project creation steps">
         {steps.map((s, i) => (
@@ -316,19 +316,9 @@ export function ProjectEditor({
       <div className="editor-body" ref={editorBody}>
         {step === 0 && (
           <>
-            <div className="editor-section-title">
-              <Sparkles size={20} />
-              <div>
-                <h4>What would you like to make possible?</h4>
-                <p>
-                  Start with your idea. Add the requirements yourself, or ask
-                  for an optional AI draft.
-                </p>
-              </div>
-            </div>
             <Field
-              label="What do you want to make happen?"
-              hint="Describe your goal, audience, and any constraints you know. This brief is sent to Google only when you request an AI draft; keep personal information out."
+              label="Describe your idea"
+              hint="Sent to Google only when you ask for a draft. Leave out personal details."
             >
               <textarea
                 rows={3}
@@ -355,14 +345,14 @@ export function ProjectEditor({
                 )}
                 {busy
                   ? "Drafting with Gemini…"
-                  : "Draft requirements with Gemini"}
+                  : "Draft with Gemini"}
               </button>
               <span>
                 {status?.configured
-                  ? `Live provider configured · ${status.model}`
+                  ? "Gemini is ready"
                   : status === null
-                    ? "Checking live AI availability…"
-                    : "Live AI unavailable · manual creation is fully available"}
+                    ? "Checking AI availability…"
+                    : "AI is unavailable. You can continue manually."}
               </span>
             </div>
             {status?.configured === false && (
@@ -384,7 +374,7 @@ export function ProjectEditor({
             {proposal && (
               <section className="proposal-card">
                 <span className="proposal-label">
-                  <Sparkles size={14} /> AI SUGGESTIONS · NOT APPROVED
+                  <Sparkles size={14} /> AI draft · Review required
                 </span>
                 <h4>{proposal.title}</h4>
                 <p>{proposal.summary}</p>
@@ -458,7 +448,7 @@ export function ProjectEditor({
                     setProposal(null);
                   }}
                 >
-                  Use suggestions in my editable draft
+                  Use in my draft
                 </button>
                 <small>
                   Replaces draft tasks and supplies. Clears the draft roster and
@@ -476,7 +466,7 @@ export function ProjectEditor({
                   onChange={(e) => change({ ...draft, name: e.target.value })}
                 />
               </Field>
-              <Field label="Event date">
+              <Field label="Date">
                 <input
                   type="date"
                   value={draft.date}
@@ -484,7 +474,7 @@ export function ProjectEditor({
                 />
               </Field>
               <NumberField
-                label="Available budget / spending limit (USD)"
+                label="Available budget (USD)"
                 value={draft.budgetCents / 100}
                 step={0.01}
                 onChange={(n) =>
@@ -492,14 +482,14 @@ export function ProjectEditor({
                 }
               />
               <NumberField
-                label="Planned participants"
+                label="Participants"
                 min={1}
                 value={draft.audience}
                 onChange={(n) => change({ ...draft, audience: n })}
               />
             </div>
             <Field
-              label="Event time zone"
+              label="Time zone"
               hint="All task and volunteer windows use this time zone on the chosen event date."
             >
               <input
@@ -509,9 +499,7 @@ export function ProjectEditor({
               />
             </Field>
             <p className="editor-note">
-              Defaults are placeholders for review: today’s date, one
-              participant, and $0 funding. Task and availability defaults are
-              suggestions you must confirm.
+              Defaults are placeholders. Confirm dates, funding, times, and availability.
             </p>
           </>
         )}
@@ -520,10 +508,9 @@ export function ProjectEditor({
             <div className="editor-section-title">
               <ClipboardCheck size={20} />
               <div>
-                <h4>Map the work, then the people it needs.</h4>
+                <h4>Plan the work</h4>
                 <p>
-                  Times are fixed. A dependency must finish before its next task
-                  starts.
+                  Set times and prerequisites for each task.
                 </p>
               </div>
               <button
@@ -588,7 +575,7 @@ export function ProjectEditor({
                         onChange={(end) => taskChange(t.id, { end })}
                       />
                       <NumberField
-                        label="Planned task expenses (USD)"
+                        label="Task cost (USD)"
                         value={t.costCents / 100}
                         step={0.01}
                         onChange={(cost) =>
@@ -707,11 +694,10 @@ export function ProjectEditor({
                         </div>
                       );
                     })}
-                    <p className="editor-note">
-                      Every listed skill and qualification is mandatory. Leave
-                      both blank for a general helper. At least one role per
-                      task is required; maximum 32 slots across the project.
-                    </p>
+                    <details className="editor-note">
+                      <summary>About role requirements</summary>
+                      <p>Every listed skill and qualification is required. Leave both blank for a general helper. Keep at least one role per task; maximum 32 roles across the project.</p>
+                    </details>
                     <div className="editor-subheading">
                       <h5>Supplies this task needs</h5>
                     </div>
@@ -759,7 +745,7 @@ export function ProjectEditor({
             <div className="editor-section-title">
               <Users size={20} />
               <div>
-                <h4>Who can actually show up?</h4>
+                <h4>Who’s taking part?</h4>
                 <p>
                   Enter confirmed availability and capabilities. An empty roster
                   is valid and will expose the people you need.
@@ -911,7 +897,7 @@ export function ProjectEditor({
             <div className="editor-section-title">
               <Layers3 size={20} />
               <div>
-                <h4>Count what you have. Name what you need.</h4>
+                <h4>Available supplies</h4>
                 <p>
                   Inventory starts at zero. Requirements belong to tasks;
                   inventory is the supply you can commit.
@@ -1079,17 +1065,7 @@ export function ProjectEditor({
         )}
         {step === 4 && (
           <>
-            <div className="editor-section-title">
-              <ClipboardCheck size={20} />
-              <div>
-                <h4>Review. Then make it your plan.</h4>
-                <p>
-                  {aiUsed
-                    ? "AI helped draft requirements. You approve the final inputs; the deterministic engine alone evaluates feasibility."
-                    : "Review the final requirements. Approval saves this project and runs the deterministic solver."}
-                </p>
-              </div>
-            </div>
+            {aiUsed && <p className="editor-note">AI-assisted draft. Review the suggestions before approval.</p>}
             <div className="review-summary">
               <h4>{draft.name}</h4>
               <p>{draft.brief || "No description entered."}</p>
@@ -1138,7 +1114,7 @@ export function ProjectEditor({
             )}
             {draft.planningNotes && (
               <div className="planning-notes">
-                <h4>AI drafting notes retained with this model</h4>
+                <h4>Assumptions & questions</h4>
                 <p className="editor-note">
                   Review or resolve these notes. Unresolved real-world questions
                   remain outside the model and do not become confirmed facts.
@@ -1208,9 +1184,7 @@ export function ProjectEditor({
                 checked={confirmed}
                 onChange={(e) => setConfirmed(e.target.checked)}
               />
-              I reviewed the task times, roles, qualifications, costs,
-              dependencies, inventory, and availability. I accept these as this
-              model’s inputs, including any AI suggestions I kept.
+              I reviewed these requirements and assumptions, including any AI suggestions I kept. Use them for analysis.
             </label>
             <p className="editor-note">
               Approval creates an analyzed model. It does not recruit

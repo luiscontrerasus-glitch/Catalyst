@@ -34,13 +34,13 @@ export function AnalysisSummary({
           </h4>
           <p>
             {ready
-              ? "A complete assignment passes the independent checker, including budget, supplies, availability, and dependencies."
+              ? "Your modeled requirements pass the independent check."
               : result.issues[0]?.message}
           </p>
           {result.issues.length > 1 && (
             <details className="summary-more">
               <summary>
-                {result.issues.length - 1} other unmet requirement(s)
+                {result.issues.length - 1} more requirement(s)
               </summary>
               {result.issues.slice(1).map((i, n) => (
                 <p key={n}>{i.message}</p>
@@ -55,15 +55,15 @@ export function AnalysisSummary({
             <strong>{primary.label}</strong>
             <span>
               {primary.resolves
-                ? "Re-solved and independently verified"
-                : "Tested change; other requirements may remain"}
+                ? "Verified model change"
+                : "Other requirements may remain"}
             </span>
           </div>
           <button
             className="button primary small"
             onClick={() => onPreview(primary)}
           >
-            Preview this change
+            Preview change
           </button>
         </div>
       )}
