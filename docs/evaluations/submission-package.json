@@ -61,5 +61,18 @@
     "Hosted same-room two-independent-browser UI acceptance remains unverified",
     "Owner final rules/terms and submission"
   ],
-  "noPaidResources": true
+  "noPaidResources": true,
+  "writingReview": {
+    "date": "2026-11-22",
+    "ownerRoleConfirmed": "Concept, product vision and requirements, direction, engineering and evaluation priorities, integration decisions, iterative review, demo preparation and narration",
+    "codexSubstantialImplementationDisclosed": true,
+    "manualCodingClaimsInvented": false,
+    "personalLearningClaimsInvented": false,
+    "storyRevised": true,
+    "createdByContributionRevised": true,
+    "judgeInstructionsRevised": true,
+    "screenshotCaptionsRevised": 7,
+    "appAndVideoUnchanged": true,
+    "staleReadmeFontAndVideoStatusCorrected": true
+  }
 }

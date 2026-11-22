@@ -4,7 +4,9 @@ Draft for human review before submission. Do not claim human understanding, pers
 
 ## Development assistance
 
-OpenAI Codex assisted with product interpretation, architecture, the deterministic TypeScript engine and independent verifier, UI design/implementation, fictional data, Gemini integration, tests, browser QA, debugging, and documentation. The underlying Codex model identity is not asserted. The original Milestone 1 implementation and all 35 original tests are preserved in local Git history.
+Luis Contreras conceived Catalyst and directed it as a solo project. He defined the product vision, selected features and requirements, set engineering and evaluation priorities, guided integration decisions, reviewed results and design through repeated iterations, and recorded the final demo narration.
+
+He used OpenAI Codex extensively as an AI coding assistant. Codex substantially assisted architecture, the deterministic TypeScript engine and independent verifier, UI implementation, fictional fixtures, Gemini integration, tests, browser QA, debugging, development workflows, and documentation. This was substantial implementation assistance under his direction; it is not a claim that he manually wrote every line or that AI independently originated the project. The underlying Codex model identity is not asserted. The original Milestone 1 implementation and all 35 original tests are preserved in local Git history.
 
 Team members should review the constraints, exact-search guarantees and node cutoff, certificate checker, bounded counterfactual candidates and scoring, project approval boundary, AI validation limitations, persistence model, test strategy, and the team's actual decisions and learning. No personal accounts or real-world impact are fabricated.
 
@@ -30,7 +32,7 @@ Shared-room contributions are participant-entered declarations, not AI-generated
 
 ## Attribution and submission
 
-Identify Codex's development contributions and Google's optional runtime role in both README and Devpost. Credit major libraries and outside work, explain testing and limits, and describe each human member's actual contribution. Do not describe a mocked provider test as a live demonstration. Verify team eligibility and any applicable credit exception. If entering the same project in two events, separately establish both organizers' cross-submission permission. The approved GitHub repository and Vercel/Turso app are public. At that earlier checkpoint no video publication, Devpost submission or organizer contact had been performed; the final demo update below supersedes video/draft status. The hosted two-independent-browser UI check is unverified because built-in isolated contexts are unsupported; separate role interfaces and independent API sessions were tested.
+Identify Codex's development contributions and Google's optional runtime role in both README and Devpost. Credit major libraries and outside work, explain testing and limits, and describe each human member's actual contribution. Do not describe a mocked provider test as a live demonstration. Verify team eligibility and any applicable credit exception. If entering the same project in two events, separately establish both organizers' cross-submission permission. The approved GitHub repository and Vercel/Turso app are public. At that earlier checkpoint no video publication, Devpost submission or organizer contact had been performed; the final demo update below supersedes video/draft status. The hosted two-independent-browser UI check remains unverified; separate role interfaces and independent API sessions were tested.
 
 ## Earlier local visual redesign — November 21, e01944b
 
@@ -49,7 +51,7 @@ The owner selected Option A. Codex assisted with applying that typography and wa
 
 One real request to `gemini-3.5-flash-lite` returned an application-validated reading-circle proposal through the local production browser UI. Its assumptions/questions stayed visible; some questions repeated supplied facts and were reviewed manually. Accepting suggestions created no roster or inventory and did not start analysis. Explicit human approval produced 0/1 staffing; manually entering and approving a fictional hosting volunteer produced independently verified 1/1, which survived reload. The cumulative call ledger is now **18 attempts: nine accepted, seven historical provider errors, two historical validation rejections**. This phase had one accepted request and no failed provider-reaching request. No raw provider error or credential was saved.
 
-The rollout remains local, pending visual review. Backend integration, deterministic solver, verifier, database schema, permissions, and provider validation are unchanged. No push, public deployment, recording, or Devpost submission was performed. The built-in browser still cannot establish independent isolated contexts; separate role views and independent HTTP sessions are distinguished in the [current review](JAKARTA_DESIGN_REVIEW.md).
+At that historical checkpoint the rollout remained local, pending visual review. Backend integration, deterministic solver, verifier, database schema, permissions, and provider validation were unchanged. No push, public deployment, recording, or Devpost submission had occurred at that checkpoint; the final production update below supersedes publication status. The built-in browser still cannot establish independent isolated contexts; separate role views and independent HTTP sessions are distinguished in the [current review](JAKARTA_DESIGN_REVIEW.md).
 
 
 ## Final narrated production demo — November 21
@@ -59,3 +61,7 @@ The owner authorized publication of the approved design and final demo preparati
 The demo uses Luis Contreras's actual narration. Local Whisper transcription assisted caption preparation; Codex assisted editing and FFmpeg rendering. No voice cloning, synthetic narration, generated product mockup, stock footage, or fabricated product interaction was used. Source footage consists of actual production page captures during browser interactions; capture cadence varies, and the export is 30 FPS with deliberate final-frame holds while the narration explains results. One unclear transition sentence was removed; natural pitch and speaking pace were retained. Full disclosure and limitations remain in the Devpost draft. The draft is not submitted.
 
 The completed 3:42 demo is now [Unlisted on YouTube](https://youtu.be/8FPt2KOD-jI), with original narration, reviewed English (United States) captions and signed-out playback verified. Seven production screenshots and the full factual description are saved in Devpost. It remains DRAFT (4/5 steps); final legal acceptance and submission have not occurred. [Final handoff](submission/FINAL_HANDOFF.md).
+
+## Submission writing review — November 22
+
+The owner confirmed his concept development, project direction, requirements, evaluation priorities, integration decisions, iterative design feedback, and narration. The saved Devpost draft and Created by contribution now reflect those roles while retaining substantial Codex implementation credit, Gemini runtime attribution, actual testing results, and known limitations. No manual coding accomplishment, personal learning anecdote, user adoption, or measured impact was invented. The draft remains unsubmitted.
