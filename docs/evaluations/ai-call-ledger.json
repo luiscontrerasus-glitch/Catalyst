@@ -3,8 +3,8 @@
   "kind": "Observed provider-reaching application attempts, November 19\u201321; excludes no-key and invalid-input/quota probes",
   "model": "gemini-3.5-flash-lite",
   "sdkVersion": "3.6.1",
-  "calls": 18,
-  "acceptedProposals": 9,
+  "calls": 19,
+  "acceptedProposals": 10,
   "providerErrors": 7,
   "returnedResponsesRejectedByApplicationValidation": 2,
   "phases": [
@@ -95,7 +95,22 @@
       "artifact": "jakarta-verification.json",
       "workflow": "Real fictional reading-circle brief; valid proposal retained assumptions and questions; human accepted into editable draft; no committed roster or inventory; explicit consent gate; 0/1 staffing; manually reviewed fictional hosting volunteer; reapproval produced independently verified 1/1; reload preserved result.",
       "semanticLimit": "Some generated questions repeated facts in the brief. Human review corrected the notes and confirmed the event date with the native date control."
+    },
+    {
+      "phase": "Final narrated production demonstration",
+      "date": "2026-11-21",
+      "calls": 1,
+      "accepted": 1,
+      "providerErrors": 0,
+      "invalidOutput": 0,
+      "model": "gemini-3.5-flash-lite",
+      "environment": "Public Vercel production, approved Plus Jakarta Sans design",
+      "evidence": [
+        "../screenshots/submission/06-gemini-draft.jpg",
+        "../screenshots/submission/07-human-approval.jpg"
+      ],
+      "workflow": "Actual request, validated proposal, visible assumptions/questions, editable draft with no invented commitments, manual title/audience corrections, explicit consent, deterministic analysis showing a 0/1 staffing gap."
     }
   ],
-  "notes": "Counts are application-level attempts observed from tools and the browser. Returned invalid output is not counted as a validated successful proposal. No raw provider errors or credentials are stored. Final browser plan: 0/1 staffing with no roster, then independently verified 1/1 after a fictional reviewed commitment. Two additional accepted public Vercel calls on November 21 are included. Controlled malformed/short/oversized/origin/quota probes and one browser quota rejection do not invoke Gemini and are excluded. No provider retry was enabled. Two accepted requests during visual-redesign verification are included: one deployed before audit and one local production browser flow. The redesign itself is not pushed or deployed. One additional accepted Gemini request was observed during the Plus Jakarta Sans local production browser review. Cumulative totals are now 18 attempts: nine accepted, seven provider errors, two strict-validation rejections. No provider failure or retry occurred during this latest phase. The visual rollout remains local and unpublished."
+  "notes": "Counts are application-level attempts observed from tools and the browser. Returned invalid output is not counted as a validated successful proposal. No raw provider errors or credentials are stored. Final browser plan: 0/1 staffing with no roster, then independently verified 1/1 after a fictional reviewed commitment. Two additional accepted public Vercel calls on November 21 are included. Controlled malformed/short/oversized/origin/quota probes and one browser quota rejection do not invoke Gemini and are excluded. No provider retry was enabled. Two accepted requests during visual-redesign verification are included: one deployed before audit and one local production browser flow. The redesign itself is not pushed or deployed. One additional accepted Gemini request was observed during the Plus Jakarta Sans local production browser review. Cumulative totals are now 18 attempts: nine accepted, seven provider errors, two strict-validation rejections. No provider failure or retry occurred during this latest phase. The visual rollout remains local and unpublished. The final narrated production demonstration added one accepted request. Current totals: 19 provider-reaching attempts, 10 accepted, 7 historical provider errors, 2 historical validation rejections. Security invalid-input/quota probes did not invoke Gemini."
 }

@@ -1,18 +1,121 @@
-# Two-to-three-minute demo script
+# Final recorded narration
 
-Use only fictional data. Rehearse with the robotics scenario reset. Hide secrets, invitations, developer logs, and unrelated browser tabs. The main innovation should be visible in the first 45 seconds. Target duration: 2:40.
+The final export is approximately 3:42, using Luis Contreras’s actual recorded voice. This transcript follows the edited recording; it is not an invented personal learning story. There is a two-second opening and a four-second closing hold. One unclear transition sentence was trimmed. Captions correct transcription homophones without synthesizing or replacing speech.
 
-| Time      | Screen/action                                                   | Suggested narration                                                                                                                                                                                                                                                                                                                                                       |
-| --------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0:00–0:15 | Landing → Try the live demo                                     | “A community idea can stall because one contribution is missing. Catalyst asks what useful change would make the plan possible.”                                                                                                                                                                                                                                          |
-| 0:15–0:35 | Robotics summary, 7/8 role slots                                | “These two build labs run together. One instructor cannot cover both. Catalyst models skills, qualifications, availability, workload, budget, supplies and dependencies.”                                                                                                                                                                                                 |
-| 0:35–0:55 | Preview this change; 7/8 → 8/8                                  | “One additional qualified robotics instructor repairs this modeled plan. We actually rerun the solver, then independently check the assignment. This is a hypothetical preview until approved.”                                                                                                                                                                           |
-| 0:55–1:15 | Keep current plan; inspect parallel tasks                       | “The graph explains dependencies. A readable task selector exposes the actual assignment. Role coverage is a count, not a probability that the event will succeed.”                                                                                                                                                                                                       |
-| 1:15–1:50 | Hosted room contribution; same-room two-browser segment only if independently rehearsed | “A private invitation lets a fictional participant declare their own skills and time. Saving that contribution changes the shared model and reruns the solver. The activity history records what changed. Stale revisions cannot overwrite a newer contribution.”                                                                                                   |
-| 1:50–2:10 | Live Gemini proposal and approval                               | Live evaluation has succeeded. “Gemini proposes a structured draft, with explicit assumptions and questions. People review and approve the requirements. The deterministic engine makes the feasibility decision.” If the service fails during recording, show the actual sanitized error and continue manually. Do not imply an unsuccessful request was a live success. |
-| 2:10–2:30 | Evaluation results                                              | “All 19 defined benchmark outcomes and 200 additional small oracle comparisons match. Bounded repair search finds verified repairs on all 12 defined repairable fixtures. Candidate search is still bounded and does not cover every possible multi-person repair, so we do not claim a global minimum.”                                                                  |
-| 2:30–2:40 | Final verified preview                                          | “The contribution is small; the planning difference is explicit and checkable. All participants and outcomes shown are fictional.”                                                                                                                                                                                                                                        |
+Hi, I'm Luis, and this is Catalyst. A lot of community
 
-Independent-browser collaboration was verified locally. Public production UI checks used one shared-profile browser plus an independent API organizer, not two same-room browser UIs. For the recording, show one real hosted contribution and its saved activity; do not imply that two independently authenticated hosted UIs were verified. A genuine two-browser segment requires an actual rehearsal first. If access or hosting fails, show the working single-user what-if lab and explain the actual limitation. Do not edit a video to imply a failed live step succeeded. Do not claim live AI based on mocked tests. Video recording and publication have not been performed.
+projects don't fail because people don't care.
 
-Before recording: rehearse once with a timer, check both browser roles and room state, disable unrelated notifications using the user's own settings if desired, and confirm the final script reflects the actual verification report. Human presenters must replace any learning/contribution narrative with their real experience.
+They get stuck because coordinating everyone's time, skills, and resources is harder
+
+than it looks. You might have volunteers and a great idea, but still be
+
+missing the one thing that makes it possible.
+
+Catalyst helps groups find that missing piece.
+
+Let's say a student club wants to run a free robotics workshop for middle school
+
+students. They have budget, materials, and people willing to help.
+
+But can they actually run the event?
+
+In Catalyst, the project is broken down into tasks, required roles,
+
+supplies, and dependencies. Each volunteer has different skills,
+
+qualifications, available times, and limits on how much work they can take on.
+
+When I analyze the workshop, Catalyst finds that seven of the eight required roles
+
+can be covered. The problem isn't simply the number of volunteers.
+
+Two robotics labs are scheduled at the same time and one instructor can't be in both
+
+places. Here's where Catalyst becomes especially useful.
+
+Instead of just telling us the project isn't feasible, it explores possible changes
+
+that could make the plan work. For example, it can suggest adding another
+
+qualified instructor.
+
+When I preview that change, Catalyst reruns its constraint solving algorithm.
+
+It finds a complete assignment, and an independent verification system checks that
+
+every assignment satisfies the project requirements.
+
+Now all eight roles are covered. Importantly, this is a hypothetical preview.
+
+It doesn't mean somebody has actually volunteered.
+
+I can inspect a proposed solution before deciding whether or not to actually apply
+
+it. But projects rarely ever actually go as expected.
+
+Let's say one of our volunteers suddenly becomes unavailable.
+
+Catalyst reevaluates the entire project, identifies a new shortage, and explores
+
+other ways to resolve it. I can also experiment with changing volunteer
+
+schedules, budgets, or available supplies, and immediately see how those changes
+
+affect the plan. Catalyst also includes shared project rooms, where invited
+
+participants can contribute their own skills, availability, and resources.
+
+These contributions update the shared project model, and the activity
+
+history keeps track of what has actually changed.
+
+Organizer permissions also prevent participants from accidentally modifying
+
+parts of the project that they don't control.
+
+And creating a new project doesn't require filling out a complicated planning
+
+spreadsheet. I can simply describe my idea in plain English.
+
+Using Google Gemini, Catalyst suggests the tasks, roles, resources,
+
+and other requirements that the project might potentially need.
+
+But there's an important distinction here.
+
+Gemini only proposes a plan. It doesn't make the final decisions, invent available
+
+volunteers, or determine whether the project is feasible.
+
+Instead, I can review the suggestions, correct any assumptions, and explicitly
+
+approve the requirements. From there, Catalyst's deterministic mathematical
+
+engine performs the actual analysis.
+
+Behind the interface, we implemented constraint solving, independent assignment
+
+verification, and a system that evaluates possible interventions.
+
+We also tested the solver against 200 additional independently computed
+
+comparison cases alongside 143 automated tests.
+
+These tests help verify that Catalyst follows its mathematical rules, although a
+
+feasible plan doesn't guarantee that a real -world event will succeed.
+
+I developed Catalyst with assistance from Codex, while Gemini powers the optional
+
+AI planning feature. The participants and projects shown in this demonstration
+
+are just fictional examples. Ultimately, what I like most about Catalyst
+
+is that it changes the question. Instead of asking, why can't we make this happen,
+
+we can ask what exactly would make this possible.
+
+Because sometimes the difference between an ambitious idea and a project that can
+
+actually happen is just one missing contribution.

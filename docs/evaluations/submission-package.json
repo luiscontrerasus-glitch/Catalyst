@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-22",
+  "video": {
+    "duration": 222.033333,
+    "width": 1920,
+    "height": 1080,
+    "fps": "30",
+    "codec": "h264",
+    "audioCodec": "aac",
+    "frames": 6661,
+    "bytes": 11217345,
+    "completeDecodePassed": true,
+    "captionCueCount": 59,
+    "fullBrowserPlayback": {
+      "completed": true,
+      "observedEnded": true,
+      "finalTime": 222.033333,
+      "muted": false,
+      "playerError": null
+    },
+    "youtube": {
+      "url": "https://youtu.be/8FPt2KOD-jI",
+      "visibility": "unlisted",
+      "signedOutPlayback": {
+        "verified": true,
+        "browser": "independent Brave Private Window",
+        "signInLinkVisible": true,
+        "unlistedLabelVisible": true,
+        "playbackProgressObserved": "2:16 of 3:42",
+        "loginRequired": false
+      },
+      "customThumbnail": "Channel phone verification required; no verification or phone data supplied",
+      "audience": "General audience - Not made for kids, explicitly confirmed by owner",
+      "thumbnail": "Actual homepage frame selected from generated thumbnails; custom upload was not used",
+      "reviewedCaptions": {
+        "language": "English (United States)",
+        "status": "Published",
+        "verifiedDate": "2026-11-22"
+      }
+    }
+  },
+  "devpost": {
+    "editorUrl": "https://devpost.com/submit-to/31789-stem2connect-ai-hackathon/manage/submissions/1315513-catalyst/finalization",
+    "previewUrl": "https://devpost.com/software/catalyst-2yem1p",
+    "status": "DRAFT",
+    "completedSteps": 4,
+    "totalSteps": 5,
+    "finalAgreementChecked": false,
+    "submitted": false,
+    "track": "Community Impact",
+    "members": 1,
+    "screenshotCount": 7,
+    "homepageThumbnail": true,
+    "videoEmbedVerified": true,
+    "individualContributionSaved": true,
+    "duplicateEmptyStoryHeadingsRemoved": true
+  },
+  "remaining": [
+    "Owner factual and eligibility/guardian review",
+    "Confirm presentation arrangements with organizers",
+    "Hosted same-room two-independent-browser UI acceptance remains unverified",
+    "Owner final rules/terms and submission"
+  ],
+  "noPaidResources": true
+}

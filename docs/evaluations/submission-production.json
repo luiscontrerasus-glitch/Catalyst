@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-21",
+  "deployedApplicationCommit": "3d6a8360d0770297026281eb032b337122371a5f",
+  "productionUrl": "https://catalyst-luiscontrerasus-glitch.vercel.app",
+  "deploymentId": "dpl_Dtqao7UyXBd8QSYsmJ7XfAtwMwZf",
+  "vercelPlan": "hobby",
+  "paidResourcesCreated": false,
+  "environmentVariables": "Six production variables remain hidden Secret values; no secret was printed or committed. Same-origin room and Gemini writes succeeded; foreign-origin writes were rejected.",
+  "qualityGates": {
+    "tests": 143,
+    "solverFixtures": 19,
+    "oracleComparisons": 200,
+    "hostedRoomApiChecks": 19,
+    "managedDatabaseChecks": 10,
+    "hostedSecurityInputChecks": 27
+  },
+  "liveGemini": {
+    "model": "gemini-3.5-flash-lite",
+    "calls": 1,
+    "accepted": 1,
+    "failed": 0
+  },
+  "browserWorkflows": [
+    "approved production design",
+    "robotics initial 7/8, hypothetical verified 8/8 preview, apply",
+    "volunteer withdrawal and funding change",
+    "real hosted room creation, reviewed availability and stock contributions, saved activity and reload",
+    "real Gemini proposal, human edits, explicit approval and deterministic 0/1 gap"
+  ],
+  "twoIndependentHostedBrowserUIs": "unverified; not claimed",
+  "productionScreenshots": 7,
+  "deadline": {
+    "current": "November 29, 2026, 11:59 PM EST",
+    "announcement": "https://stem2connect-online-hackathon.devpost.com/updates/47871-deadline-extended",
+    "schedule": "https://stem2connect-online-hackathon.devpost.com/details/dates",
+    "stalePages": "Rules and finalization still show November 21; organizer extension resolves submission date. Confirm presentation arrangements with organizers."
+  },
+  "devpost": "draft only; not submitted"
+}

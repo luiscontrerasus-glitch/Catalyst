@@ -1,39 +1,55 @@
-# Catalyst — draft for human review
-
-**Tagline:** Find the contribution that makes a community project possible.
-
-**Primary track:** Community Impact, subject to organizer rules and team eligibility.
-
 ## Inspiration
 
-Community projects depend on more than enthusiasm: someone needs the right skills at the right time, shared supplies must cover demand, and the plan must fit a budget. Catalyst makes these relationships explicit and asks: what useful contribution could turn a blocked plan into a feasible one?
+A community project can have enthusiasm, volunteers, and supplies—and still be blocked. One person may have the right skill but the wrong availability. Two activities may need the same equipment at the same time. A useful plan should explain the missing contribution, not just produce a longer checklist.
+
+Catalyst asks: **what exactly would make this possible?**
 
 ## What it does
 
-Create and approve a project model, inspect connected tasks and assignments, identify a bottleneck, and preview a tested repair. The robotics example has seven of eight roles covered because parallel labs need another qualified instructor. Catalyst reruns the model with a proposed contribution and independently verifies the resulting assignment before describing it as feasible.
+Catalyst turns a project into connected tasks, required roles, volunteer commitments, supplies, costs, and dependencies. It checks the model, explains bottlenecks, and tests hypothetical changes.
 
-Durable project rooms support private invitations, display-name participants, their own availability/skills and supply contributions, two-second update polling, activity history, organizer permissions, revision conflicts and safe retries. These are backed by a real database. Earlier local-only testing used a native Brave contributor and in-app organizer: contributions synchronized, both reached verified feasibility, stale edits were rejected, roles persisted after reload, and contributor repair application was disabled. The same-page invitation regression also passed on the public HTTPS app. Hosted organizer and contributor interfaces, synchronization with an independent API organizer, and persistence across redeployment passed. Two independently authenticated browser UIs in the same hosted room remain unverified because the built-in browser cannot create isolated contexts. Independent API checks do not replace that UI gate.
+In the fictional robotics workshop, seven of eight roles can be covered. Two labs run simultaneously, so one qualified instructor cannot cover both. Previewing another instructor reruns the constraint solver and independently checks a complete eight-role assignment. It is a modeled repair, not a claim that someone has volunteered.
 
-Optional Google Gemini drafting converts a brief into schema-validated proposed requirements with quoted evidence, assumptions and questions. The user explicitly approves the model. AI does not invent an available volunteer roster or owned inventory, and never supplies the authoritative feasibility verdict. **Six live proposals were accepted on `gemini-3.5-flash-lite`: four earlier local evaluations/browser requests and two public Vercel requests, including complete browser review/approval/solver and ambiguous-input checks.** Earlier schema and invalid-output failures are disclosed in the call ledger. Some questions repeat known facts; semantic review remains essential.
+The what-if workspace also tests withdrawals, availability, funding, supplies, and scope changes. Shared rooms let invited participants contribute their own declared skills, availability, and existing supplies. Saved contributions update the model and activity history. Organizers control project requirements; contributors cannot replace them.
 
-The public app runs on Vercel Hobby/Node 24 with Turso Free libSQL, server-side Gemini and database-backed quotas. Actual hosted room API checks passed 19/19, remote DB checks 10/10 and security/input checks 27/27. Live: https://catalyst-luiscontrerasus-glitch.vercel.app — Source: https://github.com/luiscontrerasus-glitch/Catalyst. The independent-browser UI gap above remains.
+## How it works
 
-## How we built it
+**AI proposes. Catalyst verifies.**
 
-Next.js, React, TypeScript, React Flow, Zod, SQLite/libSQL with an optional managed Turso backend, and the official Google GenAI SDK. A bounded exact constraint search assigns fixed-time role slots; a separate checker validates complete assignment certificates. Candidate interventions are applied to copies, re-solved, independently checked and ranked with disclosed cost/disruption assumptions. This is bounded repair search, not a proof of a globally smallest or cheapest contribution.
+Google Gemini turns a natural-language brief into structured suggested requirements, quoted evidence, assumptions, and questions. The server validates the output. People review and edit the draft, then explicitly approve it before analysis. Gemini does not invent a committed roster or owned inventory, and it does not determine feasibility.
 
-## Evaluation and limitations
+A bounded constraint solver assigns people to fixed-time role slots while checking skills, declared qualifications, availability, workload limits, overlapping work, supplies, budget, and dependencies. A separate verifier checks complete assignment certificates. Candidate repairs are applied to copies, solved again, checked, and ranked using disclosed assumptions. This does not prove a globally smallest or cheapest repair.
 
-143 automated tests pass, preserving the earlier 100. A separate reproducible evaluation produces 19/19 correct defined outcomes and 200/200 additional small oracle matches. All returned feasible assignments and reported verified repairs pass the independent checker. Repair search succeeds on 12/12 defined repairable fixtures after fixing pairs of identical new-volunteer capability profiles; three identical contributions in one bundle remain outside the bounded search. Small local timing results are in the repository, not a scalability claim. A simple greedy baseline misses a specialist-ordering solution found by exact search.
+## How it was built
 
-Feasibility means the entered mathematical requirements are satisfiable. It does not establish safety, turnout, credential authenticity, or a real-world commitment. All demo names, projects, participant counts and contributions are fictional planning examples. No users, measured impact or volunteer outcomes are claimed. Managed storage and core hosted operations are verified, with the independent-browser UI gap disclosed above. Organizer recovery and member revocation do not exist; invitation rotation affects future joins only.
+Next.js, React, and TypeScript power the interface; React Flow renders dependency graphs; Zod validates inputs and Gemini proposals. The official Google GenAI SDK calls Gemini server-side. Vercel Hobby hosts the Node.js application, and Turso Free/libSQL provides persistent shared-room storage. Local development can use SQLite. Credentials stay on the server.
 
-## AI and outside-work disclosure
+Room sessions use HttpOnly cookies, hashed invitation tokens, revision checks, safe retry identifiers, and database-backed quotas. Polling keeps connected views current. A participant's declaration remains self-reported; joining a room is not a volunteer commitment.
 
-OpenAI Codex assisted with architecture, code, design, fictional data, tests, debugging and documentation. Optional runtime AI uses Google Gemini. Credit the listed libraries and their licenses, plus all actual team contributions. The team must understand the solver, verification and approval boundaries before presenting. No human learning story is supplied on behalf of the team.
+## Challenges and accomplishments
 
-## What is next
+The build had to preserve the difference between a plausible suggestion and a checked result. Overlapping roles require more than a greedy headcount; independent verification catches invalid assignments. Gemini's initial structured-output schema exceeded provider limits, so the provider grammar was simplified while strict application validation stayed in place. Serverless hosting also required explicit managed persistence instead of assuming local SQLite would survive.
 
-Record and review the 2–3 minute demo, add its public/unlisted YouTube or Vimeo link, and complete authentic team details before submission. Organizer recovery, member revocation and deeper repair search remain future work. Eligibility and any cross-submission permission remain unconfirmed.
+The working public product includes custom plans, real Gemini drafting, repair previews, shared rooms, and a cohesive desktop/mobile interface. Verification includes **143 automated tests**, **19 solver fixtures**, **200 independently computed small oracle comparisons**, and verified repairs on **12/12 defined repairable fixtures**. The deployed redesign also passed **19 hosted room API checks** and **27 HTTPS/security/input checks**.
 
-**Before submission:** replace pending statuses only with observed evidence; add actual team members/contributions, approved source/demo/video links, and the team's real learning and challenges. The app/source are published with approval; no video or Devpost submission has been published.
+## Lessons and next steps
+
+Three principles shaped the project: make assumptions visible, separate AI suggestions from authority, and test claims against an independent check. Interface review also showed how clearer typography and shorter copy make technical reasoning easier to follow.
+
+Next steps are organizer recovery, member revocation, deeper repair search, and feedback from real community organizers. These are future work, not existing features.
+
+## Honest limits
+
+All demo projects, participant counts, names, and contributions are fictional. No actual users, measured impact, or successful events are claimed. Feasibility applies to the entered mathematical requirements; it cannot guarantee safety, authentic qualifications, attendance, or real-world success. AI suggestions still need semantic review.
+
+Independent hosted API sessions and separate role interfaces were checked. **Two independently authenticated browser UIs collaborating in the same hosted room remain unverified** because the available browser does not provide isolated contexts. API checks do not replace that gate. Invitation rotation affects future joins, not existing sessions. Member revocation and account-based organizer recovery are not implemented.
+
+## AI assistance and individual contribution
+
+**Primary track: Community Impact. Solo project by Luis Contreras.** Luis directed the project requirements and visual review and recorded the demo narration. **OpenAI Codex contributed substantially to architecture, implementation, interface design, fictional fixtures, testing, debugging, deployment preparation, and documentation.** Google Gemini powers the optional runtime drafting feature. The narration uses Luis's actual recording, not a synthesized voice.
+
+Libraries and font licenses are credited in the repository. No generated mockup or fabricated customer result is presented as evidence.
+
+Live app: https://catalyst-luiscontrerasus-glitch.vercel.app
+
+Source: https://github.com/luiscontrerasus-glitch/Catalyst

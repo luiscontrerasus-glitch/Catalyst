@@ -1,9 +1,9 @@
 {
-  "date": "2026-11-20T03:40:46.175Z",
+  "date": "2026-11-22T04:22:44.175Z",
   "kind": "Actual hosted Turso HTTP database integration; not a browser UI test",
   "passed": 10,
   "total": 10,
-  "durationMs": 3062,
+  "durationMs": 3269,
   "checks": [
     {
       "name": "Real managed HTTP write transaction",
